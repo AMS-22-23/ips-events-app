@@ -1,0 +1,29 @@
+name: repositories
+description: Package that contains the repositories of the Portuguese Brand app
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+dependencies:
+  core_components:
+      path: ../core_components
+  firebase_auth: ^3.3.7 #TODO add config to ios https://firebase.google.com/docs/flutter/setup?platform=ios
+  firebase_core: ^1.12.0
+  flutter:
+    sdk: flutter
+  geolocator: ^8.2.0
+  meta_components:
+    path: ../meta_components  
+  permission_handler: ^9.2.0
+  
+
+dev_dependencies:
+  build_runner: ^2.1.5  
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^6.1.4 #Provides Dart Build System builders for handling JSON  
+  retrofit_generator: ^4.0.1
+  very_good_analysis: ^2.4.0
+  

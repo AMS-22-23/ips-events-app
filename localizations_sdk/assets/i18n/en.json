@@ -1,0 +1,34 @@
+{
+    "authErrors": {
+        "defaultError": "An unknown exception occurred.",
+        "invalidEmail": "Email is not valid or badly formatted.",
+        "userDisabled": "This user has been disabled. Please contact support for help.",
+        "userNotFound": "Email is not found, please create an account.",
+        "wrongPassword": "Incorrect password, please try again.",
+        "emailInUse": "An account already exists for that email.",
+        "operationNotAllowed": "Operation is not allowed.  Please contact support.",
+        "weakPassword": "Please enter a stronger password.",
+        "emailError": "Invalid E-mail",
+        "passwordError": "Password must be at least 8 characters, containing at least 1 number.",
+        "confirmPasswordError": "Passwords do not match!",
+        "usernameError": "Minimum of 4 characters and must contain only letters or numbers."
+    },
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signUp": "SIGN UP",
+    "login":{
+      "welcomeTitle":"WELCOME!",
+      "welcomeSubtitle":"Sign in below:",
+      "loginButton":"LOGIN",
+      "registerMessage":"NOT YET PART OF OUR COMMUNITY?!",
+      "registerButton":"SIGN UP"
+    },
+    "cancel": "CANCEL",
+    "fillWithYourData": "Fill with your data",
+    "requiredData": "required data*",
+    "locationSettingError": "Please, grant the location permission in the app settings!",
+    "locationPermissionError": "Please, grant the location permission!",
+    "generalError": "An error ocurred, please try later."
+}

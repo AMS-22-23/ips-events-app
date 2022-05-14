@@ -1,0 +1,34 @@
+{
+    "authErrors": {
+        "defaultError": "Ocorreu um problema inesperado.",
+        "invalidEmail": "O e-mail não é válido ou está mal formatado.",
+        "userDisabled": "Este utilizador foi desativado. Por favor contacte o apoio para obter ajuda.",
+        "userNotFound": "O e-mail não foi encontrado, por favor crie uma conta.",
+        "wrongPassword": "Palavra-passe incorreta, por favor tente novamente.",
+        "emailInUse": "Já existe uma conta com esse e-mail.",
+        "operationNotAllowed": "A operação não é permitida. Por favor contacte o apoio.",
+        "weakPassword": "Por favor, introduza uma palavra-passe mais forte.",
+        "emailError": "E-mail inválido",
+        "passwordError": "Palavra-passe deve ter no mínimo 8 caracteres, sendo um deles 1 número.",
+        "confirmPasswordError": "As palavras-passe não coincidem!",
+        "usernameError": "Mínimo de 4 caracteres e só são permitidas letras e números."
+    },
+    "username": "Nome de Utilizador",
+    "email": "E-mail",
+    "password": "Palavra-passe",
+    "confirmPassword": "Confirme a palavra-passe",
+    "signUp": "REGISTAR",
+    "login":{
+      "welcomeTitle":"BEM-VINDO!",
+      "welcomeSubtitle":"Faça login abaixo:",
+      "loginButton":"ENTRAR",
+      "registerMessage":"AINDA NÃO FAZ PARTE DA NOSSA COMUNIDADE?!",
+      "registerButton":"REGISTE-SE"
+    },
+    "cancel": "CANCELAR",
+    "fillWithYourData": "Preencha com os seus dados",
+    "requiredData": "dados obrigatórios*",
+    "locationSettingError": "Por favor, permita o acesso à sua localização nas definições da app!",
+    "locationPermissionError": "Por favor, permita o acesso à sua localização!",
+    "generalError": "Ocorreu um erro, tente mais tarde."
+}

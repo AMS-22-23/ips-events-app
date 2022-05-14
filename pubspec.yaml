@@ -13,9 +13,18 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
+  meta_components:
+    path: meta_components
+  repositories:
+    path: repositories
+  repository_collection:
+    path: repository_collection
+  core_components:
+    path: "core_components"
+  flow_builder: ^0.0.4
 
 dev_dependencies:
+  build_runner: ^2.0.6 #provides a concrete way of generating files
   bloc_test: ^9.0.3
   flutter_test:
     sdk: flutter
