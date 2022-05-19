@@ -1,4 +1,4 @@
-package com.example.verygoodcore.ips_events_manager
+package com.ips_events_manager
 
 import io.flutter.embedding.android.FlutterActivity
 

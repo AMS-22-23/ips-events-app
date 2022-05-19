@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1087071113834",
+    "project_id": "ips-events-manager",
+    "storage_bucket": "ips-events-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087071113834:android:f4d1e0e421e651cc28b013",
+        "android_client_info": {
+          "package_name": "com.ips_events_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087071113834-7671mt2t7ce2umtbugu4in4cf7qcdjlu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ips_events_manager",
+            "certificate_hash": "543e1ff519076ea4d375a14a596c1dc45482dc61"
+          }
+        },
+        {
+          "client_id": "1087071113834-kg4lcrnom655ie5bu7c5990ikink4eb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlrA0fqqNY7LZekFRzAVHKjEUSlpDy1x0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087071113834-kg4lcrnom655ie5bu7c5990ikink4eb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
