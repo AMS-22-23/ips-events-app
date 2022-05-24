@@ -7,10 +7,9 @@ environment:
   sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
+  aad_oauth: ^0.3.0
   core_components:
       path: ../core_components
-  firebase_auth: ^3.3.7 #TODO add config to ios https://firebase.google.com/docs/flutter/setup?platform=ios
-  firebase_core: ^1.12.0
   flutter:
     sdk: flutter
   geolocator: ^8.2.0
@@ -27,3 +26,5 @@ dev_dependencies:
   retrofit_generator: ^4.0.1
   very_good_analysis: ^2.4.0
   
+dependency_overrides:
+  flutter_secure_storage: 5.0.2

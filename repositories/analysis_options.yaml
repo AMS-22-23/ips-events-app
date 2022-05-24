@@ -5,3 +5,6 @@ linter:
 analyzer:
   exclude:
   - "**.g.dart"
+  strong-mode:
+      implicit-casts: true
+      implicit-dynamic: true

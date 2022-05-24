@@ -1,10 +1,12 @@
 //import 'package:authentication_repository/authentication_repository.dart';
 import 'dart:async';
 import 'dart:developer';
+
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
 import 'package:core_components/core_components.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart';
 import 'package:repositories/src/authentication_repository/models/user.dart';
 import 'package:repositories/src/authentication_repository/src/cache.dart';
 
@@ -100,12 +102,9 @@ class AuthenticationRepository {
   /// {@macro authentication_repository}
   AuthenticationRepository({
     CacheClient? cache,
-    firebase_auth.FirebaseAuth? firebaseAuth,
-  })  : _cache = cache ?? CacheClient(),
-        _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
+  }) : _cache = cache ?? CacheClient();
 
   final CacheClient _cache;
-  final firebase_auth.FirebaseAuth _firebaseAuth;
 
   /// Whether or not the current environment is web
   /// Should only be overriden for testing purposes. Otherwise,
@@ -122,18 +121,18 @@ class AuthenticationRepository {
   /// the authentication state changes.
   ///
   /// Emits [User.empty] if the user is not authenticated.
-  Stream<User> get user {
+  /*Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       _printToken(firebaseUser);
       _cache.write(key: userCacheKey, value: user);
       return user;
     });
-  }
+  }*/
 
-  Future<void> _printToken(firebase_auth.User? firebaseUser) async {
+  /* Future<void> _printToken(firebase_auth.User? firebaseUser) async {
     final userToken = await firebaseUser?.getIdToken();
-  }
+  }*/
 
   /// Returns the current cached user.
   /// Defaults to [User.empty] if there is no cached user.
@@ -144,7 +143,7 @@ class AuthenticationRepository {
   /// Creates a new user with the provided [email] and [password].
   ///
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> signUp({
+  /*Future<void> signUp({
     required String username,
     required String email,
     required String password,
@@ -165,12 +164,12 @@ class AuthenticationRepository {
         t(LocaleKeys.authErrors_defaultError),
       );
     }
-  }
+  }*/
 
   /// Signs in with the provided [email] and [password].
   ///
   /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> logInWithEmailAndPassword({
+  /* Future<void> logInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -186,7 +185,7 @@ class AuthenticationRepository {
         t(LocaleKeys.authErrors_defaultError),
       );
     }
-  }
+  }*/
 
   /// Signs out the current user which will emit
   /// [User.empty] from the [user] Stream.
@@ -194,15 +193,48 @@ class AuthenticationRepository {
   /// Throws a [LogOutFailure] if an exception occurs.
   Future<void> logOut() async {
     try {
-      await _firebaseAuth.signOut();
+      //  await _firebaseAuth.signOut();
     } catch (_) {
       throw LogOutFailure();
     }
   }
+
+  Future<void> performLogin({
+    required BuildContext context,
+  }) async {
+    try {
+      final config = Config(
+        tenant: 'ad28c625-f2ca-4e91-b6d6-18922bc9391c',
+        clientId: 'fa4b8ab3-adf7-4fa8-87d4-23146e8758de',
+        scope: 'user.read user.readbasic.all',
+        redirectUri:
+            'msauth://com.ips_event_manager/V8msfwHjQl3cZ2DVCQcBj4uF60c%3D',
+        // responseType: 'id_token+token',
+        /*navigatorKey:
+            MetaCollection.instance.retrieve<GlobalKey<NavigatorState>>(),*/
+      );
+      final oauth = AadOAuth(config);
+      await oauth.login();
+      final at = await oauth.getAccessToken();
+      final it = await oauth.getIdToken();
+      log('Access Token: $at');
+      log('Id Token: $it');
+    } on PlatformException catch (error) {
+      /**
+       * The plugin has the following error codes:
+       * 1. FirebaseAuthError: FirebaseAuth related error
+       * 2. PlatformError: An platform related error
+       * 3. PluginError: An error from this plugin
+       */
+      debugPrint('${error.code}: ${error.message}');
+    } on Object catch (e) {
+      log(e.toString());
+    }
+  }
 }
 
-extension on firebase_auth.User {
+/*extension on firebase_auth.User {
   User get toUser {
     return User(id: uid, email: email, name: displayName, photo: photoURL);
   }
-}
+}*/

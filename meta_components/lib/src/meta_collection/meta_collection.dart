@@ -34,6 +34,11 @@ class MetaCollection {
         Entry<Dio>(
           builder: () => _httpCLient!.intDio,
         ),
+      )
+      ..archive(
+        Entry<GlobalKey<NavigatorState>>(
+          builder: () => GlobalKey<NavigatorState>(),
+        ),
       );
   }
 
