@@ -1,5 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:meta_components/meta_components.dart';
+import 'package:meta_components/src/aad_config.dart';
 import 'package:meta_components/src/api/api_constants.dart';
 import 'package:meta_components/src/meta_collection/meta_archiver.dart';
 
@@ -38,6 +39,11 @@ class MetaCollection {
       ..archive(
         Entry<GlobalKey<NavigatorState>>(
           builder: () => GlobalKey<NavigatorState>(),
+        ),
+      )
+      ..archive(
+        Entry<AadConfig>(
+          builder: () => AadConfig(),
         ),
       );
   }

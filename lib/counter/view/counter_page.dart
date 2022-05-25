@@ -7,23 +7,47 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ips_events_manager/auth/cubit/auth_cubit.dart';
 import 'package:ips_events_manager/counter/counter.dart';
 import 'package:ips_events_manager/l10n/l10n.dart';
+import 'package:repositories/repositories.dart';
+import 'package:repository_collection/repository_collection.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CounterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit(
+            authenticationRepository: RepositoryCollection.instance
+                .retrieve<AuthenticationRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => CounterCubit(),
+        ),
+      ],
       child: const CounterView(),
     );
   }
 }
 
-class CounterView extends StatelessWidget {
+class CounterView extends StatefulWidget {
   const CounterView({Key? key}) : super(key: key);
+
+  @override
+  State<CounterView> createState() => _CounterViewState();
+}
+
+class _CounterViewState extends State<CounterView> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AuthCubit>(context).executeLogin();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +60,7 @@ class CounterView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>()
-              ..login(context)
-              ..increment(),
+            onPressed: () => context.read<CounterCubit>().increment(),
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),

@@ -5,7 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:flutter/material.dart';
+import 'package:core_components/core_components.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ips_events_manager/counter/counter.dart';
 import 'package:ips_events_manager/l10n/l10n.dart';
