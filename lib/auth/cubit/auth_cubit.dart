@@ -15,11 +15,12 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> executeLogin() async {
     try {
-      log('hellloo');
       emit(AuthInProgress());
       await authenticationRepository.performLogin();
-      emit(AuthSuccess());
-    } on Object {
+      final accessToken = await authenticationRepository.getAccessToken();
+      emit(AuthSuccess(accessToken!));
+    } on Object catch (e) {
+      log(e.toString());
       emit(AuthFailure());
     }
   }

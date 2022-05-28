@@ -1,6 +1,5 @@
 //import 'package:authentication_repository/authentication_repository.dart';
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:meta_components/meta_components.dart';
@@ -17,17 +16,11 @@ class AuthenticationRepository {
   }
 
   Future<void> performLogin() async {
-    try {
-      await addOauth.logout();
+    await addOauth.login();
+  }
 
-      await addOauth.login();
-      final at = await addOauth.getAccessToken();
-      final it = await addOauth.getIdToken();
-
-      log('Access Token: $at');
-      log('Id Token: $it');
-    } on Object catch (e) {
-      log(e.toString());
-    }
+  Future<String?> getAccessToken() async {
+    final accessToken = await addOauth.getAccessToken();
+    return accessToken;
   }
 }

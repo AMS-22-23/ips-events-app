@@ -7,7 +7,7 @@
 
 import 'package:core_components/core_components.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ips_events_manager/counter/counter.dart';
+import 'package:ips_events_manager/auth/view/auth_page.dart';
 import 'package:ips_events_manager/l10n/l10n.dart';
 import 'package:meta_components/meta_components.dart';
 
@@ -30,7 +30,7 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const AuthPage(),
     );
   }
 }
