@@ -20,6 +20,16 @@ class MetaCollection {
         Entry<Dio>(
           builder: () => _httpCLient!.devDio,
         ),
+      )
+      ..archive(
+        Entry<GlobalKey<NavigatorState>>(
+          builder: () => GlobalKey<NavigatorState>(),
+        ),
+      )
+      ..archive(
+        Entry<AadConfig>(
+          builder: () => AadConfig(),
+        ),
       );
   }
 

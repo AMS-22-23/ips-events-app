@@ -18,6 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthInProgress());
       await authenticationRepository.performLogin();
       final accessToken = await authenticationRepository.getAccessToken();
+      log('Azure AD Access Token: $accessToken');
       emit(AuthSuccess(accessToken!));
     } on Object catch (e) {
       log(e.toString());
