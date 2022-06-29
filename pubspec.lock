@@ -679,6 +679,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1+1"
+  salomon_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: salomon_bottom_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.1"
   shared_preferences:
     dependency: transitive
     description:
@@ -763,6 +770,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  shrink_sidemenu:
+    dependency: "direct main"
+    description:
+      name: shrink_sidemenu
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+2-null-safety"
   sky_engine:
     dependency: transitive
     description: flutter

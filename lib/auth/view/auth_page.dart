@@ -1,5 +1,7 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/cubit/auth_cubit.dart';
+import 'package:meta_components/meta_components.dart';
 import 'package:repositories/repositories.dart';
 
 class AuthPage extends StatelessWidget {
@@ -25,29 +27,17 @@ class _AuthPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Center(
-            child: BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                if (state is AuthSuccess) {
-                  return Column(
-                    children: [
-                      const Text(
-                        'Aad Access Token:',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(state.token),
-                    ],
-                  );
-                }
-                return const CircularProgressIndicator();
-              },
-            ),
+          child: BlocListener<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is AuthSuccess) {
+                final GlobalKey<NavigatorState> navigatorKey = MetaCollection
+                    .instance
+                    .retrieve<GlobalKey<NavigatorState>>();
+                navigatorKey.currentState!
+                    .pushNamed(AppRoutes.mainNav.toRoute());
+              }
+            },
+            child: Container(),
           ),
         ),
       ),
