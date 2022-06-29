@@ -11,6 +11,8 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<AuthCubit>(
       create: (context) => AuthCubit(
+        aadAuthenticationRepository: RepositoryCollection.instance
+            .retrieve<AadAuthenticationRepository>(),
         authenticationRepository:
             RepositoryCollection.instance.retrieve<AuthenticationRepository>(),
       )..executeLogin(),

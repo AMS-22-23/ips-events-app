@@ -1,25 +1,38 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:core_components/core_components.dart';
+import 'package:meta_components/meta_components.dart';
 import 'package:repositories/repositories.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit({
+    required this.aadAuthenticationRepository,
     required this.authenticationRepository,
   }) : super(AuthInitial());
 
+  final AadAuthenticationRepository aadAuthenticationRepository;
   final AuthenticationRepository authenticationRepository;
 
   Future<void> executeLogin() async {
     try {
       emit(AuthInProgress());
-      await authenticationRepository.performLogin();
-      final accessToken = await authenticationRepository.getAccessToken();
+      await aadAuthenticationRepository.performAadLogin();
+      final accessToken = await aadAuthenticationRepository.getAccessToken();
       log('Azure AD Access Token: $accessToken');
-      emit(AuthSuccess(accessToken!));
+
+      final apiLogin = await authenticationRepository
+          .login(AuthAad(aadAccessToken: accessToken!));
+      log('Api Access Token: ${apiLogin.accessToken}');
+
+      MetaCollection.instance.archive(
+        Entry<AuthToken>(
+          builder: () => AuthToken(token: apiLogin.accessToken),
+        ),
+      );
+
+      emit(AuthSuccess(accessToken));
     } on Object catch (e) {
       log(e.toString());
       emit(AuthFailure());
@@ -28,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> executeLogout() async {
     emit(AuthInProgress());
-    await authenticationRepository.logOut();
+    await aadAuthenticationRepository.performAadLogout();
     await executeLogin();
   }
 }

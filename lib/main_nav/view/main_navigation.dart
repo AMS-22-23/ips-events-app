@@ -12,8 +12,6 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<NavigationCubit>(context);
-
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (context, state) {
         return SalomonBottomBar(

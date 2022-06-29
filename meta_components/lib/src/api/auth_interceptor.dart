@@ -10,11 +10,10 @@ class AuthInterceptor extends InterceptorsWrapper {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    super.onRequest(options, handler);
-    final AuthToken authToken = MetaCollection.instance.retrieve<AuthToken>();
-    final token = authToken.token;
+    final AuthToken? authToken = MetaCollection.instance.retrieve<AuthToken>();
+    final token = authToken?.token;
 
-    if (token.isNotEmpty) {
+    if (token?.isNotEmpty ?? false) {
       options.headers['Authorization'] = 'Bearer $token';
     }
     return handler.next(options);

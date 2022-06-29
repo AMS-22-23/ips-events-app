@@ -19,8 +19,13 @@ class RepositoryCollection {
 
     return instance
       ..archive(
+        Entry<AadAuthenticationRepository>(
+          builder: () => AadAuthenticationRepository(),
+        ),
+      )
+      ..archive(
         Entry<AuthenticationRepository>(
-          builder: () => AuthenticationRepository(),
+          builder: () => AuthenticationRepository(httpClient),
         ),
       )
       ..archive(

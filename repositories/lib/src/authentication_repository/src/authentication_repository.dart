@@ -1,23 +1,14 @@
-import 'package:aad_oauth/aad_oauth.dart';
 import 'package:meta_components/meta_components.dart';
+import 'package:repositories/src/authentication_repository/src/models/auth_jtw.dart';
+import 'package:repositories/src/authentication_repository/src/models/auth_response.dart';
 
-/// Repository which manages user authentication.
-class AuthenticationRepository {
-  AuthenticationRepository()
-      : addOauth = AadOAuth(MetaCollection.instance.retrieve<AadConfig>());
+part 'authentication_repository.g.dart';
 
-  final AadOAuth addOauth;
+@RestApi()
+abstract class AuthenticationRepository {
+  factory AuthenticationRepository(Dio dio, {String baseUrl}) =
+      _AuthenticationRepository;
 
-  Future<void> logOut() async {
-    await addOauth.logout();
-  }
-
-  Future<void> performLogin() async {
-    await addOauth.login();
-  }
-
-  Future<String?> getAccessToken() async {
-    final accessToken = await addOauth.getAccessToken();
-    return accessToken;
-  }
+  @POST('/auth')
+  Future<AuthJtw> login(@Body() AuthAad authAad);
 }

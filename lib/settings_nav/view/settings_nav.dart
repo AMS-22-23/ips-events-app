@@ -1,6 +1,5 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events_pages.dart';
-import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
 import 'package:ips_events_manager/main_nav/view/main_navigation.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
@@ -10,7 +9,7 @@ class SettingsNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _sideMenuKey = GlobalKey<SideMenuState>();
-    final cubit = BlocProvider.of<NavigationCubit>(context);
+
     return SideMenu(
       key: _sideMenuKey,
       menu: const _SettingsNavMenu(),
