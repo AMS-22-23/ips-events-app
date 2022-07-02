@@ -1,6 +1,7 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events_pages.dart';
 import 'package:ips_events_manager/main_nav/view/main_navigation.dart';
+import 'package:ips_events_manager/settings_nav/cubit/settings_nav_cubit.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class SettingsNavigation extends StatelessWidget {
@@ -8,29 +9,18 @@ class SettingsNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _sideMenuKey = GlobalKey<SideMenuState>();
-
-    return SideMenu(
-      key: _sideMenuKey,
-      menu: const _SettingsNavMenu(),
-      type: SideMenuType.slideNRotate, // check above images
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              final _state = _sideMenuKey.currentState;
-              if (_state!.isOpened) {
-                _state.closeSideMenu();
-              } else {
-                _state.openSideMenu();
-              } // open side menu
-            },
+    return BlocBuilder<SettingsNavCubit, SettingsNavState>(
+      builder: (context, state) {
+        return SideMenu(
+          key: state.menuStateKey,
+          menu: const _SettingsNavMenu(),
+          type: SideMenuType.slideNRotate, // check above images
+          child: const Scaffold(
+            body: IpsEventsPages(),
+            bottomNavigationBar: MainNavigation(),
           ),
-        ),
-        body: const IpsEventsPages(),
-        bottomNavigationBar: const MainNavigation(),
-      ),
+        );
+      },
     );
   }
 }

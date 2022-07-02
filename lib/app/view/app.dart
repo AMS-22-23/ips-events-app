@@ -11,6 +11,7 @@ import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/view/auth_page.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events.dart';
 import 'package:ips_events_manager/l10n/l10n.dart';
+import 'package:ips_events_manager/theme/colors.dart';
 import 'package:meta_components/meta_components.dart';
 
 class App extends StatelessWidget {
@@ -20,9 +21,22 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: darkGrey,
+        ),
+        appBarTheme: AppBarTheme(
+          color: Colors.transparent,
+          titleTextStyle: TextStyle(
+            color: darkGrey,
+            fontSize: 20,
+          ),
+        ),
+        textTheme: TextTheme(
+          headline1: TextStyle(color: darkGrey),
+          headline2: TextStyle(color: darkGrey),
+          headline3: TextStyle(color: darkGrey),
+          bodyText1: TextStyle(color: grey),
+          bodyText2: TextStyle(color: grey),
         ),
       ),
       navigatorKey:

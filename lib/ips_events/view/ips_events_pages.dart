@@ -1,4 +1,5 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/ips_events/view/ips_events_main_page.dart';
 import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
 
 class IpsEventsPages extends StatefulWidget {
@@ -28,18 +29,13 @@ class _IpsEventsPagesState extends State<IpsEventsPages> {
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          Center(
-            child: Text('1'),
-          ),
+          EventsPage(),
           Center(
             child: Text('2'),
           ),
           Center(
             child: Text('3'),
           ),
-          Center(
-            child: Text('4'),
-          )
         ],
       ),
     );

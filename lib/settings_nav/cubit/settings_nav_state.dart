@@ -1,6 +1,12 @@
 part of 'settings_nav_cubit.dart';
 
-@immutable
-abstract class SettingsNavState {}
+GlobalKey<SideMenuState> sideMenuKey = GlobalKey<SideMenuState>();
 
-class SettingsNavInitial extends SettingsNavState {}
+@immutable
+class SettingsNavState extends Equatable {
+  const SettingsNavState({required this.menuStateKey});
+  final GlobalKey<SideMenuState> menuStateKey;
+
+  @override
+  List<Object?> get props => [menuStateKey];
+}
