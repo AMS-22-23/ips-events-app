@@ -25,6 +25,7 @@ dependencies:
   shrink_sidemenu: ^2.0.0+2-null-safety
   salomon_bottom_bar: ^3.3.1
   equatable: ^2.0.3
+  material_design_icons_flutter: ^5.0.6595
 
 dev_dependencies:
   build_runner: ^2.0.6 #provides a concrete way of generating files

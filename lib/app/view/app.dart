@@ -36,7 +36,7 @@ class App extends StatelessWidget {
           headline2: TextStyle(color: darkGrey),
           headline3: TextStyle(color: darkGrey),
           bodyText1: TextStyle(color: grey),
-          bodyText2: TextStyle(color: grey),
+          bodyText2: const TextStyle(color: Colors.white),
         ),
       ),
       navigatorKey:
