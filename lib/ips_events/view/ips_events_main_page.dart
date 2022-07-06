@@ -1,8 +1,6 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
-import 'package:ips_events_manager/widgets/events_padding/events_edge_insets.dart';
-import 'package:ips_events_manager/widgets/events_padding/events_padding_widget.dart';
-import 'package:ips_events_manager/widgets/events_padding/events_size.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({Key? key}) : super(key: key);
@@ -29,9 +27,14 @@ class _EventsPageState extends State<EventsPage>
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: EventsPadding(
-        padding: EventsEdgeInsets.symmetric(horizontal: EventsSize.normal),
-        child: const EventsList(),
+      body: Column(
+        children: const [
+          SizedBox(
+            height: 100,
+            child: EventCategoryList(),
+          ),
+          Expanded(child: EventsList()),
+        ],
       ),
     );
   }

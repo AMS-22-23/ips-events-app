@@ -38,6 +38,7 @@ class App extends StatelessWidget {
           bodyText1: TextStyle(color: grey),
           bodyText2: const TextStyle(color: Colors.white),
         ),
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
       ),
       navigatorKey:
           MetaCollection.instance.retrieve<GlobalKey<NavigatorState>>(),
