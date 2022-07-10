@@ -3,8 +3,14 @@ import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
 class EventDateLabel extends StatelessWidget {
-  const EventDateLabel({Key? key}) : super(key: key);
+  const EventDateLabel({
+    required this.dateString,
+    required this.timeString,
+    Key? key,
+  }) : super(key: key);
 
+  final String dateString;
+  final String timeString;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,9 +21,9 @@ class EventDateLabel extends StatelessWidget {
         padding: EventsEdgeInsets.all(EventsSize.small),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text('data'),
-            Text(
+          children: [
+            Text(dateString),
+            const Text(
               '| ',
               style: TextStyle(
                 fontSize: 25,
@@ -25,7 +31,7 @@ class EventDateLabel extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            Text('data AM'),
+            Text(timeString),
           ],
         ),
       ),

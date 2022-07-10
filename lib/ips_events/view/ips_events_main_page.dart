@@ -26,6 +26,7 @@ class _EventsPageState extends State<EventsPage>
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: const [
