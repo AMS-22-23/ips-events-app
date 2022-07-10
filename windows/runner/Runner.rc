@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example.verygoodcore.ips-events-manager" "\0"
+            VALUE "CompanyName", "com.ips-events-manager" "\0"
             VALUE "FileDescription", "ips_events_manager" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "ips_events_manager" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example.verygoodcore.ips-events-manager. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.ips-events-manager. All rights reserved." "\0"
             VALUE "OriginalFilename", "ips_events_manager.exe" "\0"
             VALUE "ProductName", "Ips Events Manager" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

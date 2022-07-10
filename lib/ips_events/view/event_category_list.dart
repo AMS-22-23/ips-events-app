@@ -46,9 +46,6 @@ class EventCategoryList extends StatelessWidget {
             categoryLabel: 'Tecnologia',
             icon: MdiIcons.accountCowboyHat,
           ),
-          SizedBox(
-            width: 10,
-          ),
         ],
       ),
     );
