@@ -1,5 +1,5 @@
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/ips_events/view/ips_events_pages.dart';
+import 'package:ips_events_manager/main_nav/view/ips_events_pages.dart';
 import 'package:ips_events_manager/main_nav/view/main_navigation.dart';
 import 'package:ips_events_manager/settings_nav/cubit/settings_nav_cubit.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';

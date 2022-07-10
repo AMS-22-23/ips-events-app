@@ -3,14 +3,14 @@ import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
 
-class EventsPage extends StatefulWidget {
-  const EventsPage({Key? key}) : super(key: key);
+class MyEventsPage extends StatefulWidget {
+  const MyEventsPage({Key? key}) : super(key: key);
 
   @override
-  State<EventsPage> createState() => _EventsPageState();
+  State<MyEventsPage> createState() => _MyEventsPageState();
 }
 
-class _EventsPageState extends State<EventsPage>
+class _MyEventsPageState extends State<MyEventsPage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -21,7 +21,7 @@ class _EventsPageState extends State<EventsPage>
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Events',
+          'My Events',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,

@@ -22,19 +22,19 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: darkGrey,
+          seedColor: darkBlack,
         ),
         appBarTheme: AppBarTheme(
           color: Colors.transparent,
           titleTextStyle: TextStyle(
-            color: darkGrey,
+            color: darkBlack,
             fontSize: 20,
           ),
         ),
         textTheme: TextTheme(
-          headline1: TextStyle(color: darkGrey),
-          headline2: TextStyle(color: darkGrey),
-          headline3: TextStyle(color: darkGrey),
+          headline1: TextStyle(color: darkBlack),
+          headline2: TextStyle(color: darkBlack),
+          headline3: TextStyle(color: darkBlack),
           bodyText1: TextStyle(color: grey),
           bodyText2: const TextStyle(color: Colors.white),
         ),

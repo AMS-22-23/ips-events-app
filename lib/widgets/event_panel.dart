@@ -22,7 +22,7 @@ class EventPanel extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Material(
-        elevation: onTap != null ? 0 : 10,
+        elevation: onTap != null ? 0 : 20,
         child: Container(
           color: Colors.purple,
           height: 200,
@@ -47,7 +47,7 @@ class EventPanel extends StatelessWidget {
                       size: 20,
                     ),
                     const SizedBox(width: 10),
-                    Text(speakerName)
+                    Text('by $speakerName')
                   ],
                 ),
                 EventDateLabel(

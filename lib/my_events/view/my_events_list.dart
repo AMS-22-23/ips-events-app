@@ -3,8 +3,8 @@ import 'package:ips_events_manager/ips_events/view/ips_events_detail.dart';
 import 'package:ips_events_manager/widgets/event_panel.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
-class EventsList extends StatelessWidget {
-  const EventsList({Key? key}) : super(key: key);
+class MyEventsList extends StatelessWidget {
+  const MyEventsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

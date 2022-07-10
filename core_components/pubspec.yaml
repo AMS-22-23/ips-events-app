@@ -15,8 +15,10 @@ dependencies:
   flutter_bloc: ^8.0.0
   localizations_sdk:
     path: ../localizations_sdk
+  material_design_icons_flutter: ^5.0.6595
   repository_collection:
     path: ../repository_collection
+    
 
 dev_dependencies:
   flutter_test:

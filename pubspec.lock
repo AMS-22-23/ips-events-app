@@ -526,7 +526,7 @@ packages:
     source: hosted
     version: "0.1.4"
   material_design_icons_flutter:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: material_design_icons_flutter
       url: "https://pub.dartlang.org"

@@ -5,7 +5,7 @@ class DarkIcon extends Icon {
   DarkIcon(IconData? icon, {double? size, Key? key})
       : super(
           icon,
-          color: darkGrey,
+          color: darkBlack,
           size: size,
           key: key,
         );

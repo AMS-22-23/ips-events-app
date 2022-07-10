@@ -1,7 +1,7 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class EventCategoryList extends StatelessWidget {
   const EventCategoryList({Key? key}) : super(key: key);
@@ -14,39 +14,26 @@ class EventCategoryList extends StatelessWidget {
         bottom: EventsSize.large,
         left: EventsSize.normal,
       ),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: const [
-          _EventCategoryItem(
-            isSelected: true,
-            categoryLabel: 'Tecnologia',
-            icon: MdiIcons.laptop,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          _EventCategoryItem(
-            isSelected: false,
-            categoryLabel: 'Saúde',
-            icon: MdiIcons.medicalBag,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          _EventCategoryItem(
-            isSelected: false,
-            categoryLabel: 'Tecnologia',
-            icon: MdiIcons.accountCowboyHat,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          _EventCategoryItem(
-            isSelected: false,
-            categoryLabel: 'Tecnologia',
-            icon: MdiIcons.accountCowboyHat,
-          ),
-        ],
+      child: BlocBuilder<EventCategoryCubit, EventCategoryState>(
+        builder: (context, state) {
+          return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.categories!.length,
+            separatorBuilder: (_, index) => const SizedBox(
+              width: 10,
+            ),
+            itemBuilder: (_, index) {
+              final category = state.categories!.elementAt(index);
+              return _EventCategoryItem(
+                isSelected: index == state.currentIndex,
+                categoryLabel: category.categoryName,
+                icon: category.icon,
+                onTap: () => BlocProvider.of<EventCategoryCubit>(context)
+                    .selectCategory(category.type),
+              );
+            },
+          );
+        },
       ),
     );
   }
@@ -57,20 +44,22 @@ class _EventCategoryItem extends StatelessWidget {
     required this.isSelected,
     required this.categoryLabel,
     required this.icon,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final bool isSelected;
   final String categoryLabel;
   final IconData icon;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => null,
+      onTap: onTap,
       child: Container(
         height: 40,
-        color: isSelected ? darkGrey : Colors.white,
+        color: isSelected ? darkBlack : Colors.white,
         child: EventsPadding(
           padding: EventsEdgeInsets.all(EventsSize.small),
           child: Row(
@@ -81,7 +70,7 @@ class _EventCategoryItem extends StatelessWidget {
                 padding: EventsEdgeInsets.all(EventsSize.small),
                 child: Icon(
                   icon,
-                  color: isSelected ? Colors.white : darkGrey,
+                  color: isSelected ? Colors.white : darkBlack,
                 ),
               ),
               const SizedBox(
@@ -90,7 +79,7 @@ class _EventCategoryItem extends StatelessWidget {
               Text(
                 categoryLabel,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : darkGrey,
+                  color: isSelected ? Colors.white : darkBlack,
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),

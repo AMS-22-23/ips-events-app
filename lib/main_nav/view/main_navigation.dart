@@ -32,7 +32,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
                   /// Likes
                   SalomonBottomBarItem(
-                    icon: const Icon(Icons.favorite_border),
+                    icon: const Icon(MdiIcons.calendarAccount),
                     title: const Text('Likes'),
                     selectedColor: Colors.pink,
                   ),

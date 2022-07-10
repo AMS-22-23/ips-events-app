@@ -16,7 +16,7 @@ class EventDateLabel extends StatelessWidget {
     return Container(
       width: 110,
       height: 35,
-      color: darkGrey,
+      color: darkBlack,
       child: EventsPadding(
         padding: EventsEdgeInsets.all(EventsSize.small),
         child: Row(
