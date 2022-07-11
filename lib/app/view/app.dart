@@ -6,7 +6,9 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:core_components/core_components.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ips_events_manager/admin_web_app/ips_events_admin_app.dart';
 import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/view/auth_page.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events.dart';
@@ -47,10 +49,14 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: AppRoutes.auth.toRoute(),
+      initialRoute: defaultTargetPlatform == TargetPlatform.android ||
+              defaultTargetPlatform == TargetPlatform.iOS
+          ? AppRoutes.auth.toRoute()
+          : AppRoutes.webApp.toRoute(),
       routes: {
         AppRoutes.auth.toRoute(): (context) => const AuthPage(),
         AppRoutes.mainNav.toRoute(): (context) => const IpsEvents(),
+        AppRoutes.webApp.toRoute(): (context) => const EventsAdminApp(),
       },
     );
   }

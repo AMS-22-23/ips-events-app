@@ -1,4 +1,4 @@
-enum AppRoutes { auth, mainNav }
+enum AppRoutes { auth, mainNav, webApp }
 
 extension ToRoute on AppRoutes {
   String toRoute() {
@@ -7,6 +7,8 @@ extension ToRoute on AppRoutes {
         return '/auth';
       case AppRoutes.mainNav:
         return '/main';
+      case AppRoutes.webApp:
+        return '/web-app';
     }
   }
 }
