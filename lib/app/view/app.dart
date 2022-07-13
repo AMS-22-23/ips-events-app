@@ -7,12 +7,11 @@
 
 import 'package:core_components/core_components.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ips_events_manager/admin_web_app/ips_events_admin_app.dart';
 import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/view/auth_page.dart';
+import 'package:ips_events_manager/create_event/create_event.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events.dart';
-import 'package:ips_events_manager/l10n/l10n.dart';
 import 'package:ips_events_manager/theme/colors.dart';
 import 'package:meta_components/meta_components.dart';
 
@@ -22,6 +21,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: darkBlack,
@@ -44,11 +46,6 @@ class App extends StatelessWidget {
       ),
       navigatorKey:
           MetaCollection.instance.retrieve<GlobalKey<NavigatorState>>(),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
       initialRoute: defaultTargetPlatform == TargetPlatform.android ||
               defaultTargetPlatform == TargetPlatform.iOS
           ? AppRoutes.auth.toRoute()
@@ -57,6 +54,7 @@ class App extends StatelessWidget {
         AppRoutes.auth.toRoute(): (context) => const AuthPage(),
         AppRoutes.mainNav.toRoute(): (context) => const IpsEvents(),
         AppRoutes.webApp.toRoute(): (context) => const EventsAdminApp(),
+        AppRoutes.createEvent.toRoute(): (context) => const CreateEventPage(),
       },
     );
   }

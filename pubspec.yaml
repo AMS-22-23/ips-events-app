@@ -28,6 +28,9 @@ dependencies:
   firebase_core: ^1.19.1
   firebase_analytics: ^9.1.12
   flutter_lorem: ^2.0.0
+  date_time_picker: ^2.1.0
+  flutter_form_builder: ^7.4.0
+  form_builder_validators: ^8.2.0
 
 dev_dependencies:
   build_runner: ^2.0.6 #provides a concrete way of generating files
@@ -43,3 +46,6 @@ dependency_overrides:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - localizations_sdk/assets/i18n/

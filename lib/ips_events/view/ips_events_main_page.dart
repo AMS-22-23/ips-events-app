@@ -1,7 +1,9 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
+import 'package:ips_events_manager/widgets/icons/icons.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({Key? key}) : super(key: key);
@@ -24,6 +26,18 @@ class _EventsPageState extends State<EventsPage>
           'Events',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(
+              context,
+              AppRoutes.createEvent.toRoute(),
+            ),
+            icon: DarkIcon(
+              MdiIcons.plusBox,
+              size: 30,
+            ),
+          )
+        ],
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,

@@ -28,6 +28,24 @@ class IpsEventsText extends StatelessWidget {
     );
   }
 
+  factory IpsEventsText.lightTitle(String text) {
+    return IpsEventsText._(
+      text: text,
+      fontSize: 20,
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  factory IpsEventsText.lightTitle2(String text) {
+    return IpsEventsText._(
+      text: text,
+      fontSize: 16,
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
   factory IpsEventsText.subTitle(String text) {
     return IpsEventsText._(
       text: text,
