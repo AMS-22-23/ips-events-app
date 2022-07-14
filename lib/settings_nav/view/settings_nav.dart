@@ -2,6 +2,8 @@ import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/main_nav/view/ips_events_pages.dart';
 import 'package:ips_events_manager/main_nav/view/main_navigation.dart';
 import 'package:ips_events_manager/settings_nav/cubit/settings_nav_cubit.dart';
+import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
+import 'package:ips_events_manager/settings_nav/view/profile_picture_taker.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class SettingsNavigation extends StatelessWidget {
@@ -32,62 +34,102 @@ class _SettingsNavMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 50),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 22,
+      child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 40,
+                          backgroundImage: state is UserProfileLoadSuccess &&
+                                  state.userProfile.avatar != null
+                              ? Image.memory(state.avatarBytes!).image
+                              : null,
+                          child: state is UserProfileLoadInProgress
+                              ? const CircularProgressIndicator()
+                              : null,
+                        ),
+                        IconButton(
+                          onPressed: () => Navigator.push<void>(
+                            context,
+                            TakePictureScreen.route(context),
+                          ),
+                          icon: const Icon(
+                            MdiIcons.cameraControl,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    if (state is UserProfileLoadSuccess)
+                      Text(
+                        'Hello, ${state.userProfile.name}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
-                SizedBox(height: 16),
-                Text(
-                  'Hello, John Doe',
-                  style: TextStyle(color: Colors.white),
+              ),
+              if (state is UserProfileLoadSuccess)
+                Column(
+                  children: [
+                    ListTile(
+                      horizontalTitleGap: 2,
+                      onTap: () {},
+                      leading: const Icon(
+                        MdiIcons.targetAccount,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      title: Text(state.userProfile.jobTitle),
+                      textColor: Colors.white,
+                      dense: true,
+                    ),
+                    ListTile(
+                      horizontalTitleGap: 2,
+
+                      onTap: () {},
+                      leading: const Icon(
+                        MdiIcons.accountKey,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      title: Text(state.userProfile.role),
+                      textColor: Colors.white,
+                      dense: true,
+
+                      // padding: EdgeInsets.zero,
+                    ),
+                    ListTile(
+                      horizontalTitleGap: 2,
+
+                      onTap: () {},
+                      leading: const Icon(
+                        MdiIcons.email,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      title: Text(state.userProfile.email),
+                      textColor: Colors.white,
+                      dense: true,
+
+                      // padding: EdgeInsets.zero,
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-              ],
-            ),
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.home, size: 20, color: Colors.white),
-            title: const Text('Home'),
-            textColor: Colors.white,
-            dense: true,
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(
-              Icons.verified_user,
-              size: 20,
-              color: Colors.white,
-            ),
-            title: const Text('Profile'),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(
-              Icons.monetization_on,
-              size: 20,
-              color: Colors.white,
-            ),
-            title: const Text('Wallet'),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }

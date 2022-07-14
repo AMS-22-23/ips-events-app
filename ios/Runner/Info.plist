@@ -48,5 +48,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need to access your camera for you to take a profile picture.</string>
 </dict>
 </plist>

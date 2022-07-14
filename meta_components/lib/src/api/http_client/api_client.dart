@@ -1,5 +1,4 @@
 import 'package:meta_components/meta_components.dart';
-import 'package:meta_components/src/api/api_constants.dart';
 import 'package:meta_components/src/api/auth_interceptor.dart';
 
 class PtBrandHttpCLient {
@@ -9,8 +8,13 @@ class PtBrandHttpCLient {
         baseUrl: baseUrl,
       );
 
-  Dio get devDio => Dio(_options(AppCredentials.development().apiBaseUrl))
-    ..interceptors.add(AuthInterceptor());
+  String _getDevApiUrl() {
+    final apiCredentials = AppCredentials.development();
+    return '${apiCredentials.apiBaseUrl}:${apiCredentials.port}/v${apiCredentials.version}';
+  }
+
+  Dio get devDio =>
+      Dio(_options(_getDevApiUrl()))..interceptors.add(AuthInterceptor());
   Dio get intDio => Dio(_options(AppCredentials.integration().apiBaseUrl))
     ..interceptors.add(AuthInterceptor());
 }

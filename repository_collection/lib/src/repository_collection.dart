@@ -32,6 +32,11 @@ class RepositoryCollection {
         Entry<GeolocationRepository>(
           builder: () => GeolocationRepository(),
         ),
+      )
+      ..archive(
+        Entry<UserRepository>(
+          builder: () => UserRepository(httpClient),
+        ),
       );
   }
 }

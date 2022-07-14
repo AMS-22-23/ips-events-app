@@ -37,5 +37,16 @@ class PermissionsRepository {
     return _requestPermission(AppPermission.location);
   }
 
+  Future<bool> requestCameraPermission() async {
+    final isPermanentlyDenied =
+        await isPermissionPermanentDenied(AppPermission.camera);
+
+    if (isPermanentlyDenied) {
+      await openSettings();
+      return isPermissionGranted(AppPermission.camera);
+    }
+    return _requestPermission(AppPermission.camera);
+  }
+
   Future<bool> openSettings() async => openAppSettings();
 }
