@@ -11,3 +11,13 @@ class EventCategoryState extends Equatable {
     return EventCategoryState(categories: categories, currentIndex: index);
   }
 }
+
+class EventCategoryLoadInProgress extends EventCategoryState {}
+
+class EventCategoryLoadSuccess extends EventCategoryState {
+  const EventCategoryLoadSuccess({
+    required List<EventCategory> categories,
+  }) : super(categories: categories);
+}
+
+class EventCategoryLoadError extends EventCategoryState {}

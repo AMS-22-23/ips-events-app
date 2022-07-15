@@ -1,6 +1,5 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/app/routes/app_routes.dart';
-import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
 import 'package:ips_events_manager/widgets/icons/icons.dart';
@@ -44,15 +43,12 @@ class _EventsPageState extends State<EventsPage>
         automaticallyImplyLeading: false,
       ),
       body: Column(
-        children: [
+        children: const [
           SizedBox(
             height: 100,
-            child: BlocProvider<EventCategoryCubit>(
-              create: (context) => EventCategoryCubit(),
-              child: const EventCategoryList(),
-            ),
+            child: EventCategoryList(),
           ),
-          const Expanded(child: EventsList()),
+          Expanded(child: EventsList()),
         ],
       ),
     );

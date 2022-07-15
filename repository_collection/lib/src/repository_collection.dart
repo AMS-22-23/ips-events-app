@@ -37,6 +37,16 @@ class RepositoryCollection {
         Entry<UserRepository>(
           builder: () => UserRepository(httpClient),
         ),
+      )
+      ..archive(
+        Entry<EventsRepository>(
+          builder: () => EventsRepository(httpClient),
+        ),
+      )
+      ..archive(
+        Entry<CategoriesRepository>(
+          builder: () => CategoriesRepository(httpClient),
+        ),
       );
   }
 }

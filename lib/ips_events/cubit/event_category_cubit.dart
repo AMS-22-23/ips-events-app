@@ -1,33 +1,31 @@
+import 'dart:developer';
+
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/ips_events/models/event_category.dart';
+import 'package:repositories/repositories.dart';
 
 part 'event_category_state.dart';
 
-final _categories = <EventCategory>[
-  EventCategory(
-    type: EventCategoryType.technology,
-    categoryName: 'Tecnologia',
-    icon: MdiIcons.laptop,
-  ),
-  EventCategory(
-    type: EventCategoryType.health,
-    categoryName: 'Health',
-    icon: MdiIcons.medicalBag,
-  )
-];
-
 class EventCategoryCubit extends Cubit<EventCategoryState> {
-  EventCategoryCubit() : super(EventCategoryState(categories: _categories));
+  EventCategoryCubit({required this.categoriesRepository})
+      : super(const EventCategoryState());
 
-  void selectCategory(EventCategoryType type) {
-    final category = state.categories!.firstWhere(
-      (element) => element.type == type,
-    );
-    emit(state.copyWithIndex(state.categories!.indexOf(category)));
+  final CategoriesRepository categoriesRepository;
+
+  Future<void> getCategories() async {
+    try {
+      emit(EventCategoryLoadInProgress());
+      final categories = await categoriesRepository.getCategories();
+      emit(EventCategoryLoadSuccess(categories: categories));
+    } catch (e) {
+      log(e.toString());
+      emit(EventCategoryLoadError());
+    }
   }
-}
 
-enum EventCategoryType {
-  technology,
-  health,
+  void selectCategory(EventCategory category) {
+    final currentCategory = state.categories!.firstWhere(
+      (element) => element.id == category.id,
+    );
+    emit(state.copyWithIndex(state.categories!.indexOf(currentCategory)));
+  }
 }

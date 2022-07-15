@@ -16,6 +16,7 @@ class EventCategoryList extends StatelessWidget {
       ),
       child: BlocBuilder<EventCategoryCubit, EventCategoryState>(
         builder: (context, state) {
+          if (state.categories == null) return const SizedBox();
           return ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: state.categories!.length,
@@ -26,10 +27,9 @@ class EventCategoryList extends StatelessWidget {
               final category = state.categories!.elementAt(index);
               return _EventCategoryItem(
                 isSelected: index == state.currentIndex,
-                categoryLabel: category.categoryName,
-                icon: category.icon,
+                categoryLabel: category.name,
                 onTap: () => BlocProvider.of<EventCategoryCubit>(context)
-                    .selectCategory(category.type),
+                    .selectCategory(category),
               );
             },
           );
@@ -43,14 +43,12 @@ class _EventCategoryItem extends StatelessWidget {
   const _EventCategoryItem({
     required this.isSelected,
     required this.categoryLabel,
-    required this.icon,
     required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final bool isSelected;
   final String categoryLabel;
-  final IconData icon;
   final VoidCallback onTap;
 
   @override
@@ -65,7 +63,7 @@ class _EventCategoryItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              /*  Container(
                 color: isSelected ? lightBlack : lightGrey,
                 padding: EventsEdgeInsets.all(EventsSize.small),
                 child: Icon(
@@ -75,7 +73,7 @@ class _EventCategoryItem extends StatelessWidget {
               ),
               const SizedBox(
                 width: 10,
-              ),
+              ),*/
               Text(
                 categoryLabel,
                 style: TextStyle(

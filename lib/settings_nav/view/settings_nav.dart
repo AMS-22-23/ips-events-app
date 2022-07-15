@@ -4,6 +4,7 @@ import 'package:ips_events_manager/main_nav/view/main_navigation.dart';
 import 'package:ips_events_manager/settings_nav/cubit/settings_nav_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/settings_nav/view/profile_picture_taker.dart';
+import 'package:ips_events_manager/theme/colors.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class SettingsNavigation extends StatelessWidget {
@@ -15,6 +16,7 @@ class SettingsNavigation extends StatelessWidget {
       builder: (context, state) {
         return SideMenu(
           key: state.menuStateKey,
+          background: lightBlack,
           menu: const _SettingsNavMenu(),
           type: SideMenuType.slideNRotate, // check above images
           child: const Scaffold(

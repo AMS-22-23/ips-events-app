@@ -1,5 +1,4 @@
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
 
@@ -30,15 +29,12 @@ class _MyEventsPageState extends State<MyEventsPage>
         automaticallyImplyLeading: false,
       ),
       body: Column(
-        children: [
+        children: const [
           SizedBox(
             height: 100,
-            child: BlocProvider<EventCategoryCubit>(
-              create: (context) => EventCategoryCubit(),
-              child: const EventCategoryList(),
-            ),
+            child: EventCategoryList(),
           ),
-          const Expanded(child: EventsList()),
+          Expanded(child: EventsList()),
         ],
       ),
     );
