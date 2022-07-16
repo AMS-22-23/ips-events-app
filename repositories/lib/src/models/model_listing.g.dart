@@ -12,7 +12,9 @@ ModelListing<T> _$ModelListingFromJson<T>(
 ) =>
     ModelListing<T>(
       items: (json['data'] as List<dynamic>).map(fromJsonT).toList(),
-      paging: Paging.fromJson(json['paging'] as Map<String, dynamic>),
+      paging: json['paging'] == null
+          ? null
+          : Paging.fromJson(json['paging'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ModelListingToJson<T>(

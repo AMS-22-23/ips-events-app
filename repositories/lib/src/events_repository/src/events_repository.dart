@@ -1,6 +1,5 @@
 import 'package:meta_components/meta_components.dart';
-import 'package:repositories/src/events_repository/src/models/event.dart';
-import 'package:repositories/src/events_repository/src/models/event_preview.dart';
+import 'package:repositories/src/events_repository/src/models/models.dart';
 import 'package:repositories/src/models/model_listing.dart';
 
 part 'events_repository.g.dart';
@@ -25,7 +24,28 @@ abstract class EventsRepository {
   });
 
   @POST('/event')
-  Future<Event> createEvent({
+  Future<void> createEvent({
     @Body() required Event event,
+  });
+
+  @GET('/event/{id}')
+  Future<EventDetails> getSingleEvent({
+    @Path('id') String eventId,
+  });
+
+  @DELETE('/event/{id}')
+  Future<void> deleteSingleEvent({
+    @Path('id') String eventId,
+  });
+
+  @PUT('/event/{id}/recording-link')
+  Future<void> updateEventRecordingLink(
+    @Path('id') String eventId,
+    @Body() EventRecordingLink link,
+  );
+
+  @POST('/event/{eventId}/attendee')
+  Future<void> registerAttendance({
+    @Path('eventId') String eventId,
   });
 }

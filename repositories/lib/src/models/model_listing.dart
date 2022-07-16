@@ -7,7 +7,7 @@ part 'model_listing.g.dart';
 class ModelListing<T> {
   ModelListing({
     required this.items,
-    required this.paging,
+    this.paging,
   });
 
   factory ModelListing.fromJson(
@@ -21,5 +21,5 @@ class ModelListing<T> {
 
   @JsonKey(name: 'data')
   final List<T> items;
-  final Paging paging;
+  final Paging? paging;
 }
