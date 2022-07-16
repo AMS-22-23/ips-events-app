@@ -1,4 +1,5 @@
 import 'package:meta_components/meta_components.dart';
+import 'package:repositories/src/models/user_role.dart';
 import 'package:repositories/src/user_repository/src/models/user_avatar.dart';
 
 part 'user_profile.g.dart';
@@ -19,7 +20,7 @@ class UserProfile {
   Map<String, dynamic> toJson() => _$UserProfileToJson(this);
 
   final String id;
-  final String role;
+  final UserRole role;
   final String jobTitle;
   final String name;
   final String email;

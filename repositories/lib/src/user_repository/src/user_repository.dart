@@ -4,7 +4,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:meta_components/meta_components.dart';
 import 'package:repositories/src/user_repository/src/models/user.dart';
 import 'package:repositories/src/user_repository/src/models/user_profile.dart';
-import 'package:repositories/src/user_repository/src/models/user_role.dart';
+import 'package:repositories/src/user_repository/src/models/user_role_body.dart';
 
 part 'user_repository.g.dart';
 
@@ -39,6 +39,6 @@ abstract class UserRepository {
   @PUT('/user/{id}/role')
   Future<void> updateUserRole({
     @Path('id') required String userId,
-    @Body() required UserRole userRole,
+    @Body() required UserRoleBody userRole,
   });
 }

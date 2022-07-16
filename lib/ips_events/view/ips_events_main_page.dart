@@ -1,10 +1,12 @@
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/create_event/create_event.dart';
 import 'package:ips_events_manager/create_event/cubit/events_create_cubit.dart';
+import 'package:ips_events_manager/create_event/view/create_event.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
+import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/widgets/icons/icons.dart';
+import 'package:repositories/repositories.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({Key? key}) : super(key: key);
@@ -23,6 +25,8 @@ class _EventsPageState extends State<EventsPage>
     super.build(context);
     final categoryCubit = BlocProvider.of<EventCategoryCubit>(context);
     final createCubit = BlocProvider.of<EventsCreateCubit>(context);
+    final profileState = context.watch<UserProfileCubit>().state;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -30,28 +34,31 @@ class _EventsPageState extends State<EventsPage>
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (_) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider<EventCategoryCubit>.value(
-                      value: categoryCubit,
-                    ),
-                    BlocProvider<EventsCreateCubit>.value(
-                      value: createCubit,
-                    ),
-                  ],
-                  child: const CreateEventPage(),
+          if (profileState is UserProfileLoadSuccess &&
+              (profileState.userProfile.role == UserRole.admin ||
+                  profileState.userProfile.role == UserRole.speaker))
+            IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider<EventCategoryCubit>.value(
+                        value: categoryCubit,
+                      ),
+                      BlocProvider<EventsCreateCubit>.value(
+                        value: createCubit,
+                      ),
+                    ],
+                    child: const CreateEventPage(),
+                  ),
                 ),
               ),
-            ),
-            icon: DarkIcon(
-              MdiIcons.plusBox,
-              size: 30,
-            ),
-          )
+              icon: DarkIcon(
+                MdiIcons.plusBox,
+                size: 30,
+              ),
+            )
         ],
         centerTitle: true,
         elevation: 0,

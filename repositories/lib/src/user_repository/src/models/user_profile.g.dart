@@ -8,7 +8,7 @@ part of 'user_profile.dart';
 
 UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
       id: json['id'] as String,
-      role: json['role'] as String,
+      role: $enumDecode(_$UserRoleEnumMap, json['role']),
       jobTitle: json['jobTitle'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
@@ -20,9 +20,15 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'role': instance.role,
+      'role': _$UserRoleEnumMap[instance.role],
       'jobTitle': instance.jobTitle,
       'name': instance.name,
       'email': instance.email,
       'avatar': instance.avatar,
     };
+
+const _$UserRoleEnumMap = {
+  UserRole.regular: 'regular',
+  UserRole.speaker: 'speaker',
+  UserRole.admin: 'admin',
+};

@@ -12,10 +12,11 @@ class Event {
     required this.isOpenDoor,
     required this.dateTime,
     required this.categoriesIds,
-    this.roomId,
+    required this.room,
     this.meetingLink,
     this.targetCourse,
     this.targetCourseUnit,
+    this.maxVacancies,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
@@ -32,12 +33,13 @@ class Event {
   final bool isOpenDoor;
   @JsonKey(name: 'date_time')
   final DateTime dateTime;
-  @JsonKey(name: 'room_id')
-  final String? roomId;
+  final String room;
   @JsonKey(name: 'meeting_link')
   final String? meetingLink;
   @JsonKey(name: 'target_course')
   final String? targetCourse;
   @JsonKey(name: 'target_course_unit')
   final String? targetCourseUnit;
+  @JsonKey(name: 'maximum_capacity')
+  final int? maxVacancies;
 }

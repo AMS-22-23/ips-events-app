@@ -16,10 +16,11 @@ Event _$EventFromJson(Map<String, dynamic> json) => Event(
       categoriesIds: (json['categories_ids'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      roomId: json['room_id'] as String?,
+      room: json['room'] as String,
       meetingLink: json['meeting_link'] as String?,
       targetCourse: json['target_course'] as String?,
       targetCourseUnit: json['target_course_unit'] as String?,
+      maxVacancies: json['maximum_capacity'] as int?,
     );
 
 Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
@@ -30,8 +31,9 @@ Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
       'is_online': instance.isOnline,
       'is_open_door': instance.isOpenDoor,
       'date_time': instance.dateTime.toIso8601String(),
-      'room_id': instance.roomId,
+      'room': instance.room,
       'meeting_link': instance.meetingLink,
       'target_course': instance.targetCourse,
       'target_course_unit': instance.targetCourseUnit,
+      'maximum_capacity': instance.maxVacancies,
     };

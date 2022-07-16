@@ -106,10 +106,11 @@ class _SettingsNavMenu extends StatelessWidget {
                         size: 20,
                         color: Colors.white,
                       ),
-                      title: Text(state.userProfile.role),
+                      title: Text(
+                        state.userProfile.role.name,
+                      ),
                       textColor: Colors.white,
                       dense: true,
-
                       // padding: EdgeInsets.zero,
                     ),
                     ListTile(
