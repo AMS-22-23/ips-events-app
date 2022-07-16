@@ -6,7 +6,6 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:core_components/core_components.dart';
-import 'package:flutter/foundation.dart';
 import 'package:ips_events_manager/admin_web_app/ips_events_admin_app.dart';
 import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/view/auth_page.dart';
@@ -45,10 +44,7 @@ class App extends StatelessWidget {
       ),
       navigatorKey:
           MetaCollection.instance.retrieve<GlobalKey<NavigatorState>>(),
-      initialRoute: defaultTargetPlatform == TargetPlatform.android ||
-              defaultTargetPlatform == TargetPlatform.iOS
-          ? AppRoutes.auth.toRoute()
-          : AppRoutes.webApp.toRoute(),
+      initialRoute: AppRoutes.auth.toRoute(),
       routes: {
         AppRoutes.auth.toRoute(): (context) => const AuthPage(),
         AppRoutes.mainNav.toRoute(): (context) => const IpsEvents(),

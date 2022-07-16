@@ -1,4 +1,5 @@
 import 'package:core_components/core_components.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/cubit/auth_cubit.dart';
 import 'package:meta_components/meta_components.dart';
@@ -35,8 +36,14 @@ class _AuthPage extends StatelessWidget {
                 final GlobalKey<NavigatorState> navigatorKey = MetaCollection
                     .instance
                     .retrieve<GlobalKey<NavigatorState>>();
-                navigatorKey.currentState!
-                    .pushNamed(AppRoutes.mainNav.toRoute());
+
+                final routeToPush =
+                    defaultTargetPlatform == TargetPlatform.android ||
+                            defaultTargetPlatform == TargetPlatform.iOS
+                        ? AppRoutes.mainNav.toRoute()
+                        : AppRoutes.webApp.toRoute();
+
+                navigatorKey.currentState!.pushNamed(routeToPush);
               }
             },
             child: Container(),
