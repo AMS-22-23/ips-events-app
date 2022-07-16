@@ -70,10 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1087071113834',
     projectId: 'ips-events-manager',
     storageBucket: 'ips-events-manager.appspot.com',
-    androidClientId:
-        '1087071113834-7671mt2t7ce2umtbugu4in4cf7qcdjlu.apps.googleusercontent.com',
-    iosClientId:
-        '1087071113834-lg8il9gqhcouv7d2q9jvcgbb1nt7p8k4.apps.googleusercontent.com',
+    androidClientId: '1087071113834-7671mt2t7ce2umtbugu4in4cf7qcdjlu.apps.googleusercontent.com',
+    iosClientId: '1087071113834-lg8il9gqhcouv7d2q9jvcgbb1nt7p8k4.apps.googleusercontent.com',
     iosBundleId: 'com.ips-events-manager',
   );
 }

@@ -10,6 +10,10 @@
       "type": "dart",
       "program": "lib/main_development.dart",
       "args": [
+        "--web-port",
+        "6565",
+        "--web-hostname",
+        "localhost",
         "--flavor",
         "development",
         "--target",
@@ -21,14 +25,24 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main_staging.dart",
-      "args": ["--flavor", "staging", "--target", "lib/main_staging.dart"]
+      "args": [
+        "--flavor",
+        "staging",
+        "--target",
+        "lib/main_staging.dart"
+      ]
     },
     {
       "name": "Launch production",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_production.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_production.dart"]
+      "args": [
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main_production.dart"
+      ]
     }
   ]
 }

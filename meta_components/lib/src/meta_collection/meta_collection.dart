@@ -5,6 +5,7 @@ import 'package:meta_components/src/meta_collection/meta_archiver.dart';
 class MetaCollection {
   static final instance = MetaArchive.instance;
   late PtBrandHttpCLient? _httpCLient;
+  late GlobalKey<NavigatorState> _navigatorLey;
 
   Archiver initDev() {
     _initDependencies();
@@ -21,12 +22,12 @@ class MetaCollection {
       )
       ..archive(
         Entry<GlobalKey<NavigatorState>>(
-          builder: () => GlobalKey<NavigatorState>(),
+          builder: () => _navigatorLey,
         ),
       )
       ..archive(
         Entry<AadConfig>(
-          builder: () => AadConfig(),
+          builder: () => AadConfig(navigatorKey: _navigatorLey),
         ),
       );
   }
@@ -46,12 +47,12 @@ class MetaCollection {
       )
       ..archive(
         Entry<GlobalKey<NavigatorState>>(
-          builder: () => GlobalKey<NavigatorState>(),
+          builder: () => _navigatorLey,
         ),
       )
       ..archive(
         Entry<AadConfig>(
-          builder: () => AadConfig(),
+          builder: () => AadConfig(navigatorKey: _navigatorLey),
         ),
       );
   }
@@ -63,5 +64,6 @@ class MetaCollection {
       ),
     );
     _httpCLient = PtBrandHttpCLient();
+    _navigatorLey = GlobalKey<NavigatorState>();
   }
 }

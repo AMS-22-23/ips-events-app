@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  aad_oauth: ^0.3.0
+  aad_oauth: ^0.4.0
   core_components:
     path: ../core_components
   dio: ^4.0.6 #http client
