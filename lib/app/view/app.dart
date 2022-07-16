@@ -10,7 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:ips_events_manager/admin_web_app/ips_events_admin_app.dart';
 import 'package:ips_events_manager/app/routes/app_routes.dart';
 import 'package:ips_events_manager/auth/view/auth_page.dart';
-import 'package:ips_events_manager/create_event/create_event.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events.dart';
 import 'package:ips_events_manager/theme/colors.dart';
 import 'package:meta_components/meta_components.dart';
@@ -54,7 +53,6 @@ class App extends StatelessWidget {
         AppRoutes.auth.toRoute(): (context) => const AuthPage(),
         AppRoutes.mainNav.toRoute(): (context) => const IpsEvents(),
         AppRoutes.webApp.toRoute(): (context) => const EventsAdminApp(),
-        AppRoutes.createEvent.toRoute(): (context) => const CreateEventPage(),
       },
     );
   }

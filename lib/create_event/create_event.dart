@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:core_components/core_components.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 
@@ -25,6 +28,16 @@ class _CreateEventPageState extends State<CreateEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentDate = DateTime.now();
+    final firstDateToPick = currentDate.weekday == 6
+        ? currentDate.add(const Duration(days: 2))
+        : currentDate.weekday == 7
+            ? currentDate.add(const Duration(days: 1))
+            : currentDate;
+
+    final categories =
+        BlocProvider.of<EventCategoryCubit>(context).state.categories;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -130,28 +143,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           spacing: 5,
                           runSpacing: 5,
                           selectedColor: lightBlack,
-                          options: const [
-                            FormBuilderChipOption(
-                              value: 'Test',
-                              child: Text('Test'),
-                            ),
-                            FormBuilderChipOption(
-                              value: 'Test 1',
-                              child: Text('Test 1'),
-                            ),
-                            FormBuilderChipOption(
-                              value: 'Test 2',
-                              child: Text('Test 2'),
-                            ),
-                            FormBuilderChipOption(
-                              value: 'Test 3',
-                              child: Text('Test 3'),
-                            ),
-                            FormBuilderChipOption(
-                              value: 'Test 4',
-                              child: Text('Test 4'),
-                            ),
-                          ],
+                          options: List<FormBuilderChipOption<String>>.generate(
+                              categories?.length ?? 0, (i) {
+                            final currentCategory = categories!.elementAt(i);
+                            return FormBuilderChipOption(
+                              value: currentCategory.name,
+                              child: Text(currentCategory.name),
+                            );
+                          }),
                         ),
                       ),
                       EventsPadding(
@@ -162,9 +161,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           type: DateTimePickerType.dateTimeSeparate,
                           cursorColor: darkBlack,
                           dateMask: 'd MMM, yyyy',
-                          firstDate: DateTime.now(),
+                          initialDate: firstDateToPick,
+                          firstDate: firstDateToPick,
                           lastDate:
-                              DateTime.now().add(const Duration(days: 30)),
+                              firstDateToPick.add(const Duration(days: 30)),
                           icon: Icon(
                             MdiIcons.calendar,
                             color: darkBlack,
@@ -188,7 +188,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               DateTime.parse(val!);
                               return null;
                             } catch (e) {
-                              return 'Preencha a data e hora';
+                              log(e.toString());
+                              return 'Obrigatório';
                             }
                           },
                           onSaved: print,
@@ -241,7 +242,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

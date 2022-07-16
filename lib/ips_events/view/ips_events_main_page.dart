@@ -1,5 +1,7 @@
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/app/routes/app_routes.dart';
+import 'package:ips_events_manager/create_event/create_event.dart';
+import 'package:ips_events_manager/create_event/cubit/events_create_cubit.dart';
+import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
 import 'package:ips_events_manager/widgets/icons/icons.dart';
@@ -19,6 +21,8 @@ class _EventsPageState extends State<EventsPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final categoryCubit = BlocProvider.of<EventCategoryCubit>(context);
+    final createCubit = BlocProvider.of<EventsCreateCubit>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -27,9 +31,21 @@ class _EventsPageState extends State<EventsPage>
         ),
         actions: [
           IconButton(
-            onPressed: () => Navigator.pushNamed(
+            onPressed: () => Navigator.push(
               context,
-              AppRoutes.createEvent.toRoute(),
+              MaterialPageRoute<void>(
+                builder: (_) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<EventCategoryCubit>.value(
+                      value: categoryCubit,
+                    ),
+                    BlocProvider<EventsCreateCubit>.value(
+                      value: createCubit,
+                    ),
+                  ],
+                  child: const CreateEventPage(),
+                ),
+              ),
             ),
             icon: DarkIcon(
               MdiIcons.plusBox,
