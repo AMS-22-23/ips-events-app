@@ -11,7 +11,7 @@
       "program": "lib/main_development.dart",
       "args": [
         "--web-port",
-        "6565",
+        "8483",
         "--web-hostname",
         "localhost",
         "--flavor",
