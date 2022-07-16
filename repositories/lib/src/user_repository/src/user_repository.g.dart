@@ -46,7 +46,7 @@ class _UserRepository implements UserRepository {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UserProfile>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user',
+                .compose(_dio.options, '/user/profile',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserProfile.fromJson(_result.data!);
@@ -54,7 +54,7 @@ class _UserRepository implements UserRepository {
   }
 
   @override
-  Future<ModelListing<User>> getUsers(
+  Future<List<User>> getUsers(
       {search,
       limit = 25,
       sortingField,
@@ -73,21 +73,19 @@ class _UserRepository implements UserRepository {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ModelListing<User>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ModelListing<User>.fromJson(
-      _result.data!,
-      (json) => User.fromJson(json as Map<String, dynamic>),
-    );
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/user',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => User.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<User> getSingleUser(userId) async {
+  Future<User> getSingleUser({required userId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -102,7 +100,7 @@ class _UserRepository implements UserRepository {
   }
 
   @override
-  Future<void> updateUserRole(userId, userRole) async {
+  Future<void> updateUserRole({required userId, required userRole}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

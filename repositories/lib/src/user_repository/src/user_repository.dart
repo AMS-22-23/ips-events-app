@@ -19,11 +19,11 @@ abstract class UserRepository {
     @Part(contentType: 'image/jpeg') required File avatar,
   });
 
-  @GET('/user')
+  @GET('/user/profile')
   Future<UserProfile> getUserProfile();
 
   @GET('/user')
-  Future<ModelListing<User>> getUsers({
+  Future<List<User>> getUsers({
     @Query('search') String? search,
     @Query('limit') int limit = 25,
     @Query('sort_field ') String? sortingField,
@@ -33,13 +33,13 @@ abstract class UserRepository {
   });
 
   @GET('/user/{id}')
-  Future<User> getSingleUser(
-    @Path('id') String userId,
-  );
+  Future<User> getSingleUser({
+    @Path('id') required String userId,
+  });
 
   @PUT('/user/{id}/role')
-  Future<void> updateUserRole(
-    @Path('id') String userId,
-    @Body() UserRole userRole,
-  );
+  Future<void> updateUserRole({
+    @Path('id') required String userId,
+    @Body() required UserRole userRole,
+  });
 }

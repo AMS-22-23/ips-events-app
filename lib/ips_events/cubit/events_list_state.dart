@@ -15,7 +15,7 @@ class EventsListLoadSuccess extends EventsListState {
   const EventsListLoadSuccess({
     required this.events,
   });
-  final ModelListing<EventPreview> events;
+  final List<EventPreview> events;
 }
 
 class EventsListLoadError extends EventsListState {}

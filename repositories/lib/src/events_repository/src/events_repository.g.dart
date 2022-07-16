@@ -16,7 +16,7 @@ class _EventsRepository implements EventsRepository {
   String? baseUrl;
 
   @override
-  Future<ModelListing<EventPreview>> getEvents(
+  Future<List<EventPreview>> getEvents(
       {search,
       startDateString,
       endDateString,
@@ -45,16 +45,15 @@ class _EventsRepository implements EventsRepository {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ModelListing<EventPreview>>(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<EventPreview>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/event',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ModelListing<EventPreview>.fromJson(
-      _result.data!,
-      (json) => EventPreview.fromJson(json as Map<String, dynamic>),
-    );
+    var value = _result.data!
+        .map((dynamic i) => EventPreview.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -104,7 +103,8 @@ class _EventsRepository implements EventsRepository {
   }
 
   @override
-  Future<void> updateEventRecordingLink(eventId, link) async {
+  Future<void> updateEventRecordingLink(
+      {required eventId, required link}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

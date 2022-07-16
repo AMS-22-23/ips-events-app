@@ -13,10 +13,8 @@ EventRoom _$EventRoomFromJson(Map<String, dynamic> json) => EventRoom(
       floor: json['floor'] as int,
       number: json['number'] as int,
       subdivision: json['subdivision'] as String?,
-      latitude:
-          json['latitude'] == null ? null : double.parse(json['latitude']),
-      longitude:
-          json['longitude'] == null ? null : double.parse(json['longitude']),
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$EventRoomToJson(EventRoom instance) => <String, dynamic>{
