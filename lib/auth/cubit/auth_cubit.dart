@@ -33,7 +33,11 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
 
-      IpsEventsAnalytics.recordAnalytic(eventName: 'testEvent');
+      IpsEventsAnalytics.recordAnalytic(eventName: 'event_test');   
+       
+      
+      
+     
 
       emit(AuthSuccess(accessToken));
     } on Object catch (e) {

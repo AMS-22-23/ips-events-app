@@ -19,13 +19,15 @@ class EventCategoryCubit extends Cubit<EventCategoryState> {
     try {
       emit(EventCategoryLoadInProgress(categories: state.categories));
       final categories = await categoriesRepository.getCategories();
+      IpsEventsAnalytics.recordAnalytic (eventName: 'categories_load_success');
       emit(EventCategoryLoadSuccess(categories: categories));
     } catch (e) {
       log(e.toString());
       emit(EventCategoryLoadError(categories: state.categories));
     }
   }
-
+ 
+      
   void selectCategory(EventCategory category) {
     try {
       if (category == state.currentCategory) {

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
+import 'package:core_components/core_components.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +50,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       final filePath = rawFilePath.replaceAll(r'\', '/');
 
       final imageBytes = await getImagesBytes(filePath);
-
+       IpsEventsAnalytics.recordAnalytic (eventName: 'login_success');
       final profile = UserProfile(
         email: userProfile.email,
         id: userProfile.id,
