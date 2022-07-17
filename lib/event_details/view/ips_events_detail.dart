@@ -1,5 +1,4 @@
 import 'package:core_components/core_components.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ips_events_manager/event_attendance/cubit/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/event_attendance/view/event_attendance.dart';
@@ -53,6 +52,10 @@ class _EventDetailsDelegate extends StatelessWidget {
             eventId: details.id,
             speakerName: details.speaker,
             vacancies: details.availableSeats,
+            targetUnit: details.targetCourseUnit,
+            targetCourse: details.targetCourse,
+            eventRoom: details.room,
+            eventCategories: details.categories,
           );
         }
         return const SizedBox();
@@ -70,6 +73,10 @@ class _EventDetailsInfo extends StatelessWidget {
     required this.description,
     required this.vacancies,
     required this.filledVacancies,
+    required this.targetUnit,
+    required this.targetCourse,
+    required this.eventRoom,
+    required this.eventCategories,
     Key? key,
   }) : super(key: key);
 
@@ -80,6 +87,10 @@ class _EventDetailsInfo extends StatelessWidget {
   final String description;
   final int? vacancies;
   final int filledVacancies;
+  final String? targetUnit;
+  final String? targetCourse;
+  final String? eventRoom;
+  final List<EventCategory> eventCategories;
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +168,35 @@ class _EventDetailsInfo extends StatelessWidget {
                           child: IpsEventsText.title(eventName),
                         ),
                         IpsEventsText.subTitle('By $speakerName'),
+                        if (targetUnit != null)
+                          _DetailsIconInfo(
+                            title: 'Unidade Orgânica Alvo',
+                            subtitle: targetUnit!,
+                            icon: MdiIcons.bookInformationVariant,
+                          ),
+                        if (targetCourse != null)
+                          _DetailsIconInfo(
+                            title: 'Curso Alvo',
+                            subtitle: targetCourse!,
+                            icon: MdiIcons.bookEducation,
+                          ),
+                        if (eventRoom != null)
+                          _DetailsIconInfo(
+                            title: 'Sala Do Evento',
+                            subtitle: eventRoom!,
+                            icon: MdiIcons.bookAccount,
+                          ),
+                        if (eventCategories.isNotEmpty)
+                          _DetailsIconInfo(
+                            title: 'Categorias',
+                            subtitle: eventCategories
+                                .map((category) => category.name)
+                                .toList()
+                                .reduce(
+                                  (value, element) => '$value, $element',
+                                ),
+                            icon: MdiIcons.lightbulbOn,
+                          ),
                         EventsPadding(
                           padding: EventsEdgeInsets.only(
                             top: EventsSize.large,
@@ -168,7 +208,7 @@ class _EventDetailsInfo extends StatelessWidget {
                             vertical: EventsSize.normalSmaller,
                           ),
                           child: IpsEventsText.greyBody(
-                            lorem(paragraphs: 2, words: 40),
+                            description,
                           ),
                         ),
                         const Spacer(),
@@ -191,6 +231,56 @@ class _EventDetailsInfo extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _DetailsIconInfo extends StatelessWidget {
+  const _DetailsIconInfo({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    Key? key,
+  }) : super(key: key);
+
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return EventsPadding(
+      padding: EventsEdgeInsets.only(
+        top: EventsSize.large,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EventsPadding(
+            padding: EventsEdgeInsets.only(
+              bottom: EventsSize.xxSmall,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  color: darkBlack,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                IpsEventsText.title2(
+                  title,
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          IpsEventsText.subTitle(subtitle),
+        ],
       ),
     );
   }

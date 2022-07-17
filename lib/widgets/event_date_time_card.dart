@@ -18,6 +18,8 @@ class EventDateTimeCard extends StatelessWidget {
   final int filledVacancies;
   final VoidCallback onButtonTap;
 
+  bool get hasVacancies => vacancies != null;
+
   @override
   Widget build(BuildContext context) {
     final monthString = DateFormat.MMMM().format(dateTime);
@@ -25,7 +27,7 @@ class EventDateTimeCard extends StatelessWidget {
     final weekday = DateFormat.EEEE().format(dateTime);
     final time = DateFormat.Hm().format(dateTime);
     final vacanciesString =
-        vacancies != null ? '$filledVacancies/$vacancies' : '$filledVacancies';
+        hasVacancies ? '$filledVacancies/$vacancies' : '$filledVacancies';
 
     return Container(
       height: 80,
@@ -71,7 +73,7 @@ class EventDateTimeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IpsEventsText.darkBody(
-                  vacancies != null ? 'Vagas' : 'Inscritos',
+                  hasVacancies ? 'Vagas' : 'Inscritos',
                 ),
                 const SizedBox(
                   height: 12,
@@ -79,10 +81,14 @@ class EventDateTimeCard extends StatelessWidget {
                 IpsEventsText.subTitle(vacanciesString),
               ],
             ),
-            DarkIconTextButton(
-              onTap: onButtonTap,
-              icon: MdiIcons.bookPlus,
-              text: 'Inscrever',
+            SizedBox(
+              width: 80,
+              child: DarkIconTextButton(
+                onTap: hasVacancies ? onButtonTap : null,
+                icon:
+                    hasVacancies ? MdiIcons.bookPlus : MdiIcons.accountMultiple,
+                text: hasVacancies ? 'Inscrever' : 'Livre',
+              ),
             )
           ],
         ),
