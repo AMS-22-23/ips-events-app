@@ -7,6 +7,7 @@ class IpsEventsText extends StatelessWidget {
     this.fontSize,
     required this.color,
     this.fontWeight,
+    this.textAlign,
     Key? key,
   }) : super(key: key);
 
@@ -80,15 +81,27 @@ class IpsEventsText extends StatelessWidget {
     );
   }
 
+  factory IpsEventsText.iconLabel(String text) {
+    return IpsEventsText._(
+      text: text,
+      textAlign: TextAlign.center,
+      color: Colors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+    );
+  }
+
   final double? fontSize;
   final String text;
   final Color color;
   final FontWeight? fontWeight;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: textAlign,
       style: TextStyle(
         fontSize: fontSize,
         color: color,
