@@ -12,10 +12,11 @@ class EventsListCubit extends Cubit<EventsListState> {
 
   final EventsRepository eventsRepository;
 
-  Future<void> getEvents() async {
+  Future<void> getEvents({String? categoryId}) async {
     try {
       emit(EventsListLoadInProgress());
-      final eventsList = await eventsRepository.getEvents();
+      final eventsList =
+          await eventsRepository.getEvents(categoryId: categoryId);
       emit(EventsListLoadSuccess(events: eventsList));
     } catch (e) {
       log(e.toString());

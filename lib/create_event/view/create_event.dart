@@ -308,8 +308,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             selectedColor: lightBlack,
                             options:
                                 List<FormBuilderChipOption<String>>.generate(
-                                    categories?.length ?? 0, (i) {
-                              final currentCategory = categories!.elementAt(i);
+                                    categories.length ?? 0, (i) {
+                              final currentCategory = categories.elementAt(i);
                               return FormBuilderChipOption(
                                 value: currentCategory.id,
                                 child: Text(currentCategory.name),

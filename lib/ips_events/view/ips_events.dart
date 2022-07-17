@@ -39,6 +39,7 @@ class IpsEvents extends StatelessWidget {
           create: (context) => EventCategoryCubit(
             categoriesRepository:
                 RepositoryCollection.instance.retrieve<CategoriesRepository>(),
+            eventsListCubit: BlocProvider.of<EventsListCubit>(context),
           )..getCategories(),
         )
       ],

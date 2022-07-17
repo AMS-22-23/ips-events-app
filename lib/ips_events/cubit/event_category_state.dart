@@ -1,18 +1,24 @@
 part of 'event_category_cubit.dart';
 
 class EventCategoryState extends Equatable {
-  const EventCategoryState({this.categories, this.currentIndex = 0});
-  final List<EventCategory>? categories;
+  const EventCategoryState({required this.categories, this.currentIndex = -1});
+  final List<EventCategory> categories;
   final int currentIndex;
-  @override
-  List<Object> get props => [currentIndex];
+
+  EventCategory? get currentCategory =>
+      currentIndex < 0 ? null : categories.elementAt(currentIndex);
 
   EventCategoryState copyWithIndex(int index) {
     return EventCategoryState(categories: categories, currentIndex: index);
   }
+
+  @override
+  List<Object> get props => [categories, currentIndex];
 }
 
-class EventCategoryLoadInProgress extends EventCategoryState {}
+class EventCategoryLoadInProgress extends EventCategoryState {
+  const EventCategoryLoadInProgress({required super.categories});
+}
 
 class EventCategoryLoadSuccess extends EventCategoryState {
   const EventCategoryLoadSuccess({
@@ -20,4 +26,6 @@ class EventCategoryLoadSuccess extends EventCategoryState {
   }) : super(categories: categories);
 }
 
-class EventCategoryLoadError extends EventCategoryState {}
+class EventCategoryLoadError extends EventCategoryState {
+  const EventCategoryLoadError({required super.categories});
+}

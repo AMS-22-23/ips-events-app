@@ -2,9 +2,11 @@ import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/create_event/cubit/events_create_cubit.dart';
 import 'package:ips_events_manager/create_event/view/create_event.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
+import 'package:ips_events_manager/ips_events/cubit/events_list_cubit.dart';
 import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
 import 'package:ips_events_manager/ips_events/view/events_list.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
+import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/widgets/icons/icons.dart';
 import 'package:repositories/repositories.dart';
 
@@ -65,14 +67,18 @@ class _EventsPageState extends State<EventsPage>
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
       ),
-      body: Column(
-        children: const [
-          SizedBox(
-            height: 100,
-            child: EventCategoryList(),
-          ),
-          Expanded(child: EventsList()),
-        ],
+      body: RefreshIndicator(
+        color: darkBlack,
+        onRefresh: () => BlocProvider.of<EventsListCubit>(context).getEvents(),
+        child: Column(
+          children: const [
+            SizedBox(
+              height: 100,
+              child: EventCategoryList(),
+            ),
+            Expanded(child: EventsList()),
+          ],
+        ),
       ),
     );
   }

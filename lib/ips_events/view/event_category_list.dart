@@ -16,15 +16,14 @@ class EventCategoryList extends StatelessWidget {
       ),
       child: BlocBuilder<EventCategoryCubit, EventCategoryState>(
         builder: (context, state) {
-          if (state.categories == null) return const SizedBox();
           return ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: state.categories!.length,
+            itemCount: state.categories.length,
             separatorBuilder: (_, index) => const SizedBox(
               width: 10,
             ),
             itemBuilder: (_, index) {
-              final category = state.categories!.elementAt(index);
+              final category = state.categories.elementAt(index);
               return _EventCategoryItem(
                 isSelected: index == state.currentIndex,
                 categoryLabel: category.name,
