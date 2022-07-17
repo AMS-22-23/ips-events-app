@@ -4,17 +4,21 @@ import 'dart:developer';
 import 'package:beacon_broadcast/beacon_broadcast.dart';
 import 'package:core_components/core_components.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:repositories/repositories.dart';
 
 part 'event_attendance_state.dart';
 
 class EventAttendanceCubit extends Cubit<EventAttendanceState> {
-  EventAttendanceCubit({required this.uuid})
-      : beaconBroadcast = BeaconBroadcast(),
+  EventAttendanceCubit({
+    required this.permissionsRepository,
+    required this.uuid,
+  })  : beaconBroadcast = BeaconBroadcast(),
         super(EventAttendanceInitial());
 
   late StreamSubscription<BluetoothState> _flutterBlueStateSubscription;
   late StreamSubscription<bool> _flutterBaconAdvertisingSubscription;
   final BeaconBroadcast beaconBroadcast;
+  final PermissionsRepository permissionsRepository;
   final String uuid;
 
   Future<void> init() async {
@@ -48,6 +52,12 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
   Future<void> startBeacon() async {
     try {
       emit(EventAttendanceLoadInProgress());
+
+      final isBluetoothAdvertisePermissionEnabled =
+          await permissionsRepository.requestBluetoothAdvertisePermission();
+      if (isBluetoothAdvertisePermissionEnabled == false) {
+        return emit(EventAttendanceNoPermission());
+      }
 
       final transmissionSupportStatus =
           await beaconBroadcast.checkTransmissionSupported();

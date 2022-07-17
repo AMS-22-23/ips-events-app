@@ -15,6 +15,8 @@ class EventAttendanceAdvertising extends EventAttendanceState {}
 
 class EventAttendanceBluetoothOff extends EventAttendanceState {}
 
+class EventAttendanceNoPermission extends EventAttendanceState {}
+
 class EventAttendanceNotSupported extends EventAttendanceState {}
 
 class EventAttendanceError extends EventAttendanceState {}
