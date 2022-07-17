@@ -526,7 +526,7 @@ packages:
     source: hosted
     version: "2.1.2"
   geolocator:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: geolocator
       url: "https://pub.dartlang.org"
@@ -581,6 +581,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  haversine_distance:
+    dependency: "direct main"
+    description:
+      name: haversine_distance
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.1"
   http:
     dependency: "direct main"
     description:
