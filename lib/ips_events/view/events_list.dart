@@ -66,12 +66,6 @@ class EventsList extends StatelessWidget {
           value: BlocProvider.of<UserProfileCubit>(context),
           child: EventDetails(
             eventId: eventId,
-            eventName: 'eventName',
-            date: DateTime(2022, 8, 12, 9),
-            speakerName: 'speakerName',
-            filledVacancies: 2,
-            vacancies: 10,
-            description: 'some very specific description of this event',
           ),
         ),
       ),

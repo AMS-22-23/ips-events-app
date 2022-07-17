@@ -14,16 +14,18 @@ class EventDateTimeCard extends StatelessWidget {
   }) : super(key: key);
 
   final DateTime dateTime;
-  final int vacancies;
+  final int? vacancies;
   final int filledVacancies;
   final VoidCallback onButtonTap;
+
   @override
   Widget build(BuildContext context) {
     final monthString = DateFormat.MMMM().format(dateTime);
     final day = DateFormat.d().format(dateTime);
     final weekday = DateFormat.EEEE().format(dateTime);
     final time = DateFormat.Hm().format(dateTime);
-    final endTime = DateFormat.Hm().format(dateTime);
+    final vacanciesString =
+        vacancies != null ? '$filledVacancies/$vacancies' : '$filledVacancies';
 
     return Container(
       height: 80,
@@ -51,13 +53,12 @@ class EventDateTimeCard extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 IpsEventsText.darkBody(weekday),
                 const SizedBox(
                   height: 12,
                 ),
-                IpsEventsText.subTitle('$time - $endTime'),
+                IpsEventsText.subTitle(time),
               ],
             ),
             VerticalDivider(
@@ -69,11 +70,13 @@ class EventDateTimeCard extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IpsEventsText.darkBody('Vagas'),
+                IpsEventsText.darkBody(
+                  vacancies != null ? 'Vagas' : 'Inscritos',
+                ),
                 const SizedBox(
                   height: 12,
                 ),
-                IpsEventsText.subTitle('$filledVacancies/$vacancies'),
+                IpsEventsText.subTitle(vacanciesString),
               ],
             ),
             DarkIconTextButton(

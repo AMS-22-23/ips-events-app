@@ -1,14 +1,68 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ips_events_manager/event_attendance/cubit/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/event_attendance/view/event_attendance.dart';
+import 'package:ips_events_manager/event_details/cubit/event_details_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 import 'package:repositories/repositories.dart';
 
 class EventDetails extends StatelessWidget {
-  const EventDetails({
+  const EventDetails({required this.eventId, Key? key}) : super(key: key);
+
+  final String eventId;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<EventDetailsCubit>(
+      create: (context) => EventDetailsCubit(
+        eventsRepository:
+            RepositoryCollection.instance.retrieve<EventsRepository>(),
+      )..getEventDetails(eventId: eventId),
+      child: const _EventDetailsDelegate(),
+    );
+  }
+}
+
+class _EventDetailsDelegate extends StatelessWidget {
+  const _EventDetailsDelegate({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<EventDetailsCubit, EventDetailsState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        if (state is EventDetailsLoadInProgress) {
+          return Center(
+            child: SpinKitCubeGrid(
+              color: lightBlack,
+            ),
+          );
+        } else if (state is EventDetailsLoadSuccess) {
+          final details = state.details;
+
+          return _EventDetailsInfo(
+            date: details.startDate,
+            eventName: details.title,
+            description: details.description,
+            filledVacancies: details.busySeats,
+            eventId: details.id,
+            speakerName: details.speaker,
+            vacancies: details.availableSeats,
+          );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+}
+
+class _EventDetailsInfo extends StatelessWidget {
+  const _EventDetailsInfo({
     required this.eventId,
     required this.eventName,
     required this.date,
@@ -24,7 +78,7 @@ class EventDetails extends StatelessWidget {
   final DateTime date;
   final String speakerName;
   final String description;
-  final int vacancies;
+  final int? vacancies;
   final int filledVacancies;
 
   @override

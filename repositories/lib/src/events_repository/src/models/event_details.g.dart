@@ -13,8 +13,8 @@ EventDetails _$EventDetailsFromJson(Map<String, dynamic> json) => EventDetails(
       speaker: json['speaker'] as String,
       isOnline: json['is_online'] as bool,
       startDate: DateTime.parse(json['date_time'] as String),
-      categoriesIds: (json['categories_ids'] as List<dynamic>)
-          .map((e) => e as String)
+      categories: (json['categories'] as List<dynamic>)
+          .map((e) => EventCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
       busySeats: json['busy_seats'] as int,
       confirmedAttendances: json['confirmed_attendances'] as int,
@@ -23,9 +23,7 @@ EventDetails _$EventDetailsFromJson(Map<String, dynamic> json) => EventDetails(
       eventCreator: json['created_by'] == null
           ? null
           : EventCreator.fromJson(json['created_by'] as Map<String, dynamic>),
-      room: json['room'] == null
-          ? null
-          : EventRoom.fromJson(json['room'] as Map<String, dynamic>),
+      room: json['room'] as String?,
       meetingLink: json['meeting_link'] as String?,
       targetCourse: json['target_course'] as String?,
       targetCourseUnit: json['target_course_unit'] as String?,
@@ -43,7 +41,7 @@ Map<String, dynamic> _$EventDetailsToJson(EventDetails instance) =>
       'description': instance.description,
       'speaker': instance.speaker,
       'created_by': instance.eventCreator,
-      'categories_ids': instance.categoriesIds,
+      'categories': instance.categories,
       'room': instance.room,
       'meeting_link': instance.meetingLink,
       'target_course': instance.targetCourse,

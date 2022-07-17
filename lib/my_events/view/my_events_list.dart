@@ -19,7 +19,7 @@ class MyEventsList extends StatelessWidget {
             eventName: 'eventName',
             date: DateTime(2022, index, index, index),
             speakerName: 'speakerName',
-            onTap: () => _onTap(context),
+            // onTap: () => _onTap(context),
           );
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -31,18 +31,12 @@ class MyEventsList extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext context) {
+  void _onTap(BuildContext context, String eventId) {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
         builder: (context) => EventDetails(
-          eventId: 'id1',
-          eventName: 'eventName',
-          date: DateTime(2022, 8, 12, 9),
-          speakerName: 'speakerName',
-          filledVacancies: 2,
-          vacancies: 10,
-          description: 'some very specific description of this event',
+          eventId: eventId,
         ),
       ),
     );

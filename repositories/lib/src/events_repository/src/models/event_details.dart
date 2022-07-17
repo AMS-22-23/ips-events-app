@@ -1,5 +1,5 @@
 import 'package:meta_components/meta_components.dart';
-import 'package:repositories/src/events_repository/src/models/models.dart';
+import 'package:repositories/repositories.dart';
 
 part 'event_details.g.dart';
 
@@ -12,7 +12,7 @@ class EventDetails {
     required this.speaker,
     required this.isOnline,
     required this.startDate,
-    required this.categoriesIds,
+    required this.categories,
     required this.busySeats,
     required this.confirmedAttendances,
     required this.isOpenDoor,
@@ -38,9 +38,8 @@ class EventDetails {
 
   @JsonKey(name: 'created_by')
   final EventCreator? eventCreator;
-  @JsonKey(name: 'categories_ids')
-  final List<String> categoriesIds;
-  final EventRoom? room;
+  final List<EventCategory> categories;
+  final String? room;
 
   @JsonKey(name: 'meeting_link')
   final String? meetingLink;
