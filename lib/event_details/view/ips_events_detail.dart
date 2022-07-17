@@ -1,7 +1,7 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ips_events_manager/attendance/cubit/event_attendance_cubit.dart';
-import 'package:ips_events_manager/event_attendance/cubit/cubit/event_attendance_cubit.dart';
+import 'package:ips_events_manager/event_attendance/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/event_attendance/view/event_attendance.dart';
 import 'package:ips_events_manager/event_details/cubit/event_details_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
@@ -90,8 +90,9 @@ class _EventDetailsInfo extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (_) => BlocProvider<EventAttendanceCubit>.value(
-                    value: EventAttendanceCubit(),
+                  builder: (_) => BlocProvider<EventAttendanceCubit>(
+                    create: (context) =>
+                        EventAttendanceCubit(uuid: details.uuid)..init(),
                     child: const EventAttendancePage(),
                   ),
                 ),

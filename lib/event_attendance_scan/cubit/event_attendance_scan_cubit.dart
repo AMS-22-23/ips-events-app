@@ -13,6 +13,12 @@ class EventAttendanceScanCubit extends Cubit<EventAttendanceScanState> {
 
   Future<void> init() async {
     try {
+      // if you need to monitor also major and minor use the original version and not this fork
+      await BeaconsPlugin.addRegion(
+        'myBeacon',
+        '39ED98FF-2900-441A-802F-9C398FC199D20',
+      ).then(print);
+
       await BeaconsPlugin.runInBackground(false);
 
       //IMPORTANT: Start monitoring once scanner is setup & ready (only for Android)
@@ -32,12 +38,12 @@ class EventAttendanceScanCubit extends Cubit<EventAttendanceScanState> {
       beaconEventsController.stream.listen(
         (data) {
           if (data.isNotEmpty) {
-            print('Beacons DataReceived: $data');
+            log('Beacons DataReceived: $data');
           }
         },
         onDone: () {},
         onError: (dynamic error) {
-          print('Error: $error');
+          log('Error: $error');
         },
       );
     } catch (e) {

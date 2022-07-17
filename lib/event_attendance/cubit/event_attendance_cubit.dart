@@ -8,13 +8,14 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 part 'event_attendance_state.dart';
 
 class EventAttendanceCubit extends Cubit<EventAttendanceState> {
-  EventAttendanceCubit()
+  EventAttendanceCubit({required this.uuid})
       : beaconBroadcast = BeaconBroadcast(),
         super(EventAttendanceInitial());
 
   late StreamSubscription<BluetoothState> _flutterBlueStateSubscription;
   late StreamSubscription<bool> _flutterBaconAdvertisingSubscription;
   final BeaconBroadcast beaconBroadcast;
+  final String uuid;
 
   Future<void> init() async {
     try {
@@ -59,11 +60,8 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
           break;
       }
 
-      await beaconBroadcast
-          .setUUID('39ED98FF-2900-441A-802F-9C398FC199D2')
-          .setMajorId(1)
-          .setMinorId(100)
-          .start();
+      log(uuid);
+      await beaconBroadcast.setUUID(uuid).setMajorId(1).setMinorId(1).start();
 
       IpsEventsAnalytics.recordAnalytic(
         eventName: 'event_attendance_advertising',
