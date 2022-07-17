@@ -31,9 +31,9 @@ class _EventsPageState extends State<EventsPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Events',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          t(LocaleKeys.events),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           if (profileState is UserProfileLoadSuccess &&

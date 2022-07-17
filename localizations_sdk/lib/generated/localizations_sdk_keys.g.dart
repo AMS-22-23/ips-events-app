@@ -1,6 +1,9 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const date = 'date';
   static const hour = 'hour';
+  static const event = 'event';
+  static const events = 'events';
+
 }

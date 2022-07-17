@@ -26,7 +26,7 @@ class _MainNavigationState extends State<MainNavigation> {
                   /// Home
                   SalomonBottomBarItem(
                     icon: const Icon(Icons.home),
-                    title: const Text('Home'),
+                    title: Text(t(LocaleKeys.event)),
                     selectedColor: Colors.purple,
                   ),
 

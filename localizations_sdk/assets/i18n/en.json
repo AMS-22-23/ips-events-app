@@ -1,4 +1,6 @@
 {
     "date": "Date",
-    "hour": "Hour"
+    "hour": "Hour",
+    "event": "Event",
+    "events": "Events"
 }

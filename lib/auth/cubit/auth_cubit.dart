@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:core_components/core_components.dart';
@@ -31,6 +32,8 @@ class AuthCubit extends Cubit<AuthState> {
           builder: () => AuthToken(token: apiLogin.accessToken),
         ),
       );
+
+      IpsEventsAnalytics.recordAnalytic(eventName: 'testEvent');
 
       emit(AuthSuccess(accessToken));
     } on Object catch (e) {

@@ -13,6 +13,7 @@ class EventCategoryList extends StatelessWidget {
         top: EventsSize.large,
         bottom: EventsSize.large,
         left: EventsSize.normal,
+        right: EventsSize.normal,
       ),
       child: BlocBuilder<EventCategoryCubit, EventCategoryState>(
         builder: (context, state) {
@@ -24,11 +25,21 @@ class EventCategoryList extends StatelessWidget {
             ),
             itemBuilder: (_, index) {
               final category = state.categories.elementAt(index);
-              return _EventCategoryItem(
-                isSelected: index == state.currentIndex,
-                categoryLabel: category.name,
-                onTap: () => BlocProvider.of<EventCategoryCubit>(context)
-                    .selectCategory(category),
+              return EventsPadding(
+                padding: EventsEdgeInsets.only(
+                  top: EventsSize.xSmall,
+                  bottom: EventsSize.xSmall,
+                  left: index == 0 ? EventsSize.xxSmall : EventsSize.none,
+                  right: index == state.categories.length - 1
+                      ? EventsSize.xxSmall
+                      : EventsSize.none,
+                ),
+                child: _EventCategoryItem(
+                  isSelected: index == state.currentIndex,
+                  categoryLabel: category.name,
+                  onTap: () => BlocProvider.of<EventCategoryCubit>(context)
+                      .selectCategory(category),
+                ),
               );
             },
           );
@@ -56,7 +67,16 @@ class _EventCategoryItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 40,
-        color: isSelected ? darkBlack : Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: isSelected ? darkBlack : Colors.white,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 2,
+              offset: Offset(2, 2), // shadow direction: bottom right
+            )
+          ],
+        ),
         child: EventsPadding(
           padding: EventsEdgeInsets.all(EventsSize.small),
           child: Row(
