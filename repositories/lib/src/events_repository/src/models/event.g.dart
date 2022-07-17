@@ -16,7 +16,7 @@ Event _$EventFromJson(Map<String, dynamic> json) => Event(
       categoriesIds: (json['categories_ids'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      room: json['room'] as String,
+      room: json['room'] as String?,
       meetingLink: json['meeting_link'] as String?,
       targetCourse: json['target_course'] as String?,
       targetCourseUnit: json['target_course_unit'] as String?,

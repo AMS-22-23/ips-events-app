@@ -2,9 +2,11 @@ import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/cubit/events_list_cubit.dart';
 import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
+import 'package:ips_events_manager/my_events/cubit/my_events_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/settings_nav_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/settings_nav/view/settings_nav.dart';
+import 'package:ips_events_manager/user_attendance/cubit/event_user_attendance_cubit.dart';
 import 'package:repositories/repositories.dart';
 
 class IpsEvents extends StatelessWidget {
@@ -14,8 +16,8 @@ class IpsEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SettingsNavCubit>(
-          create: (context) => SettingsNavCubit(
+        BlocProvider<CameraAccessCubit>(
+          create: (context) => CameraAccessCubit(
             permissionsRepository:
                 RepositoryCollection.instance.retrieve<PermissionsRepository>(),
           )..setUpCamera(),
@@ -41,9 +43,21 @@ class IpsEvents extends StatelessWidget {
                 RepositoryCollection.instance.retrieve<CategoriesRepository>(),
             eventsListCubit: BlocProvider.of<EventsListCubit>(context),
           )..getCategories(),
+        ),
+        BlocProvider<EventUserAttendanceCubit>(
+          create: (context) => EventUserAttendanceCubit(
+            eventAttendanceRepository: RepositoryCollection.instance
+                .retrieve<EventAttendanceRepository>(),
+          ),
+        ),
+        BlocProvider<MyEventsCubit>(
+          create: (context) => MyEventsCubit(
+            eventsRepository:
+                RepositoryCollection.instance.retrieve<EventsRepository>(),
+          )..getMyEvents(),
         )
       ],
-      child: const SettingsNavigation(),
+      child: SettingsNavigation(),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/ips_events/view/event_category_list.dart';
-import 'package:ips_events_manager/ips_events/view/events_list.dart';
+import 'package:ips_events_manager/my_events/view/my_events_list.dart';
 
 class MyEventsPage extends StatefulWidget {
   const MyEventsPage({Key? key}) : super(key: key);
@@ -30,11 +29,7 @@ class _MyEventsPageState extends State<MyEventsPage>
       ),
       body: Column(
         children: const [
-          SizedBox(
-            height: 100,
-            child: EventCategoryList(),
-          ),
-          Expanded(child: EventsList()),
+          Expanded(child: MyEventsList()),
         ],
       ),
     );

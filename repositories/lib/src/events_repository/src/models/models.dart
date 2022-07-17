@@ -1,3 +1,4 @@
+export 'attendee_event.dart';
 export 'event.dart';
 export 'event_creator.dart';
 export 'event_details.dart';

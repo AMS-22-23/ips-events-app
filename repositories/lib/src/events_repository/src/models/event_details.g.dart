@@ -8,6 +8,7 @@ part of 'event_details.dart';
 
 EventDetails _$EventDetailsFromJson(Map<String, dynamic> json) => EventDetails(
       id: json['id'] as String,
+      uuid: json['uuid'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
       speaker: json['speaker'] as String,
@@ -20,6 +21,7 @@ EventDetails _$EventDetailsFromJson(Map<String, dynamic> json) => EventDetails(
       confirmedAttendances: json['confirmed_attendances'] as int,
       isOpenDoor: json['is_open_door'] as bool,
       isOver: json['is_over'] as bool,
+      isAttendee: json['is_attendee'] as bool,
       eventCreator: json['created_by'] == null
           ? null
           : EventCreator.fromJson(json['created_by'] as Map<String, dynamic>),
@@ -37,6 +39,7 @@ EventDetails _$EventDetailsFromJson(Map<String, dynamic> json) => EventDetails(
 Map<String, dynamic> _$EventDetailsToJson(EventDetails instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'uuid': instance.uuid,
       'title': instance.title,
       'description': instance.description,
       'speaker': instance.speaker,
@@ -55,4 +58,5 @@ Map<String, dynamic> _$EventDetailsToJson(EventDetails instance) =>
       'is_online': instance.isOnline,
       'is_open_door': instance.isOpenDoor,
       'is_over': instance.isOver,
+      'is_attendee': instance.isAttendee,
     };

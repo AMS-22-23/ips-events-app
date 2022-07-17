@@ -1,7 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/widgets/event_date_label.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class EventPanel extends StatelessWidget {
   const EventPanel({
@@ -19,12 +18,28 @@ class EventPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Material(
-        elevation: onTap != null ? 0 : 20,
+    return Container(
+      padding: EventsEdgeInsets.all(EventsSize.xSmall),
+      child: InkWell(
+        onTap: onTap,
         child: Container(
-          color: Colors.purple,
+          decoration: BoxDecoration(
+            color: Colors.purple,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(4),
+              bottomRight: Radius.circular(4),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: const Offset(5, 10), // changes position of shadow
+              ),
+            ],
+          ),
           height: 200,
           child: EventsPadding(
             padding: EventsEdgeInsets.all(EventsSize.normal),

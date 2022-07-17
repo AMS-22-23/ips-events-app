@@ -26,6 +26,10 @@
       "type": "dart",
       "program": "lib/main_staging.dart",
       "args": [
+        "--web-port",
+        "8483",
+        "--web-hostname",
+        "localhost",
         "--flavor",
         "staging",
         "--target",

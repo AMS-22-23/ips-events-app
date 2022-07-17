@@ -12,7 +12,7 @@ UserRoleBody _$UserRoleBodyFromJson(Map<String, dynamic> json) => UserRoleBody(
 
 Map<String, dynamic> _$UserRoleBodyToJson(UserRoleBody instance) =>
     <String, dynamic>{
-      'role': _$UserRoleEnumMap[instance.role],
+      'role': _$UserRoleEnumMap[instance.role]!,
     };
 
 const _$UserRoleEnumMap = {

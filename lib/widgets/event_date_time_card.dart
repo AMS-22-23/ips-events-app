@@ -10,13 +10,17 @@ class EventDateTimeCard extends StatelessWidget {
     required this.vacancies,
     required this.filledVacancies,
     required this.onButtonTap,
+    required this.isAttendee,
     Key? key,
   }) : super(key: key);
 
   final DateTime dateTime;
   final int? vacancies;
   final int filledVacancies;
-  final VoidCallback onButtonTap;
+  final bool isAttendee;
+  final VoidCallback? onButtonTap;
+
+  bool get hasVacancies => vacancies != null;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class EventDateTimeCard extends StatelessWidget {
     final weekday = DateFormat.EEEE().format(dateTime);
     final time = DateFormat.Hm().format(dateTime);
     final vacanciesString =
-        vacancies != null ? '$filledVacancies/$vacancies' : '$filledVacancies';
+        hasVacancies ? '$filledVacancies/$vacancies' : '$filledVacancies';
 
     return Container(
       height: 80,
@@ -71,7 +75,7 @@ class EventDateTimeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IpsEventsText.darkBody(
-                  vacancies != null ? 'Vagas' : 'Inscritos',
+                  hasVacancies ? 'Vagas' : 'Inscritos',
                 ),
                 const SizedBox(
                   height: 12,
@@ -79,10 +83,18 @@ class EventDateTimeCard extends StatelessWidget {
                 IpsEventsText.subTitle(vacanciesString),
               ],
             ),
-            DarkIconTextButton(
-              onTap: onButtonTap,
-              icon: MdiIcons.bookPlus,
-              text: 'Inscrever',
+            SizedBox(
+              width: 80,
+              child: DarkIconTextButton(
+                onTap: hasVacancies ? onButtonTap : null,
+                icon:
+                    hasVacancies ? MdiIcons.bookPlus : MdiIcons.accountMultiple,
+                text: isAttendee
+                    ? 'Inscrito'
+                    : hasVacancies
+                        ? 'Inscrever'
+                        : 'Livre',
+              ),
             )
           ],
         ),

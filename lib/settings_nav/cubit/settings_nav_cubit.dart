@@ -7,12 +7,10 @@ import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 part 'settings_nav_state.dart';
 
-final GlobalKey<SideMenuState> _menuStateKey = GlobalKey<SideMenuState>();
-
-class SettingsNavCubit extends Cubit<SettingsNavState> {
-  SettingsNavCubit({
+class CameraAccessCubit extends Cubit<SettingsNavState> {
+  CameraAccessCubit({
     required this.permissionsRepository,
-  }) : super(SettingsNavState(menuStateKey: _menuStateKey));
+  }) : super(const SettingsNavState());
 
   final PermissionsRepository permissionsRepository;
 
@@ -29,22 +27,12 @@ class SettingsNavCubit extends Cubit<SettingsNavState> {
         );
         emit(
           SettingsNavState(
-            menuStateKey: state.menuStateKey,
             camera: currentCamera,
           ),
         );
       }
     } catch (e) {
       log(e.toString());
-    }
-  }
-
-  void triggerMenu() {
-    final _state = state.menuStateKey.currentState;
-    if (_state!.isOpened) {
-      _state.closeSideMenu();
-    } else {
-      _state.openSideMenu();
     }
   }
 }

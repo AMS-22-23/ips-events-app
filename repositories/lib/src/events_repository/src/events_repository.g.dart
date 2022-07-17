@@ -58,6 +58,30 @@ class _EventsRepository implements EventsRepository {
   }
 
   @override
+  Future<List<AttendeeEvent>> getAttendeeEvents(
+      {search, startDateString, endDateString}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'search': search,
+      r'start_date': startDateString,
+      r'end_date': endDateString
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<AttendeeEvent>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user/attendee',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => AttendeeEvent.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<void> createEvent({required event}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
