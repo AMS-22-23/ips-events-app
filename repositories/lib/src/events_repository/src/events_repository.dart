@@ -22,6 +22,13 @@ abstract class EventsRepository {
     @Query('previous') String? previousPageCursor,
   });
 
+  @GET('/user/attendee')
+  Future<List<AttendeeEvent>> getAttendeeEvents({
+    @Query('search') String? search,
+    @Query('start_date') String? startDateString,
+    @Query('end_date') String? endDateString,
+  });
+
   @POST('/event')
   Future<void> createEvent({
     @Body() required Event event,

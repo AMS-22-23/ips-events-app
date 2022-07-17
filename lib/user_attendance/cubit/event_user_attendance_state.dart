@@ -1,4 +1,4 @@
-part of 'event_attendance_cubit.dart';
+part of 'event_user_attendance_cubit.dart';
 
 abstract class EventUserAttendanceState extends Equatable {
   const EventUserAttendanceState();

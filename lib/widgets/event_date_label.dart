@@ -14,7 +14,7 @@ class EventDateLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 110,
+      width: 130,
       height: 35,
       color: darkBlack,
       child: EventsPadding(
@@ -23,13 +23,11 @@ class EventDateLabel extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(dateString),
-            const Text(
-              '| ',
-              style: TextStyle(
-                fontSize: 25,
-                height: 1,
-              ),
-              textAlign: TextAlign.center,
+            const VerticalDivider(
+              thickness: 2,
+              endIndent: 0,
+              width: 5,
+              color: Colors.white,
             ),
             Text(timeString),
           ],
