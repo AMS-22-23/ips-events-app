@@ -1,4 +1,5 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/event_attendance_scan/view/beacons_list.dart';
 
 class EventAttendanceScanPage extends StatefulWidget {
   const EventAttendanceScanPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class EventAttendanceScanPage extends StatefulWidget {
 class _EventAttendanceScanPageState extends State<EventAttendanceScanPage>
     with AutomaticKeepAliveClientMixin {
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,11 @@ class _EventAttendanceScanPageState extends State<EventAttendanceScanPage>
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
       ),
-      body: Container(),
+      body: Column(
+        children: const [
+          Expanded(child: BeaconsList()),
+        ],
+      ),
     );
   }
 }

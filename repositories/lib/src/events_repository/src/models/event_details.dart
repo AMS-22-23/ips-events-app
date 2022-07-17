@@ -7,6 +7,7 @@ part 'event_details.g.dart';
 class EventDetails {
   EventDetails({
     required this.id,
+    required this.uuid,
     required this.title,
     required this.description,
     required this.speaker,
@@ -32,6 +33,7 @@ class EventDetails {
   Map<String, dynamic> toJson() => _$EventDetailsToJson(this);
 
   final String id;
+  final String uuid;
   final String title;
   final String description;
   final String speaker;

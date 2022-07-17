@@ -1,6 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:ips_events_manager/event_attendance/cubit/cubit/event_attendance_cubit.dart';
+import 'package:ips_events_manager/event_attendance/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
 import 'package:ips_events_manager/widgets/texts/ips_events_texts.dart';
 
@@ -57,11 +57,13 @@ class EventAttendancePage extends StatelessWidget {
       case EventAttendanceAdvertising:
         return const Icon(
           MdiIcons.cellphoneNfc,
+          color: Colors.green,
           size: 200,
         );
       default:
         return const Icon(
           MdiIcons.cellphoneNfcOff,
+          color: Colors.red,
           size: 200,
         );
     }
