@@ -26,21 +26,21 @@ class _MainNavigationState extends State<MainNavigation> {
                   /// Home
                   SalomonBottomBarItem(
                     icon: const Icon(Icons.home),
-                    title: Text(t(LocaleKeys.event)),
+                    title: Text(t(LocaleKeys.events)),
                     selectedColor: Colors.purple,
                   ),
 
                   /// Likes
                   SalomonBottomBarItem(
                     icon: const Icon(MdiIcons.calendarAccount),
-                    title: const Text('Likes'),
+                    title: const Text('Meus Eventos'),
                     selectedColor: Colors.pink,
                   ),
 
                   /// Search
                   SalomonBottomBarItem(
-                    icon: const Icon(Icons.search),
-                    title: const Text('Search'),
+                    icon: const Icon(MdiIcons.qrcodeScan),
+                    title: const Text('Presenças'),
                     selectedColor: Colors.orange,
                   ),
                 ],

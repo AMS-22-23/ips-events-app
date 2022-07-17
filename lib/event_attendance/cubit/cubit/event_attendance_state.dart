@@ -8,3 +8,13 @@ abstract class EventAttendanceState extends Equatable {
 }
 
 class EventAttendanceInitial extends EventAttendanceState {}
+
+class EventAttendanceLoadInProgress extends EventAttendanceState {}
+
+class EventAttendanceAdvertising extends EventAttendanceState {}
+
+class EventAttendanceBluetoothOff extends EventAttendanceState {}
+
+class EventAttendanceNotSupported extends EventAttendanceState {}
+
+class EventAttendanceError extends EventAttendanceState {}

@@ -1,5 +1,7 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/create_event/cubit/events_create_cubit.dart';
+import 'package:ips_events_manager/event_attendance_scan/cubit/event_attendance_scan_cubit.dart';
+import 'package:ips_events_manager/event_attendance_scan/view/event_attendance_scan.dart';
 import 'package:ips_events_manager/ips_events/view/ips_events_main_page.dart';
 import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
 import 'package:ips_events_manager/my_events/view/my_events_page.dart';
@@ -40,8 +42,9 @@ class _IpsEventsPagesState extends State<IpsEventsPages> {
             child: const EventsPage(),
           ),
           const MyEventsPage(),
-          const Center(
-            child: Text('3'),
+          BlocProvider<EventAttendanceScanCubit>(
+            create: (context) => EventAttendanceScanCubit()..init(),
+            child: const EventAttendanceScanPage(),
           ),
         ],
       ),
