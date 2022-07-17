@@ -1,14 +1,17 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:ips_events_manager/event_attendance/cubit/cubit/event_attendance_cubit.dart';
+import 'package:ips_events_manager/event_attendance/view/event_attendance.dart';
+import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/colors.dart';
-import 'package:ips_events_manager/widgets/texts/texts.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
+import 'package:repositories/repositories.dart';
 
 class EventDetails extends StatelessWidget {
   const EventDetails({
+    required this.eventId,
     required this.eventName,
     required this.date,
-    required this.endDate,
     required this.speakerName,
     required this.description,
     required this.vacancies,
@@ -16,15 +19,18 @@ class EventDetails extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  final String eventId;
   final String eventName;
   final DateTime date;
-  final DateTime endDate;
   final String speakerName;
   final String description;
   final int vacancies;
   final int filledVacancies;
+
   @override
   Widget build(BuildContext context) {
+    final profileState = context.watch<UserProfileCubit>().state;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -42,6 +48,26 @@ class EventDetails extends StatelessWidget {
           ),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          if (profileState is UserProfileLoadSuccess &&
+              (profileState.userProfile.role == UserRole.admin ||
+                  profileState.userProfile.role == UserRole.speaker))
+            IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => BlocProvider<EventAttendanceCubit>.value(
+                    value: EventAttendanceCubit(),
+                    child: const EventAttendancePage(),
+                  ),
+                ),
+              ),
+              icon: DarkIcon(
+                MdiIcons.cellphoneNfc,
+                size: 30,
+              ),
+            )
+        ],
       ),
       body: SafeArea(
         child: LayoutBuilder(
@@ -99,7 +125,6 @@ class EventDetails extends StatelessWidget {
                           child: EventDateTimeCard(
                             onButtonTap: () => null,
                             dateTime: date,
-                            endDateTime: endDate,
                             vacancies: vacancies,
                             filledVacancies: filledVacancies,
                           ),

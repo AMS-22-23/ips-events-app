@@ -7,7 +7,6 @@ import 'package:ips_events_manager/widgets/texts/texts.dart';
 class EventDateTimeCard extends StatelessWidget {
   const EventDateTimeCard({
     required this.dateTime,
-    required this.endDateTime,
     required this.vacancies,
     required this.filledVacancies,
     required this.onButtonTap,
@@ -15,7 +14,6 @@ class EventDateTimeCard extends StatelessWidget {
   }) : super(key: key);
 
   final DateTime dateTime;
-  final DateTime endDateTime;
   final int vacancies;
   final int filledVacancies;
   final VoidCallback onButtonTap;

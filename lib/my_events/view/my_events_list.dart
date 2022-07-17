@@ -36,13 +36,13 @@ class MyEventsList extends StatelessWidget {
       context,
       MaterialPageRoute<void>(
         builder: (context) => EventDetails(
+          eventId: 'id1',
           eventName: 'eventName',
           date: DateTime(2022, 8, 12, 9),
           speakerName: 'speakerName',
           filledVacancies: 2,
           vacancies: 10,
           description: 'some very specific description of this event',
-          endDate: DateTime(2022, 8, 12, 11),
         ),
       ),
     );
