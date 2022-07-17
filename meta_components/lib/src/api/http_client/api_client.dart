@@ -3,8 +3,8 @@ import 'package:meta_components/src/api/auth_interceptor.dart';
 
 class PtBrandHttpCLient {
   static BaseOptions _options(String baseUrl) => BaseOptions(
-        connectTimeout: 8000,
-        receiveTimeout: 10000,
+        connectTimeout: 15000,
+        receiveTimeout: 20000,
         baseUrl: baseUrl,
       );
 
