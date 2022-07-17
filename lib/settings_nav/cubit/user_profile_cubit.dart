@@ -37,18 +37,29 @@ class UserProfileCubit extends Cubit<UserProfileState> {
           MetaCollection.instance.retrieve<AppCredentials>() as AppCredentials;
 
       String rawFilePath;
+      Uint8List? imageBytes;
+      late String filePath;
 
-      if (kDebugMode) {
-        rawFilePath =
-            '${apiCredentials.apiBaseUrl}:${apiCredentials.port}${Uri.file(userProfile.avatar!.path).toFilePath()}';
-      } else {
-        rawFilePath =
-            '${apiCredentials.apiBaseUrl}/${Uri.file(userProfile.avatar!.path).toFilePath()}';
+      if (userProfile.avatar != null) {
+        if (kDebugMode) {
+          final AppCredentials apiCredentials =
+              MetaCollection.instance.retrieve<AppCredentials>();
+          if (apiCredentials == AppCredentials.development()) {
+            rawFilePath =
+                '${apiCredentials.apiBaseUrl}:${apiCredentials.port}${Uri.file(userProfile.avatar!.path).toFilePath()}';
+          } else {
+            rawFilePath =
+                '${apiCredentials.apiBaseUrl}${Uri.file(userProfile.avatar!.path).toFilePath()}';
+          }
+        } else {
+          rawFilePath =
+              '${apiCredentials.apiBaseUrl}/${Uri.file(userProfile.avatar!.path).toFilePath()}';
+        }
+
+        filePath = rawFilePath.replaceAll(r'\', '/');
+
+        imageBytes = await getImagesBytes(filePath);
       }
-
-      final filePath = rawFilePath.replaceAll(r'\', '/');
-
-      final imageBytes = await getImagesBytes(filePath);
 
       final profile = UserProfile(
         email: userProfile.email,
