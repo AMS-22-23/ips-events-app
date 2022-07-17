@@ -2,7 +2,9 @@ import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ips_events_manager/event_details/view/ips_events_detail.dart';
 import 'package:ips_events_manager/my_events/cubit/my_events_cubit.dart';
+import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
+import 'package:ips_events_manager/user_attendance/cubit/event_user_attendance_cubit.dart';
 import 'package:ips_events_manager/widgets/event_panel.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
@@ -35,7 +37,7 @@ class MyEventsList extends StatelessWidget {
                   speakerName: event.speaker,
                   onTap: () => _onTap(
                     context,
-                    event.id,
+                    eventId: event.id,
                   ),
                 );
               },
@@ -52,12 +54,25 @@ class MyEventsList extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext context, String eventId) {
+  void _onTap(
+    BuildContext context, {
+    required String eventId,
+  }) {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (context) => EventDetailsPage(
-          eventId: eventId,
+        builder: (_) => MultiBlocProvider(
+          providers: [
+            BlocProvider<UserProfileCubit>.value(
+              value: BlocProvider.of<UserProfileCubit>(context),
+            ),
+            BlocProvider<EventUserAttendanceCubit>.value(
+              value: BlocProvider.of<EventUserAttendanceCubit>(context),
+            ),
+          ],
+          child: EventDetailsPage(
+            eventId: eventId,
+          ),
         ),
       ),
     );

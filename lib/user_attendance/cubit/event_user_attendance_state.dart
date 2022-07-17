@@ -7,10 +7,10 @@ abstract class EventUserAttendanceState extends Equatable {
   List<Object> get props => [];
 }
 
-class EventAttendanceInitial extends EventUserAttendanceState {}
+class EventUserAttendanceInitial extends EventUserAttendanceState {}
 
-class EventAttendanceLoadInProgress extends EventUserAttendanceState {}
+class EventUserAttendanceLoadInProgress extends EventUserAttendanceState {}
 
-class EventAttendanceLoadSuccess extends EventUserAttendanceState {}
+class EventUserAttendanceLoadSuccess extends EventUserAttendanceState {}
 
-class EventAttendanceLoadError extends EventUserAttendanceState {}
+class EventUserAttendanceLoadError extends EventUserAttendanceState {}

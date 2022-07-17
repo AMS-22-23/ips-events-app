@@ -8,18 +8,19 @@ part 'event_user_attendance_state.dart';
 
 class EventUserAttendanceCubit extends Cubit<EventUserAttendanceState> {
   EventUserAttendanceCubit({required this.eventAttendanceRepository})
-      : super(EventAttendanceInitial());
+      : super(EventUserAttendanceInitial());
 
   final EventAttendanceRepository eventAttendanceRepository;
 
   Future<void> addUserAttendance({required String eventId}) async {
     try {
-      emit(EventAttendanceLoadInProgress());
+      emit(EventUserAttendanceLoadInProgress());
+      await Future<void>.delayed(const Duration(seconds: 3));
       await eventAttendanceRepository.addAttendee(eventId: eventId);
-      emit(EventAttendanceLoadSuccess());
+      emit(EventUserAttendanceLoadSuccess());
     } catch (e) {
       log(e.toString());
-      emit(EventAttendanceLoadError());
+      emit(EventUserAttendanceLoadError());
     }
   }
 }

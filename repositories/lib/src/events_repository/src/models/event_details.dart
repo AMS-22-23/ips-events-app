@@ -18,6 +18,7 @@ class EventDetails {
     required this.confirmedAttendances,
     required this.isOpenDoor,
     required this.isOver,
+    required this.isAttendee,
     this.eventCreator,
     this.room,
     this.meetingLink,
@@ -70,4 +71,6 @@ class EventDetails {
   final bool isOpenDoor;
   @JsonKey(name: 'is_over')
   final bool isOver;
+  @JsonKey(name: 'is_attendee')
+  final bool isAttendee;
 }

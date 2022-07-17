@@ -10,13 +10,15 @@ class EventDateTimeCard extends StatelessWidget {
     required this.vacancies,
     required this.filledVacancies,
     required this.onButtonTap,
+    required this.isAttendee,
     Key? key,
   }) : super(key: key);
 
   final DateTime dateTime;
   final int? vacancies;
   final int filledVacancies;
-  final VoidCallback onButtonTap;
+  final bool isAttendee;
+  final VoidCallback? onButtonTap;
 
   bool get hasVacancies => vacancies != null;
 
@@ -87,7 +89,11 @@ class EventDateTimeCard extends StatelessWidget {
                 onTap: hasVacancies ? onButtonTap : null,
                 icon:
                     hasVacancies ? MdiIcons.bookPlus : MdiIcons.accountMultiple,
-                text: hasVacancies ? 'Inscrever' : 'Livre',
+                text: isAttendee
+                    ? 'Inscrito'
+                    : hasVacancies
+                        ? 'Inscrever'
+                        : 'Livre',
               ),
             )
           ],

@@ -7,6 +7,7 @@ import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/user_attendance/cubit/event_user_attendance_cubit.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:repositories/repositories.dart';
 
 class EventDetailsPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class EventDetailsPage extends StatelessWidget {
         eventsRepository:
             RepositoryCollection.instance.retrieve<EventsRepository>(),
       )..getEventDetails(eventId: eventId),
-      child: const _EventDetailsInfo(),
+      child: const LoaderOverlay(child: _EventDetailsInfo()),
     );
   }
 }
@@ -77,134 +78,150 @@ class _EventDetailsInfo extends StatelessWidget {
                   )
         ],
       ),
-      body: BlocBuilder<EventDetailsCubit, EventDetailsState>(
-        builder: (context, state) {
-          if (state is EventDetailsLoadInProgress) {
-            return Center(
-              child: SpinKitCubeGrid(
-                color: lightBlack,
-              ),
-            );
-          } else if (state is EventDetailsLoadSuccess) {
-            final details = state.details;
+      body: BlocListener<EventUserAttendanceCubit, EventUserAttendanceState>(
+        listener: (context, state) {
+          if (state is EventUserAttendanceLoadInProgress) {
+            context.loaderOverlay.show();
+          } else if (state is EventUserAttendanceLoadSuccess) {
+            context.loaderOverlay.hide();
+            Navigator.pop(context);
+          }
+        },
+        child: BlocBuilder<EventDetailsCubit, EventDetailsState>(
+          builder: (context, state) {
+            if (state is EventDetailsLoadInProgress) {
+              return Center(
+                child: SpinKitCubeGrid(
+                  color: lightBlack,
+                ),
+              );
+            } else if (state is EventDetailsLoadSuccess) {
+              final details = state.details;
 
-            return SafeArea(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minWidth: constraints.maxWidth,
-                        minHeight: constraints.maxHeight,
-                      ),
-                      child: IntrinsicHeight(
-                        child: EventsPadding(
-                          padding: EventsEdgeInsets.symmetric(
-                            horizontal: EventsSize.normal,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              EventsPadding(
-                                padding: EventsEdgeInsets.symmetric(
-                                  vertical: EventsSize.normal,
+              return SafeArea(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minWidth: constraints.maxWidth,
+                          minHeight: constraints.maxHeight,
+                        ),
+                        child: IntrinsicHeight(
+                          child: EventsPadding(
+                            padding: EventsEdgeInsets.symmetric(
+                              horizontal: EventsSize.normal,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                EventsPadding(
+                                  padding: EventsEdgeInsets.symmetric(
+                                    vertical: EventsSize.normal,
+                                  ),
+                                  child: EventPanel(
+                                    eventName: details.title,
+                                    date: details.startDate,
+                                    speakerName: details.speaker,
+                                  ),
                                 ),
-                                child: EventPanel(
-                                  eventName: details.title,
-                                  date: details.startDate,
-                                  speakerName: details.speaker,
+                                EventsPadding(
+                                  padding: EventsEdgeInsets.symmetric(
+                                    vertical: EventsSize.normalSmaller,
+                                  ),
+                                  child: IpsEventsText.title(details.title),
                                 ),
-                              ),
-                              EventsPadding(
-                                padding: EventsEdgeInsets.symmetric(
-                                  vertical: EventsSize.normalSmaller,
+                                IpsEventsText.subTitle('By ${details.speaker}'),
+                                if (details.targetCourseUnit != null)
+                                  _DetailsIconInfo(
+                                    title: 'Unidade Orgânica Alvo',
+                                    subtitle: details.targetCourseUnit!,
+                                    icon: MdiIcons.bookInformationVariant,
+                                  ),
+                                if (details.targetCourse != null)
+                                  _DetailsIconInfo(
+                                    title: 'Curso Alvo',
+                                    subtitle: details.targetCourse!,
+                                    icon: MdiIcons.bookEducation,
+                                  ),
+                                if (details.room != null)
+                                  _DetailsIconInfo(
+                                    title: 'Sala Do Evento',
+                                    subtitle: details.room!,
+                                    icon: MdiIcons.bookAccount,
+                                  ),
+                                if (details.categories.isNotEmpty)
+                                  _DetailsIconInfo(
+                                    title: 'Categorias',
+                                    subtitle: details.categories
+                                        .map((category) => category.name)
+                                        .toList()
+                                        .reduce(
+                                          (value, element) => ', ',
+                                        ),
+                                    icon: MdiIcons.lightbulbOn,
+                                  ),
+                                if (details.isOnline)
+                                  _DetailsIconInfo(
+                                    title: 'Evento Online',
+                                    subtitle: 'Link: ${details.meetingLink}',
+                                    icon: MdiIcons.microsoftTeams,
+                                  )
+                                else
+                                  _DetailsIconInfo(
+                                    title: 'Evento Presencial',
+                                    subtitle: 'Sala: ${details.room}',
+                                    icon: MdiIcons.bookAccount,
+                                  ),
+                                EventsPadding(
+                                  padding: EventsEdgeInsets.only(
+                                    top: EventsSize.large,
+                                  ),
+                                  child: IpsEventsText.title2(
+                                    'Descrição do Evento',
+                                  ),
                                 ),
-                                child: IpsEventsText.title(details.title),
-                              ),
-                              IpsEventsText.subTitle('By ${details.speaker}'),
-                              if (details.targetCourseUnit != null)
-                                _DetailsIconInfo(
-                                  title: 'Unidade Orgânica Alvo',
-                                  subtitle: details.targetCourseUnit!,
-                                  icon: MdiIcons.bookInformationVariant,
+                                EventsPadding(
+                                  padding: EventsEdgeInsets.symmetric(
+                                    vertical: EventsSize.normalSmaller,
+                                  ),
+                                  child: IpsEventsText.greyBody(
+                                    details.description,
+                                  ),
                                 ),
-                              if (details.targetCourse != null)
-                                _DetailsIconInfo(
-                                  title: 'Curso Alvo',
-                                  subtitle: details.targetCourse!,
-                                  icon: MdiIcons.bookEducation,
+                                const Spacer(),
+                                EventsPadding(
+                                  padding: EventsEdgeInsets.symmetric(
+                                    vertical: EventsSize.small,
+                                  ),
+                                  child: EventDateTimeCard(
+                                    isAttendee: details.isAttendee,
+                                    onButtonTap: details.isAttendee
+                                        ? null
+                                        : () => BlocProvider.of<
+                                                EventUserAttendanceCubit>(
+                                              context,
+                                            ).addUserAttendance(
+                                              eventId: details.id,
+                                            ),
+                                    dateTime: details.startDate,
+                                    vacancies: details.availableSeats,
+                                    filledVacancies: details.busySeats,
+                                  ),
                                 ),
-                              if (details.room != null)
-                                _DetailsIconInfo(
-                                  title: 'Sala Do Evento',
-                                  subtitle: details.room!,
-                                  icon: MdiIcons.bookAccount,
-                                ),
-                              if (details.categories.isNotEmpty)
-                                _DetailsIconInfo(
-                                  title: 'Categorias',
-                                  subtitle: details.categories
-                                      .map((category) => category.name)
-                                      .toList()
-                                      .reduce(
-                                        (value, element) => ', ',
-                                      ),
-                                  icon: MdiIcons.lightbulbOn,
-                                ),
-                              if (details.isOnline)
-                                _DetailsIconInfo(
-                                  title: 'Evento Online',
-                                  subtitle: 'Link: ${details.meetingLink}',
-                                  icon: MdiIcons.microsoftTeams,
-                                )
-                              else
-                                _DetailsIconInfo(
-                                  title: 'Evento Presencial',
-                                  subtitle: 'Sala: ${details.room}',
-                                  icon: MdiIcons.bookAccount,
-                                ),
-                              EventsPadding(
-                                padding: EventsEdgeInsets.only(
-                                  top: EventsSize.large,
-                                ),
-                                child:
-                                    IpsEventsText.title2('Descrição do Evento'),
-                              ),
-                              EventsPadding(
-                                padding: EventsEdgeInsets.symmetric(
-                                  vertical: EventsSize.normalSmaller,
-                                ),
-                                child: IpsEventsText.greyBody(
-                                  details.description,
-                                ),
-                              ),
-                              const Spacer(),
-                              EventsPadding(
-                                padding: EventsEdgeInsets.symmetric(
-                                  vertical: EventsSize.small,
-                                ),
-                                child: EventDateTimeCard(
-                                  onButtonTap: () =>
-                                      BlocProvider.of<EventUserAttendanceCubit>(
-                                    context,
-                                  ).addUserAttendance(eventId: details.id),
-                                  dateTime: details.startDate,
-                                  vacancies: details.availableSeats,
-                                  filledVacancies: details.busySeats,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            );
-          }
-          return const SizedBox();
-        },
+                    );
+                  },
+                ),
+              );
+            }
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }
