@@ -9,8 +9,8 @@ part 'settings_nav_state.dart';
 
 final GlobalKey<SideMenuState> _menuStateKey = GlobalKey<SideMenuState>();
 
-class SettingsNavCubit extends Cubit<SettingsNavState> {
-  SettingsNavCubit({
+class CameraAccessCubit extends Cubit<SettingsNavState> {
+  CameraAccessCubit({
     required this.permissionsRepository,
   }) : super(SettingsNavState(menuStateKey: _menuStateKey));
 
@@ -36,15 +36,6 @@ class SettingsNavCubit extends Cubit<SettingsNavState> {
       }
     } catch (e) {
       log(e.toString());
-    }
-  }
-
-  void triggerMenu() {
-    final _state = state.menuStateKey.currentState;
-    if (_state!.isOpened) {
-      _state.closeSideMenu();
-    } else {
-      _state.openSideMenu();
     }
   }
 }

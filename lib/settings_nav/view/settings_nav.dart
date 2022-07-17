@@ -8,20 +8,21 @@ import 'package:ips_events_manager/theme/colors.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class SettingsNavigation extends StatelessWidget {
-  const SettingsNavigation({Key? key}) : super(key: key);
+  SettingsNavigation({Key? key}) : super(key: key);
 
+  GlobalKey<SideMenuState> menuStateKey = GlobalKey<SideMenuState>();
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsNavCubit, SettingsNavState>(
+    return BlocBuilder<CameraAccessCubit, SettingsNavState>(
       builder: (context, state) {
         return SideMenu(
-          key: state.menuStateKey,
+          key: menuStateKey,
           background: lightBlack,
           menu: const _SettingsNavMenu(),
           type: SideMenuType.slideNRotate, // check above images
-          child: const Scaffold(
-            body: IpsEventsPages(),
-            bottomNavigationBar: MainNavigation(),
+          child: Scaffold(
+            body: const IpsEventsPages(),
+            bottomNavigationBar: MainNavigation(sideMenuKey: menuStateKey),
           ),
         );
       },

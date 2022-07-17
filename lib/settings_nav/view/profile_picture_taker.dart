@@ -19,8 +19,8 @@ class TakePictureScreen extends StatefulWidget {
           BlocProvider<UserProfileCubit>.value(
             value: BlocProvider.of<UserProfileCubit>(context),
           ),
-          BlocProvider<SettingsNavCubit>.value(
-            value: BlocProvider.of<SettingsNavCubit>(context),
+          BlocProvider<CameraAccessCubit>.value(
+            value: BlocProvider.of<CameraAccessCubit>(context),
           ),
         ],
         child: const TakePictureScreen(),
@@ -43,7 +43,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     // create a CameraController.
     _controller = CameraController(
       // Get a specific camera from the list of available cameras.
-      BlocProvider.of<SettingsNavCubit>(context).state.camera!,
+      BlocProvider.of<CameraAccessCubit>(context).state.camera!,
       // Define the resolution to use.
       ResolutionPreset.medium,
       enableAudio: false,
@@ -156,8 +156,8 @@ class DisplayPictureScreen extends StatelessWidget {
           BlocProvider<UserProfileCubit>.value(
             value: BlocProvider.of<UserProfileCubit>(context),
           ),
-          BlocProvider<SettingsNavCubit>.value(
-            value: BlocProvider.of<SettingsNavCubit>(context),
+          BlocProvider<CameraAccessCubit>.value(
+            value: BlocProvider.of<CameraAccessCubit>(context),
           ),
         ],
         child: DisplayPictureScreen(imagePath: imagePath),

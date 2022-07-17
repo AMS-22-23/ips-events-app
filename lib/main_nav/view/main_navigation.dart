@@ -1,11 +1,12 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
-import 'package:ips_events_manager/settings_nav/cubit/settings_nav_cubit.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class MainNavigation extends StatefulWidget {
-  const MainNavigation({Key? key}) : super(key: key);
+  const MainNavigation({required this.sideMenuKey, Key? key}) : super(key: key);
 
+  final GlobalKey<SideMenuState> sideMenuKey;
   @override
   State<MainNavigation> createState() => _MainNavigationState();
 }
@@ -47,8 +48,15 @@ class _MainNavigationState extends State<MainNavigation> {
               ),
               const Spacer(),
               IconButton(
-                onPressed: () =>
-                    BlocProvider.of<SettingsNavCubit>(context).triggerMenu(),
+                onPressed: () {
+                  final _state = widget.sideMenuKey.currentState;
+                  if (_state!.isOpened) {
+                    _state.closeSideMenu();
+                  } else {
+                    _state.openSideMenu();
+                  }
+                },
+                //  BlocProvider.of<SettingsNavCubit>(context).triggerMenu(),
                 icon: const Icon(Icons.menu_book),
               )
             ],

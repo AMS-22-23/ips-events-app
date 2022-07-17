@@ -14,8 +14,8 @@ class IpsEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SettingsNavCubit>(
-          create: (context) => SettingsNavCubit(
+        BlocProvider<CameraAccessCubit>(
+          create: (context) => CameraAccessCubit(
             permissionsRepository:
                 RepositoryCollection.instance.retrieve<PermissionsRepository>(),
           )..setUpCamera(),
@@ -43,7 +43,7 @@ class IpsEvents extends StatelessWidget {
           )..getCategories(),
         )
       ],
-      child: const SettingsNavigation(),
+      child: SettingsNavigation(),
     );
   }
 }
