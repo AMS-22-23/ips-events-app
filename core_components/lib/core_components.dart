@@ -8,4 +8,5 @@ export 'package:localizations_sdk/localizations_sdk.dart' hide TextDirection;
 export 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 export 'package:repository_collection/repository_collection.dart';
 
+export 'src/analytics/ips_events_analytics.dart';
 export 'src/archiver.dart';

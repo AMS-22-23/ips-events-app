@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   equatable: ^2.0.3
+  firebase_analytics: ^9.2.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
@@ -18,7 +19,7 @@ dependencies:
   material_design_icons_flutter: ^5.0.6595
   repository_collection:
     path: ../repository_collection
-    
+  
 
 dev_dependencies:
   flutter_test:
