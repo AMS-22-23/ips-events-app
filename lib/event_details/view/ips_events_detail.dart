@@ -1,7 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:ips_events_manager/theme/colors.dart';
-import 'package:ips_events_manager/widgets/texts/texts.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 
 class EventDetails extends StatelessWidget {

@@ -26,5 +26,6 @@ class AuthInterceptor extends InterceptorsWrapper {
         //config refresh
       } catch (e) {}
     }
+    handler.reject(err);
   }
 }

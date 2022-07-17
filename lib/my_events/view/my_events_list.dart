@@ -1,5 +1,5 @@
 import 'package:core_components/core_components.dart';
-import 'package:ips_events_manager/ips_events/view/ips_events_detail.dart';
+import 'package:ips_events_manager/event_details/view/ips_events_detail.dart';
 import 'package:ips_events_manager/widgets/event_panel.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 

@@ -1,7 +1,7 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:ips_events_manager/event_details/view/ips_events_detail.dart';
 import 'package:ips_events_manager/ips_events/cubit/events_list_cubit.dart';
-import 'package:ips_events_manager/ips_events/view/ips_events_detail.dart';
 import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/widgets/event_panel.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
