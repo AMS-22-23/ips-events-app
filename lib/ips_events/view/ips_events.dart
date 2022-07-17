@@ -1,4 +1,5 @@
 import 'package:core_components/core_components.dart';
+import 'package:ips_events_manager/attendance/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/ips_events/cubit/events_list_cubit.dart';
 import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
@@ -41,6 +42,12 @@ class IpsEvents extends StatelessWidget {
                 RepositoryCollection.instance.retrieve<CategoriesRepository>(),
             eventsListCubit: BlocProvider.of<EventsListCubit>(context),
           )..getCategories(),
+        ),
+        BlocProvider<EventUserAttendanceCubit>(
+          create: (context) => EventUserAttendanceCubit(
+            eventAttendanceRepository: RepositoryCollection.instance
+                .retrieve<EventAttendanceRepository>(),
+          ),
         )
       ],
       child: SettingsNavigation(),

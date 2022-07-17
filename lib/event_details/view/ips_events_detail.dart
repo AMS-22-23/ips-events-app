@@ -1,5 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:ips_events_manager/attendance/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/event_attendance/cubit/cubit/event_attendance_cubit.dart';
 import 'package:ips_events_manager/event_attendance/view/event_attendance.dart';
 import 'package:ips_events_manager/event_details/cubit/event_details_cubit.dart';
@@ -197,7 +198,10 @@ class _EventDetailsInfo extends StatelessWidget {
                             vertical: EventsSize.small,
                           ),
                           child: EventDateTimeCard(
-                            onButtonTap: () => null,
+                            onButtonTap: () =>
+                                BlocProvider.of<EventUserAttendanceCubit>(
+                              context,
+                            ).addUserAttendance(eventId: details.id),
                             dateTime: details.startDate,
                             vacancies: details.availableSeats,
                             filledVacancies: details.busySeats,

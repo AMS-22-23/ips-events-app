@@ -20,7 +20,7 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'role': _$UserRoleEnumMap[instance.role],
+      'role': _$UserRoleEnumMap[instance.role]!,
       'jobTitle': instance.jobTitle,
       'name': instance.name,
       'email': instance.email,
