@@ -64,7 +64,7 @@ class EventsList extends StatelessWidget {
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider<UserProfileCubit>.value(
           value: BlocProvider.of<UserProfileCubit>(context),
-          child: EventDetails(
+          child: EventDetailsPage(
             eventId: eventId,
           ),
         ),

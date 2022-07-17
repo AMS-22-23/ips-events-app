@@ -18,9 +18,10 @@ class EventsCreateCubit extends Cubit<EventsCreateState> {
     required DateTime startDate,
     required String description,
     required List<String> categoryIds,
-    required String room,
     required String targetCourse,
     required String targetUnit,
+    String? room,
+    String? meetingLink,
     int? maxVacancies,
     bool isOnline = false,
     bool isOpenDoor = false,
@@ -29,7 +30,7 @@ class EventsCreateCubit extends Cubit<EventsCreateState> {
       emit(EventsCreateLoadInProgress());
       await eventsRepository.createEvent(
         event: Event(
-          room: room,
+          room: room != null && room.isNotEmpty ? room : null,
           categoriesIds: categoryIds,
           dateTime: startDate.toUtc(),
           description: description,
@@ -40,6 +41,9 @@ class EventsCreateCubit extends Cubit<EventsCreateState> {
           targetCourse: targetCourse,
           targetCourseUnit: targetUnit,
           maxVacancies: maxVacancies,
+          meetingLink: meetingLink != null && meetingLink.isNotEmpty
+              ? meetingLink
+              : null,
         ),
       );
       emit(EventsCreateLoadSuccess());

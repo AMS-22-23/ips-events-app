@@ -27,6 +27,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   late TextEditingController courseController;
   late TextEditingController unitController;
   late TextEditingController roomController;
+  late TextEditingController meetingLinkController;
   late List<String> chosenCategories;
   late bool isOnline;
 
@@ -42,8 +43,24 @@ class _CreateEventPageState extends State<CreateEventPage> {
     courseController = TextEditingController();
     unitController = TextEditingController();
     roomController = TextEditingController();
+    meetingLinkController = TextEditingController();
     chosenCategories = [];
     isOnline = false;
+  }
+
+  @override
+  void dispose() {
+    dateTimeController.dispose();
+    nameController.dispose();
+    speakerController.dispose();
+    dateTimeController.dispose();
+    vacanciesController.dispose();
+    descriptionController.dispose();
+    courseController.dispose();
+    unitController.dispose();
+    roomController.dispose();
+    meetingLinkController.dispose();
+    super.dispose();
   }
 
   @override
@@ -83,6 +100,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
           } else if (state is EventsCreateLoadSuccess) {
             context.loaderOverlay.hide();
             Navigator.pop(context);
+          } else if (state is EventsCreateLoadError) {
+            context.loaderOverlay.hide();
           }
         },
         child: SingleChildScrollView(
@@ -223,31 +242,26 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              if (isOnline) ...[
+                              if (isOnline)
                                 Flexible(
                                   flex: 2,
                                   child: FormBuilderTextField(
-                                    controller: vacanciesController,
+                                    controller: meetingLinkController,
                                     name: 'meetingLink',
                                     decoration: const InputDecoration(
                                       labelText: 'Link da Reunião',
                                       icon: Icon(MdiIcons.microsoftTeams),
                                     ),
-                                    validator: FormBuilderValidators.compose([
-                                      FormBuilderValidators.required(
-                                        errorText: 'Obrigatório',
-                                      ),
-                                      FormBuilderValidators.minLength(
-                                        5,
-                                        errorText: 'Obrigatório',
-                                      ),
-                                    ]),
+                                    validator: (value) {
+                                      if (meetingLinkController.text.isEmpty) {
+                                        return 'Obrigatório';
+                                      }
+                                      return null;
+                                    },
                                     keyboardType: TextInputType.name,
-                                    valueTransformer: (text) =>
-                                        int.tryParse(text!),
                                   ),
-                                ),
-                              ] else
+                                )
+                              else
                                 Flexible(
                                   flex: 2,
                                   child: FormBuilderTextField(
@@ -259,11 +273,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                       labelStyle: TextStyle(fontSize: 12),
                                       icon: Icon(MdiIcons.accountSupervisor),
                                     ),
-                                    validator: FormBuilderValidators.compose([
-                                      FormBuilderValidators.required(
-                                        errorText: 'Obrigatório',
-                                      ),
-                                    ]),
                                     keyboardType: TextInputType.number,
                                     valueTransformer: (text) =>
                                         int.tryParse(text!),
@@ -308,7 +317,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             selectedColor: lightBlack,
                             options:
                                 List<FormBuilderChipOption<String>>.generate(
-                                    categories.length ?? 0, (i) {
+                                    categories.length, (i) {
                               final currentCategory = categories.elementAt(i);
                               return FormBuilderChipOption(
                                 value: currentCategory.id,
@@ -409,6 +418,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             room: roomController.text,
                             targetCourse: courseController.text,
                             targetUnit: unitController.text,
+                            meetingLink: meetingLinkController.text,
+                            isOnline: isOnline,
                           );
                         }
                       },

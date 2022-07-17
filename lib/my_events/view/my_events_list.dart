@@ -35,7 +35,7 @@ class MyEventsList extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
-        builder: (context) => EventDetails(
+        builder: (context) => EventDetailsPage(
           eventId: eventId,
         ),
       ),

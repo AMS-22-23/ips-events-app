@@ -8,8 +8,8 @@ import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 import 'package:repositories/repositories.dart';
 
-class EventDetails extends StatelessWidget {
-  const EventDetails({required this.eventId, Key? key}) : super(key: key);
+class EventDetailsPage extends StatelessWidget {
+  const EventDetailsPage({required this.eventId, Key? key}) : super(key: key);
 
   final String eventId;
 
@@ -42,20 +42,8 @@ class _EventDetailsDelegate extends StatelessWidget {
             ),
           );
         } else if (state is EventDetailsLoadSuccess) {
-          final details = state.details;
-
           return _EventDetailsInfo(
-            date: details.startDate,
-            eventName: details.title,
-            description: details.description,
-            filledVacancies: details.busySeats,
-            eventId: details.id,
-            speakerName: details.speaker,
-            vacancies: details.availableSeats,
-            targetUnit: details.targetCourseUnit,
-            targetCourse: details.targetCourse,
-            eventRoom: details.room,
-            eventCategories: details.categories,
+            details: state.details,
           );
         }
         return const SizedBox();
@@ -66,31 +54,11 @@ class _EventDetailsDelegate extends StatelessWidget {
 
 class _EventDetailsInfo extends StatelessWidget {
   const _EventDetailsInfo({
-    required this.eventId,
-    required this.eventName,
-    required this.date,
-    required this.speakerName,
-    required this.description,
-    required this.vacancies,
-    required this.filledVacancies,
-    required this.targetUnit,
-    required this.targetCourse,
-    required this.eventRoom,
-    required this.eventCategories,
+    required this.details,
     Key? key,
   }) : super(key: key);
 
-  final String eventId;
-  final String eventName;
-  final DateTime date;
-  final String speakerName;
-  final String description;
-  final int? vacancies;
-  final int filledVacancies;
-  final String? targetUnit;
-  final String? targetCourse;
-  final String? eventRoom;
-  final List<EventCategory> eventCategories;
+  final EventDetails details;
 
   @override
   Widget build(BuildContext context) {
@@ -156,46 +124,58 @@ class _EventDetailsInfo extends StatelessWidget {
                             vertical: EventsSize.normal,
                           ),
                           child: EventPanel(
-                            eventName: eventName,
-                            date: date,
-                            speakerName: speakerName,
+                            eventName: details.title,
+                            date: details.startDate,
+                            speakerName: details.speaker,
                           ),
                         ),
                         EventsPadding(
                           padding: EventsEdgeInsets.symmetric(
                             vertical: EventsSize.normalSmaller,
                           ),
-                          child: IpsEventsText.title(eventName),
+                          child: IpsEventsText.title(details.title),
                         ),
-                        IpsEventsText.subTitle('By $speakerName'),
-                        if (targetUnit != null)
+                        IpsEventsText.subTitle('By ${details.speaker}'),
+                        if (details.targetCourseUnit != null)
                           _DetailsIconInfo(
                             title: 'Unidade Orgânica Alvo',
-                            subtitle: targetUnit!,
+                            subtitle: details.targetCourseUnit!,
                             icon: MdiIcons.bookInformationVariant,
                           ),
-                        if (targetCourse != null)
+                        if (details.targetCourse != null)
                           _DetailsIconInfo(
                             title: 'Curso Alvo',
-                            subtitle: targetCourse!,
+                            subtitle: details.targetCourse!,
                             icon: MdiIcons.bookEducation,
                           ),
-                        if (eventRoom != null)
+                        if (details.room != null)
                           _DetailsIconInfo(
                             title: 'Sala Do Evento',
-                            subtitle: eventRoom!,
+                            subtitle: details.room!,
                             icon: MdiIcons.bookAccount,
                           ),
-                        if (eventCategories.isNotEmpty)
+                        if (details.categories.isNotEmpty)
                           _DetailsIconInfo(
                             title: 'Categorias',
-                            subtitle: eventCategories
+                            subtitle: details.categories
                                 .map((category) => category.name)
                                 .toList()
                                 .reduce(
                                   (value, element) => '$value, $element',
                                 ),
                             icon: MdiIcons.lightbulbOn,
+                          ),
+                        if (details.isOnline)
+                          _DetailsIconInfo(
+                            title: 'Evento Online',
+                            subtitle: 'Link: ${details.meetingLink}',
+                            icon: MdiIcons.microsoftTeams,
+                          )
+                        else
+                          _DetailsIconInfo(
+                            title: 'Evento Presencial',
+                            subtitle: 'Sala: ${details.room}',
+                            icon: MdiIcons.bookAccount,
                           ),
                         EventsPadding(
                           padding: EventsEdgeInsets.only(
@@ -208,7 +188,7 @@ class _EventDetailsInfo extends StatelessWidget {
                             vertical: EventsSize.normalSmaller,
                           ),
                           child: IpsEventsText.greyBody(
-                            description,
+                            details.description,
                           ),
                         ),
                         const Spacer(),
@@ -218,9 +198,9 @@ class _EventDetailsInfo extends StatelessWidget {
                           ),
                           child: EventDateTimeCard(
                             onButtonTap: () => null,
-                            dateTime: date,
-                            vacancies: vacancies,
-                            filledVacancies: filledVacancies,
+                            dateTime: details.startDate,
+                            vacancies: details.availableSeats,
+                            filledVacancies: details.busySeats,
                           ),
                         ),
                       ],

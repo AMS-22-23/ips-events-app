@@ -12,7 +12,7 @@ class Event {
     required this.isOpenDoor,
     required this.dateTime,
     required this.categoriesIds,
-    required this.room,
+    this.room,
     this.meetingLink,
     this.targetCourse,
     this.targetCourseUnit,
@@ -33,7 +33,7 @@ class Event {
   final bool isOpenDoor;
   @JsonKey(name: 'date_time')
   final DateTime dateTime;
-  final String room;
+  final String? room;
   @JsonKey(name: 'meeting_link')
   final String? meetingLink;
   @JsonKey(name: 'target_course')
