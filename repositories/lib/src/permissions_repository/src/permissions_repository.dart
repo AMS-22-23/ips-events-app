@@ -48,5 +48,16 @@ class PermissionsRepository {
     return _requestPermission(AppPermission.camera);
   }
 
+  Future<bool> requestBluetoothAdvertisePermission() async {
+    final isPermanentlyDenied =
+        await isPermissionPermanentDenied(AppPermission.bluetoothAdvertise);
+
+    if (isPermanentlyDenied) {
+      await openSettings();
+      return isPermissionGranted(AppPermission.bluetoothAdvertise);
+    }
+    return _requestPermission(AppPermission.bluetoothAdvertise);
+  }
+
   Future<bool> openSettings() async => openAppSettings();
 }

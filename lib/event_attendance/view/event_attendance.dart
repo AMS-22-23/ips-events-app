@@ -79,6 +79,10 @@ class EventAttendancePage extends StatelessWidget {
         return IpsEventsText.iconLabel(
           'Necessário ativar o Bluetooth para utilizar esta funcionalidade.',
         );
+      case EventAttendanceNoPermission:
+        return IpsEventsText.iconLabel(
+          'O  dispositivo não tem permissão para aceder aos dispositivos próximos.',
+        );
       case EventAttendanceNotSupported:
         return IpsEventsText.iconLabel(
           'O seu dispositivo não suporta esta funcionalidade. Necessário pelo menos Android 5.0 e um dispositivo que suporte BLE.',

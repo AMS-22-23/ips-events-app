@@ -64,6 +64,8 @@ class _EventDetailsInfo extends StatelessWidget {
                       MaterialPageRoute<void>(
                         builder: (_) => BlocProvider<EventAttendanceCubit>(
                           create: (context) => EventAttendanceCubit(
+                            permissionsRepository: RepositoryCollection.instance
+                                .retrieve<PermissionsRepository>(),
                             uuid: detailsState.details.uuid,
                           )..init(),
                           child: const EventAttendancePage(),
