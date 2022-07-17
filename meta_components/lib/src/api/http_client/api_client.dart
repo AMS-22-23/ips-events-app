@@ -13,8 +13,13 @@ class PtBrandHttpCLient {
     return '${apiCredentials.apiBaseUrl}:${apiCredentials.port}/v${apiCredentials.version}';
   }
 
+  String _getIntApiUrl() {
+    final apiCredentials = AppCredentials.integration();
+    return '${apiCredentials.apiBaseUrl}/v${apiCredentials.version}';
+  }
+
   Dio get devDio =>
       Dio(_options(_getDevApiUrl()))..interceptors.add(AuthInterceptor());
-  Dio get intDio => Dio(_options(AppCredentials.integration().apiBaseUrl))
-    ..interceptors.add(AuthInterceptor());
+  Dio get intDio =>
+      Dio(_options(_getIntApiUrl()))..interceptors.add(AuthInterceptor());
 }

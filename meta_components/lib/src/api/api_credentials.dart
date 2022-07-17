@@ -13,12 +13,13 @@ class AppCredentials {
   factory AppCredentials.development() => AppCredentials._internal(
         apiBaseUrl: LOCAL_BASE_API_URL,
         port: LOCAL_PORT,
-        version: LOCAL_VERSION,
+        version: API_VERSION,
         environment: Environment.DEVELOPMENT,
       );
 
   factory AppCredentials.integration() => AppCredentials._internal(
         apiBaseUrl: REMOTE_BASE_API_URL,
+        version: API_VERSION,
         environment: Environment.INTEGRATION,
       );
 
