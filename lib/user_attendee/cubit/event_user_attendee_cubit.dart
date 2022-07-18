@@ -25,12 +25,18 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       await eventAttendanceRepository.addAttendee(eventId: eventId);
 
       IpsEventsAnalytics.recordAnalytic(
-        eventName: 'event_user_attendee',
+        eventName: 'event_user_attendee_recorded',
+        parameters: {'event_id': eventId},
       );
 
       emit(EventUserAttendeeLoadSuccess());
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'event_user_attendee_error',
+        parameters: {'event_id': eventId},
+      );
       emit(
         const EventUserAttendeeLoadError(
           message: 'Não foi possível registar a inscrição.',
@@ -49,6 +55,10 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       await _initBeaconScanner();
 
       if (!await _searchBeacon(uuid: uuid)) {
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'user_attendance_no_beacon_found',
+          parameters: {'event_id': eventId},
+        );
         return emit(
           const EventUserAttendeeLoadError(
             message: 'Não foi encontrado o Beacon do orador do evento.',
@@ -56,7 +66,16 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
         );
       }
 
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'user_attendance_beacon_was_found',
+        parameters: {'event_id': eventId},
+      );
+
       if (!await _isUserCloseToSchool()) {
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'user_attendance_not_near_school',
+          parameters: {'event_id': eventId},
+        );
         return emit(
           const EventUserAttendeeLoadError(
             message:
@@ -68,12 +87,17 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       await eventAttendanceRepository.addAttendance(eventId: eventId);
 
       IpsEventsAnalytics.recordAnalytic(
-        eventName: 'event_user_attendance',
+        eventName: 'event_user_attendance_recorded',
       );
 
       emit(EventUserAttendeeAttendanceLoadSuccess());
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'event_user_attendance_error',
+      );
+
       emit(
         const EventUserAttendeeLoadError(
           message: 'Não foi possível marcar a presença.',
@@ -87,6 +111,9 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       final isBluetoothConnectPermissionEnabled =
           await permissionsRepository.requestBluetoothConnectPermission();
       if (!isBluetoothConnectPermissionEnabled) {
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'event_user_attendance_no_bluetooth_connect_permission',
+        );
         return emit(
           const EventUserAttendeeLoadError(
             message:
@@ -98,6 +125,9 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       final isBluetoothScanPermissionEnabled =
           await permissionsRepository.requestBluetoothScanPermission();
       if (!isBluetoothScanPermissionEnabled) {
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'event_user_attendance_no_bluetooth_scan_permission',
+        );
         return emit(
           const EventUserAttendeeLoadError(
             message:
@@ -109,6 +139,9 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       await flutterBeacon.initializeAndCheckScanning;
 
       if (!await flutterBeacon.checkLocationServicesIfEnabled) {
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'event_user_attendance_no_location_permission',
+        );
         return emit(
           const EventUserAttendeeLoadError(
             message:
@@ -138,6 +171,9 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       }
 
       if (await flutterBeacon.bluetoothState != BluetoothState.stateOn) {
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'event_user_attendance_bluetooth_off',
+        );
         return emit(
           const EventUserAttendeeLoadError(
             message:
@@ -147,6 +183,11 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       }
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'event_user_attendance_detection_error',
+      );
+
       emit(
         const EventUserAttendeeLoadError(
           message: 'Tente novamente por favor.',

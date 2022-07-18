@@ -216,7 +216,8 @@ class _EventDetailsInfo extends StatelessWidget {
                                 else
                                   _DetailsIconInfo(
                                     title: t(LocaleKeys.room),
-                                    subtitle: '${t(LocaleKeys.room)}: ${details.room}',
+                                    subtitle:
+                                        '${t(LocaleKeys.room)}: ${details.room}',
                                     icon: MdiIcons.bookAccount,
                                   ),
                                 EventsPadding(

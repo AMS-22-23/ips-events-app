@@ -19,15 +19,17 @@ class EventCategoryCubit extends Cubit<EventCategoryState> {
     try {
       emit(EventCategoryLoadInProgress(categories: state.categories));
       final categories = await categoriesRepository.getCategories();
-      IpsEventsAnalytics.recordAnalytic (eventName: 'categories_load_success');
+      IpsEventsAnalytics.recordAnalytic(eventName: 'categories_load_success');
       emit(EventCategoryLoadSuccess(categories: categories));
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(eventName: 'categories_load_error');
+
       emit(EventCategoryLoadError(categories: state.categories));
     }
   }
- 
-      
+
   void selectCategory(EventCategory category) {
     try {
       if (category == state.currentCategory) {
@@ -38,7 +40,15 @@ class EventCategoryCubit extends Cubit<EventCategoryState> {
       final currentCategory = state.categories.firstWhere(
         (element) => element.id == category.id,
       );
-      emit(state.copyWithIndex(state.categories.indexOf(currentCategory)));
+
+      final categoryIndex = state.categories.indexOf(currentCategory);
+
+      emit(state.copyWithIndex(categoryIndex));
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'categories_filtered',
+        parameters: {'page_index': categoryIndex},
+      );
 
       eventsListCubit.getEvents(categoryId: state.currentCategory!.id);
     } catch (e) {

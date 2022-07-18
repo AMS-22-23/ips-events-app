@@ -74,12 +74,17 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
       );
 
       IpsEventsAnalytics.recordAnalytic(
-        eventName: 'event_beacon_advertising',
+        eventName: 'event_beacon_advertising_started',
       );
 
       emit(EventAttendanceAdvertising(uuid: uuid));
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'event_beacon_advertising_error',
+      );
+
       emit(EventAttendanceError());
     }
   }

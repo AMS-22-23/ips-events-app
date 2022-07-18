@@ -25,14 +25,26 @@ class CameraAccessCubit extends Cubit<SettingsNavState> {
         final currentCamera = cameras.firstWhere(
           (camera) => camera.lensDirection.name == 'front',
         );
-        emit(
+
+        IpsEventsAnalytics.recordAnalytic(
+          eventName: 'camera_on',
+        );
+        return emit(
           SettingsNavState(
             camera: currentCamera,
           ),
         );
       }
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'camera_off',
+      );
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'camera_no_access',
+      );
     }
   }
 }

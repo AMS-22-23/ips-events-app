@@ -22,6 +22,9 @@ class EventsListCubit extends Cubit<EventsListState> {
       emit(EventsListLoadSuccess(events: eventsList));
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(eventName: 'event_list_loading_error');
+
       emit(EventsListLoadError());
     }
   }

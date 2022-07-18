@@ -20,6 +20,11 @@ class MyEventsCubit extends Cubit<MyEventsState> {
       emit(MyEventsLoadSuccess(events: eventsList));
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'my_event_list_loading_error',
+      );
+
       emit(MyEventsLoadError());
     }
   }

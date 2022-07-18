@@ -40,22 +40,28 @@ class _EventsPageState extends State<EventsPage>
               (profileState.userProfile.role == UserRole.admin ||
                   profileState.userProfile.role == UserRole.speaker))
             IconButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider<EventCategoryCubit>.value(
-                        value: categoryCubit,
-                      ),
-                      BlocProvider<EventsCreateCubit>.value(
-                        value: createCubit,
-                      ),
-                    ],
-                    child: const CreateEventPage(),
+              onPressed: () {
+                IpsEventsAnalytics.recordAnalytic(
+                  eventName: 'create_event_button_pressed',
+                );
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (_) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider<EventCategoryCubit>.value(
+                          value: categoryCubit,
+                        ),
+                        BlocProvider<EventsCreateCubit>.value(
+                          value: createCubit,
+                        ),
+                      ],
+                      child: const CreateEventPage(),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
               icon: DarkIcon(
                 MdiIcons.plusBox,
                 size: 30,
@@ -69,7 +75,12 @@ class _EventsPageState extends State<EventsPage>
       ),
       body: RefreshIndicator(
         color: darkBlack,
-        onRefresh: () => BlocProvider.of<EventsListCubit>(context).getEvents(),
+        onRefresh: () {
+          IpsEventsAnalytics.recordAnalytic(
+            eventName: 'events_refreshed',
+          );
+          return BlocProvider.of<EventsListCubit>(context).getEvents();
+        },
         child: Column(
           children: const [
             SizedBox(

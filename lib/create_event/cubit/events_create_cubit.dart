@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:core_components/core_components.dart';
-import 'package:equatable/equatable.dart';
 import 'package:repositories/repositories.dart';
 
 part 'events_create_state.dart';
@@ -12,7 +10,6 @@ class EventsCreateCubit extends Cubit<EventsCreateState> {
       : super(EventsCreateInitial());
 
   final EventsRepository eventsRepository;
-
 
   Future<void> createEvent({
     required String title,
@@ -48,10 +45,13 @@ class EventsCreateCubit extends Cubit<EventsCreateState> {
               : null,
         ),
       );
-       IpsEventsAnalytics.recordAnalytic (eventName: 'event_load_detail_success');
+      IpsEventsAnalytics.recordAnalytic(eventName: 'event_load_detail_success');
       emit(EventsCreateLoadSuccess());
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(eventName: 'event_load_detail_error');
+
       emit(EventsCreateLoadError());
     }
   }

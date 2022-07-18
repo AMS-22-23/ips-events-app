@@ -408,6 +408,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          IpsEventsAnalytics.recordAnalytic(
+                            eventName: 'event_create_button_pressed',
+                          );
+
                           BlocProvider.of<EventsCreateCubit>(context)
                               .createEvent(
                             title: nameController.text,

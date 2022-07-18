@@ -43,6 +43,10 @@ class _AuthPage extends StatelessWidget {
                         ? AppRoutes.mainNav.toRoute()
                         : AppRoutes.webApp.toRoute();
 
+                IpsEventsAnalytics.recordAnalytic(
+                  eventName: 'app_main_screen_opening',
+                );
+
                 navigatorKey.currentState!.popAndPushNamed(routeToPush);
               }
             },

@@ -60,6 +60,11 @@ class EventsList extends StatelessWidget {
     BuildContext context, {
     required String eventId,
   }) {
+    IpsEventsAnalytics.recordAnalytic(
+      eventName: 'event_details_pressed',
+      parameters: {'event_id': eventId},
+    );
+
     Navigator.push(
       context,
       MaterialPageRoute<void>(

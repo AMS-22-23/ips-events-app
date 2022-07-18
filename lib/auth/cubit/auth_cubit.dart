@@ -23,9 +23,17 @@ class AuthCubit extends Cubit<AuthState> {
       final accessToken = await aadAuthenticationRepository.getAccessToken();
       log('Azure AD Access Token: $accessToken');
 
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'aad_authentication_success',
+      );
+
       final apiLogin = await authenticationRepository
           .login(AuthAad(aadAccessToken: accessToken!));
       log('Api Access Token: ${apiLogin.accessToken}');
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'api_authentication_success',
+      );
 
       MetaCollection.instance.archive(
         Entry<AuthToken>(
@@ -33,15 +41,14 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
 
-      IpsEventsAnalytics.recordAnalytic(eventName: 'event_test');   
-       
-      
-      
-     
+      IpsEventsAnalytics.recordAnalytic(eventName: 'authentication_success');
 
       emit(AuthSuccess(accessToken));
     } on Object catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(eventName: 'authentication_error');
+
       emit(AuthFailure());
     }
   }

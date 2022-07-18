@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:bloc/bloc.dart';
 import 'package:core_components/core_components.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta_components/meta_components.dart';
@@ -23,9 +21,18 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   Future<void> saveUserPicture(String imagePath) async {
     try {
       await userRepository.updateProfilePicture(avatar: File(imagePath));
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'user_profile_profile_picture_saved',
+      );
+
       unawaited(loadUserProfile());
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'user_profile_profile_picture_saving_error',
+      );
     }
   }
 
@@ -75,6 +82,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
                 path: filePath,
               ),
       );
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'user_profile_loaded',
+      );
+
       emit(
         UserProfileLoadSuccess(
           userProfile: profile,
@@ -83,6 +95,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       );
     } catch (e) {
       log(e.toString());
+
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'user_profile_loading_error',
+      );
+
       emit(UserProfileLoadError());
     }
   }
