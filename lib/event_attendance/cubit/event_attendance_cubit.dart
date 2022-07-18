@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:beacon_broadcast/beacon_broadcast.dart';
 import 'package:core_components/core_components.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:repositories/repositories.dart';
 
 part 'event_attendance_state.dart';
@@ -12,35 +11,47 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
   EventAttendanceCubit({
     required this.permissionsRepository,
     required this.uuid,
-  })  : beaconBroadcast = BeaconBroadcast(),
-        super(EventAttendanceInitial());
+  }) : super(EventAttendanceInitial());
 
-  late StreamSubscription<BluetoothState> _flutterBlueStateSubscription;
-  late StreamSubscription<bool> _flutterBaconAdvertisingSubscription;
-  final BeaconBroadcast beaconBroadcast;
   final PermissionsRepository permissionsRepository;
   final String uuid;
 
+  late StreamSubscription<BluetoothState> _flutterBluetoothStateSubscription;
+
   Future<void> init() async {
     try {
-      emit(EventAttendanceLoadInProgress());
+      emit(EventAttendanceInitializing());
 
-      _flutterBlueStateSubscription =
-          FlutterBluePlus.instance.state.listen((state) async {
-        if (state == BluetoothState.on) {
-          await startBeacon();
-        } else {
-          await beaconBroadcast.stop();
-          emit(EventAttendanceBluetoothOff());
+      // Check if Bluetooth is disabled and if so request required permissions to enable it
+      if (await flutterBeacon.bluetoothState == BluetoothState.stateOff) {
+        final isBluetoothConnectPermissionEnabled =
+            await permissionsRepository.requestBluetoothConnectPermission();
+        if (!isBluetoothConnectPermissionEnabled) {
+          return emit(
+            EventAttendanceNoPermission(),
+          );
         }
-      });
+      }
 
-      _flutterBaconAdvertisingSubscription =
-          beaconBroadcast.getAdvertisingStateChange().listen((isAdvertising) {
-        if (isAdvertising == true) {
-          emit(EventAttendanceAdvertising());
+      final isBluetoothAdvertisePermissionEnabled =
+          await permissionsRepository.requestBluetoothAdvertisePermission();
+      if (!isBluetoothAdvertisePermissionEnabled) {
+        return emit(
+          EventAttendanceNoPermission(),
+        );
+      }
+
+      if (!await flutterBeacon.isBroadcastSupported()) {
+        return emit(EventAttendanceNotSupported());
+      }
+
+      _flutterBluetoothStateSubscription =
+          flutterBeacon.bluetoothStateChanged().listen((state) async {
+        if (state == BluetoothState.stateOn) {
+          await startBroadcast();
         } else {
-          emit(EventAttendanceError());
+          await flutterBeacon.stopBroadcast();
+          emit(EventAttendanceBluetoothOff());
         }
       });
     } catch (e) {
@@ -49,35 +60,24 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
     }
   }
 
-  Future<void> startBeacon() async {
+  Future<void> startBroadcast() async {
     try {
-      emit(EventAttendanceLoadInProgress());
+      emit(EventAttendanceInitializing());
 
-      final isBluetoothAdvertisePermissionEnabled =
-          await permissionsRepository.requestBluetoothAdvertisePermission();
-      if (isBluetoothAdvertisePermissionEnabled == false) {
-        return emit(EventAttendanceNoPermission());
-      }
-
-      final transmissionSupportStatus =
-          await beaconBroadcast.checkTransmissionSupported();
-      switch (transmissionSupportStatus) {
-        case BeaconStatus.notSupportedMinSdk:
-        case BeaconStatus.notSupportedBle:
-        case BeaconStatus.notSupportedCannotGetAdvertiser:
-          return emit(EventAttendanceNotSupported());
-        case BeaconStatus.supported:
-          break;
-      }
-
-      log(uuid);
-      await beaconBroadcast.setUUID(uuid).setMajorId(1).setMinorId(1).start();
-
-      IpsEventsAnalytics.recordAnalytic(
-        eventName: 'event_attendance_advertising',
+      await flutterBeacon.startBroadcast(
+        BeaconBroadcast(
+          identifier: 'com.ips_events_manager',
+          proximityUUID: uuid,
+          major: 0,
+          minor: 0,
+        ),
       );
 
-      emit(EventAttendanceAdvertising());
+      IpsEventsAnalytics.recordAnalytic(
+        eventName: 'event_beacon_advertising',
+      );
+
+      emit(EventAttendanceAdvertising(uuid: uuid));
     } catch (e) {
       log(e.toString());
       emit(EventAttendanceError());
@@ -86,9 +86,8 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
 
   @override
   Future<void> close() async {
-    await _flutterBlueStateSubscription.cancel();
-    await _flutterBaconAdvertisingSubscription.cancel();
-    await beaconBroadcast.stop();
+    await _flutterBluetoothStateSubscription.cancel();
+    await flutterBeacon.stopBroadcast();
     return super.close();
   }
 }

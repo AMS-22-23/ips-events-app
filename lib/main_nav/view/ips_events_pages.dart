@@ -43,7 +43,10 @@ class _IpsEventsPagesState extends State<IpsEventsPages> {
           ),
           const MyEventsPage(),
           BlocProvider<EventAttendanceScanCubit>(
-            create: (context) => EventAttendanceScanCubit()..init(),
+            create: (context) => EventAttendanceScanCubit(
+              permissionsRepository: RepositoryCollection.instance
+                  .retrieve<PermissionsRepository>(),
+            )..init(),
             child: const EventAttendanceScanPage(),
           ),
         ],

@@ -86,7 +86,7 @@ class IpsEventsText extends StatelessWidget {
       text: text,
       textAlign: TextAlign.center,
       color: Colors.black,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       fontSize: 16,
     );
   }
