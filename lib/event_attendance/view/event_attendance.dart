@@ -11,9 +11,9 @@ class EventAttendancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Beacon de Presenças',
-          style: TextStyle(
+        title: Text(
+          t(LocaleKeys.attendanceBeacon),
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -82,7 +82,7 @@ class EventAttendancePage extends StatelessWidget {
     if (state is EventAttendanceAdvertising) {
       return [
         IpsEventsText.iconLabel(
-          'Mantenha este ecrã ativo para permitir os participantes registarem presenças.',
+          t(LocaleKeys.beaconScreenInfo),
         ),
         const SizedBox(height: 20),
         Text(
@@ -101,37 +101,37 @@ class EventAttendancePage extends StatelessWidget {
       case EventAttendanceBluetoothOff:
         return [
           IpsEventsText.iconLabel(
-            'Necessário ativar o Bluetooth para utilizar esta funcionalidade.',
+            t(LocaleKeys.needActivateBluetooth),
           )
         ];
       case EventAttendanceLocationOff:
         return [
           IpsEventsText.iconLabel(
-            'Necessário ativar a Localização para utilizar esta funcionalidade.',
+            t(LocaleKeys.needLocalizationPermission),
           )
         ];
       case EventAttendanceNoPermission:
         return [
           IpsEventsText.iconLabel(
-            'O  dispositivo não tem as permissões necessárias para utilizar esta funcionalidade.',
+            t(LocaleKeys.noPermissionsForAttendance),
           )
         ];
       case EventAttendanceNotSupported:
         return [
           IpsEventsText.iconLabel(
-            'O seu dispositivo não suporta esta funcionalidade. Necessário pelo menos Android 5.0 e um dispositivo que suporte BLE.',
+            t(LocaleKeys.noBeaconSupport),
           )
         ];
       case EventAttendanceError:
         return [
           IpsEventsText.iconLabel(
-            'Ocorreu um erro, por favor tente novamente.',
+            t(LocaleKeys.errorOcurred),
           )
         ];
       default:
         return [
           IpsEventsText.iconLabel(
-            'Funcionalidade não inicializada.',
+            t(LocaleKeys.functionalityNotInitialized),
           )
         ];
     }

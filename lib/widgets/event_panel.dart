@@ -1,5 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/widgets/event_date_label.dart';
+import 'package:ips_events_manager/widgets/event_presense_label.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
 class EventPanel extends StatelessWidget {
@@ -8,6 +9,7 @@ class EventPanel extends StatelessWidget {
     required this.date,
     required this.speakerName,
     this.onTap,
+    this.isPresent,
     Key? key,
   }) : super(key: key);
 
@@ -15,6 +17,7 @@ class EventPanel extends StatelessWidget {
   final DateTime date;
   final String speakerName;
   final VoidCallback? onTap;
+  final bool? isPresent;
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +68,18 @@ class EventPanel extends StatelessWidget {
                     Text('by $speakerName')
                   ],
                 ),
-                EventDateLabel(
-                  dateString: DateFormat.MMMd().format(date),
-                  timeString: DateFormat.Hm().format(date),
+                Row(
+                  children: [
+                    EventDateLabel(
+                      dateString: DateFormat.MMMd().format(date),
+                      timeString: DateFormat.Hm().format(date),
+                    ),
+                    const Spacer(),
+                    if (isPresent != null)
+                      EventPresenceLabel(
+                        isPresent: isPresent!,
+                      )
+                  ],
                 ),
               ],
             ),

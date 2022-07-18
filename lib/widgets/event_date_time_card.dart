@@ -82,7 +82,9 @@ class EventDateTimeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IpsEventsText.darkBody(
-                  hasVacancies ? 'Vagas' : 'Inscritos',
+                  hasVacancies
+                      ? t(LocaleKeys.vacancies)
+                      : t(LocaleKeys.attendants),
                 ),
                 const SizedBox(
                   height: 12,
@@ -105,9 +107,9 @@ class EventDateTimeCard extends StatelessWidget {
                     : MdiIcons.bookPlus,
                 text: isAttendee
                     ? isAttendance
-                        ? 'Confirmado'
-                        : 'Presença'
-                    : 'Inscrever',
+                        ? t(LocaleKeys.confirmed)
+                        : t(LocaleKeys.presence)
+                    : t(LocaleKeys.registerAttendance),
               ),
             )
           ],

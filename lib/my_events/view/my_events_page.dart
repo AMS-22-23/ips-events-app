@@ -20,9 +20,9 @@ class _MyEventsPageState extends State<MyEventsPage>
     super.build(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'My Events',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          t(LocaleKeys.myEvents),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         elevation: 0,

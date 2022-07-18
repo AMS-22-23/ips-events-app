@@ -1,6 +1,7 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
+import 'package:ips_events_manager/utils/show_snackbars.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
 class EventCategoryList extends StatelessWidget {
@@ -15,7 +16,15 @@ class EventCategoryList extends StatelessWidget {
         left: EventsSize.normal,
         right: EventsSize.normal,
       ),
-      child: BlocBuilder<EventCategoryCubit, EventCategoryState>(
+      child: BlocConsumer<EventCategoryCubit, EventCategoryState>(
+        listener: (context, state) {
+          if (state is EventCategoryLoadError) {
+            EventsSnackBars.showErrorSnackbar(
+              context: context,
+              message: t(LocaleKeys.errorCategories),
+            );
+          }
+        },
         builder: (context, state) {
           return ListView.separated(
             scrollDirection: Axis.horizontal,
@@ -82,17 +91,6 @@ class _EventCategoryItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              /*  Container(
-                color: isSelected ? lightBlack : lightGrey,
-                padding: EventsEdgeInsets.all(EventsSize.small),
-                child: Icon(
-                  icon,
-                  color: isSelected ? Colors.white : darkBlack,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),*/
               Text(
                 categoryLabel,
                 style: TextStyle(

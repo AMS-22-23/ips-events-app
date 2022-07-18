@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 
+// ignore: non_constant_identifier_names
 final LOCAL_BASE_API_URL =
     (kIsWeb || defaultTargetPlatform == TargetPlatform.iOS)
         ? 'http://127.0.0.1'

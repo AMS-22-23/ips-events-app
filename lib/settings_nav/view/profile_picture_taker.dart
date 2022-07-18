@@ -67,9 +67,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 // controller has finished initializing.
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Tirar Foto de Perfil',
-          style: TextStyle(
+        title: Text(
+          t(LocaleKeys.takeProfilePic),
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -171,9 +171,9 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Atualizar Foto de Perfil?',
-          style: TextStyle(
+        title: Text(
+          t(LocaleKeys.updateProfilePicQuestion),
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),

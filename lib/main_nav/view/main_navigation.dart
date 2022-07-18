@@ -1,5 +1,6 @@
 import 'package:core_components/core_components.dart';
 import 'package:ips_events_manager/main_nav/cubit/navigation_cubit.dart';
+import 'package:ips_events_manager/theme/colors.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
@@ -34,8 +35,8 @@ class _MainNavigationState extends State<MainNavigation> {
                   /// Likes
                   SalomonBottomBarItem(
                     icon: const Icon(MdiIcons.calendarAccount),
-                    title: const Text('Meus Eventos'),
-                    selectedColor: Colors.pink,
+                    title: Text(t(LocaleKeys.myEvents)),
+                    selectedColor: lightBlack,
                   ),
                 ],
               ),

@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ips_events_manager/event_attendance/cubit/event_attendance_cubit.dart';
@@ -7,6 +6,7 @@ import 'package:ips_events_manager/event_details/cubit/event_details_cubit.dart'
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/colors.dart';
 import 'package:ips_events_manager/user_attendee/cubit/event_user_attendee_cubit.dart';
+import 'package:ips_events_manager/utils/show_snackbars.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:repositories/repositories.dart';
@@ -39,9 +39,9 @@ class _EventDetailsInfo extends StatelessWidget {
     final detailsState = context.watch<EventDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Detalhes de Evento',
-          style: TextStyle(
+        title: Text(
+          t(LocaleKeys.eventDetails),
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -88,52 +88,39 @@ class _EventDetailsInfo extends StatelessWidget {
           } else if (state is EventUserAttendeeLoadSuccess) {
             context.loaderOverlay.hide();
 
-            final snackBar = SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: 'Sucesso!',
-                message: 'Inscrição registada com sucesso.',
-                contentType: ContentType.success,
-              ),
+            EventsSnackBars.showSuccessSnackbar(
+              context: context,
+              message: t(LocaleKeys.attendanceRegistered),
             );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             Navigator.pop(context);
           } else if (state is EventUserAttendeeAttendanceLoadSuccess) {
             context.loaderOverlay.hide();
 
-            final snackBar = SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: 'Sucesso!',
-                message: 'Presença marcada com sucesso.',
-                contentType: ContentType.success,
-              ),
+            EventsSnackBars.showSuccessSnackbar(
+              context: context,
+              message: t(LocaleKeys.presenceRegistered),
             );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
             Navigator.pop(context);
           } else if (state is EventUserAttendeeLoadError) {
             context.loaderOverlay.hide();
 
-            final snackBar = SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: 'Ocorreu um erro!',
-                message: state.message,
-                contentType: ContentType.failure,
-              ),
+            EventsSnackBars.showErrorSnackbar(
+              context: context,
+              message: state.message,
             );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
-        child: BlocBuilder<EventDetailsCubit, EventDetailsState>(
+        child: BlocConsumer<EventDetailsCubit, EventDetailsState>(
+          listener: (context, state) {
+            if (state is EventDetailsLoadError) {
+              EventsSnackBars.showErrorSnackbar(
+                context: context,
+                message: t(LocaleKeys.errorOcurred),
+              );
+              Navigator.pop(context);
+            }
+          },
           builder: (context, state) {
             if (state is EventDetailsLoadInProgress) {
               return Center(

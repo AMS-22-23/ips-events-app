@@ -5,6 +5,7 @@ import 'package:ips_events_manager/my_events/cubit/my_events_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
 import 'package:ips_events_manager/user_attendee/cubit/event_user_attendee_cubit.dart';
+import 'package:ips_events_manager/utils/show_snackbars.dart';
 import 'package:ips_events_manager/widgets/event_panel.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
@@ -17,7 +18,15 @@ class MyEventsList extends StatelessWidget {
       padding: EventsEdgeInsets.symmetric(
         horizontal: EventsSize.normal,
       ),
-      child: BlocBuilder<MyEventsCubit, MyEventsState>(
+      child: BlocConsumer<MyEventsCubit, MyEventsState>(
+        listener: (context, state) {
+          if (state is MyEventsLoadError) {
+            EventsSnackBars.showErrorSnackbar(
+              context: context,
+              message: t(LocaleKeys.errorMyEventList),
+            );
+          }
+        },
         builder: (context, state) {
           if (state is MyEventsLoadInProgress) {
             return Center(

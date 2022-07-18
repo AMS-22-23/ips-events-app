@@ -14,7 +14,7 @@ class EventDateLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
+      width: 125,
       height: 35,
       color: darkBlack,
       child: EventsPadding(

@@ -76,7 +76,7 @@ class _SettingsNavMenu extends StatelessWidget {
                     const SizedBox(height: 16),
                     if (state is UserProfileLoadSuccess)
                       Text(
-                        'Hello, ${state.userProfile.name}',
+                        '${t(LocaleKeys.hello)}, ${state.userProfile.name}',
                         style: const TextStyle(color: Colors.white),
                       ),
                     const SizedBox(height: 20),
@@ -88,7 +88,6 @@ class _SettingsNavMenu extends StatelessWidget {
                   children: [
                     ListTile(
                       horizontalTitleGap: 2,
-                      onTap: () {},
                       leading: const Icon(
                         MdiIcons.targetAccount,
                         size: 20,
@@ -100,8 +99,6 @@ class _SettingsNavMenu extends StatelessWidget {
                     ),
                     ListTile(
                       horizontalTitleGap: 2,
-
-                      onTap: () {},
                       leading: const Icon(
                         MdiIcons.accountKey,
                         size: 20,
@@ -116,8 +113,6 @@ class _SettingsNavMenu extends StatelessWidget {
                     ),
                     ListTile(
                       horizontalTitleGap: 2,
-
-                      onTap: () {},
                       leading: const Icon(
                         MdiIcons.email,
                         size: 20,
@@ -126,8 +121,6 @@ class _SettingsNavMenu extends StatelessWidget {
                       title: Text(state.userProfile.email),
                       textColor: Colors.white,
                       dense: true,
-
-                      // padding: EdgeInsets.zero,
                     ),
                   ],
                 ),

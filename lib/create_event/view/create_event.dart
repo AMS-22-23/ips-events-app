@@ -77,9 +77,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Criar Evento',
-          style: TextStyle(
+        title: Text(
+          t(LocaleKeys.createEvent),
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -130,17 +130,17 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           child: FormBuilderTextField(
                             controller: nameController,
                             name: 'name',
-                            decoration: const InputDecoration(
-                              labelText: 'Nome do Evento',
-                              icon: Icon(MdiIcons.formatLetterCase),
+                            decoration: InputDecoration(
+                              labelText: t(LocaleKeys.eventName),
+                              icon: const Icon(MdiIcons.formatLetterCase),
                             ),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
-                                errorText: 'Obrigatório',
+                                errorText: t(LocaleKeys.required),
                               ),
-                              FormBuilderValidators.max(
-                                70,
-                                errorText: 'errorText',
+                              FormBuilderValidators.maxLength(
+                                20,
+                                errorText: t(LocaleKeys.max20Characters),
                               ),
                             ]),
                             keyboardType: TextInputType.name,
@@ -152,15 +152,15 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           child: FormBuilderTextField(
                             controller: speakerController,
                             name: 'speaker',
-                            decoration: const InputDecoration(
-                              labelText: 'Orador do Evento',
-                              icon: Icon(MdiIcons.accountTieVoice),
+                            decoration: InputDecoration(
+                              labelText: t(LocaleKeys.eventSpeaker),
+                              icon: const Icon(MdiIcons.accountTieVoice),
                             ),
                             onChanged: (text) {},
                             // valueTransformer: (text) => num.tryParse(text),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
-                                errorText: 'Obrigatório',
+                                errorText: t(LocaleKeys.required),
                               ),
                             ]),
                             keyboardType: TextInputType.name,
@@ -172,17 +172,17 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           child: FormBuilderTextField(
                             controller: courseController,
                             name: 'targetCourse',
-                            decoration: const InputDecoration(
-                              labelText: 'Curso Alvo',
-                              icon: Icon(MdiIcons.bookEducation),
+                            decoration: InputDecoration(
+                              labelText: t(LocaleKeys.targetCourse),
+                              icon: const Icon(MdiIcons.bookEducation),
                             ),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
-                                errorText: 'Obrigatório',
+                                errorText: t(LocaleKeys.required),
                               ),
                               FormBuilderValidators.minLength(
                                 5,
-                                errorText: 'Demasiado pequeno',
+                                errorText: t(LocaleKeys.min5Characters),
                               ),
                             ]),
                             keyboardType: TextInputType.name,
@@ -194,17 +194,17 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           child: FormBuilderTextField(
                             controller: unitController,
                             name: 'targetUnit',
-                            decoration: const InputDecoration(
-                              labelText: 'Unidade Orgânica Alvo',
-                              icon: Icon(MdiIcons.bookInformationVariant),
+                            decoration: InputDecoration(
+                              labelText: t(LocaleKeys.targetCourseUnit),
+                              icon: const Icon(MdiIcons.bookInformationVariant),
                             ),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(
-                                errorText: 'Obrigatório',
+                                errorText: t(LocaleKeys.required),
                               ),
                               FormBuilderValidators.minLength(
                                 5,
-                                errorText: 'Demasiado pequeno',
+                                errorText: t(LocaleKeys.min5Characters),
                               ),
                             ]),
                             keyboardType: TextInputType.name,
@@ -248,13 +248,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                   child: FormBuilderTextField(
                                     controller: meetingLinkController,
                                     name: 'meetingLink',
-                                    decoration: const InputDecoration(
-                                      labelText: 'Link da Reunião',
-                                      icon: Icon(MdiIcons.microsoftTeams),
+                                    decoration: InputDecoration(
+                                      labelText: t(LocaleKeys.meetingLink),
+                                      icon: const Icon(MdiIcons.microsoftTeams),
                                     ),
                                     validator: (value) {
                                       if (meetingLinkController.text.isEmpty) {
-                                        return 'Obrigatório';
+                                        return t(LocaleKeys.required);
                                       }
                                       return null;
                                     },
@@ -267,11 +267,12 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                   child: FormBuilderTextField(
                                     controller: vacanciesController,
                                     name: 'vacancies',
-                                    decoration: const InputDecoration(
-                                      labelText:
-                                          'Vagas (ilimitadas por defeito)',
-                                      labelStyle: TextStyle(fontSize: 12),
-                                      icon: Icon(MdiIcons.accountSupervisor),
+                                    decoration: InputDecoration(
+                                      labelText: t(LocaleKeys.vacanciesInfo),
+                                      labelStyle: const TextStyle(fontSize: 12),
+                                      icon: const Icon(
+                                        MdiIcons.accountSupervisor,
+                                      ),
                                     ),
                                     keyboardType: TextInputType.number,
                                     valueTransformer: (text) =>
@@ -289,14 +290,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             child: FormBuilderTextField(
                               controller: roomController,
                               name: 'room',
-                              decoration: const InputDecoration(
-                                labelText: 'Sala do Evento',
+                              decoration: InputDecoration(
+                                labelText: t(LocaleKeys.eventRoom),
                                 alignLabelWithHint: true,
-                                icon: Icon(MdiIcons.bookAccount),
+                                icon: const Icon(MdiIcons.bookAccount),
                               ),
                               validator: FormBuilderValidators.compose([
                                 FormBuilderValidators.required(
-                                  errorText: 'Obrigatório',
+                                  errorText: t(LocaleKeys.required),
                                 ),
                               ]),
                               keyboardType: TextInputType.name,
@@ -307,9 +308,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               EventsEdgeInsets.only(bottom: EventsSize.normal),
                           child: FormBuilderFilterChip<String>(
                             name: 'choice_chip',
-                            decoration: const InputDecoration(
-                              labelText: 'Selecione uma Categoria',
-                              icon: Icon(MdiIcons.lightbulbOn),
+                            decoration: InputDecoration(
+                              labelText: t(LocaleKeys.selectCategory),
+                              icon: const Icon(MdiIcons.lightbulbOn),
                             ),
                             materialTapTargetSize: MaterialTapTargetSize.padded,
                             spacing: 5,
@@ -329,7 +330,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             }),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Pelo menos uma';
+                                return t(LocaleKeys.chooseAtLeastOne);
                               }
                               return null;
                             },
@@ -370,7 +371,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 return null;
                               } catch (e) {
                                 log(e.toString());
-                                return 'Obrigatório';
+                                return t(LocaleKeys.required);
                               }
                             },
                             onSaved: print,
@@ -379,19 +380,19 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         FormBuilderTextField(
                           controller: descriptionController,
                           name: 'description',
-                          decoration: const InputDecoration(
-                            labelText: 'Descrição do Evento',
+                          decoration: InputDecoration(
+                            labelText: t(LocaleKeys.eventDescription),
                             alignLabelWithHint: true,
                           ),
                           maxLines: 6,
                           maxLength: 200,
                           validator: FormBuilderValidators.compose([
                             FormBuilderValidators.required(
-                              errorText: 'Descrição necessária',
+                              errorText: t(LocaleKeys.required),
                             ),
                             FormBuilderValidators.minLength(
                               10,
-                              errorText: 'No mínimo 10 caracteres',
+                              errorText: t(LocaleKeys.min10Characters),
                             ),
                           ]),
                           keyboardType: TextInputType.name,
@@ -437,7 +438,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           const SizedBox(
                             width: 10,
                           ),
-                          IpsEventsText.lightTitle('Criar')
+                          IpsEventsText.lightTitle(t(LocaleKeys.create))
                         ],
                       ),
                     ),
