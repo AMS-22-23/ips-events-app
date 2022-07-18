@@ -37,13 +37,6 @@ class _MainNavigationState extends State<MainNavigation> {
                     title: const Text('Meus Eventos'),
                     selectedColor: Colors.pink,
                   ),
-
-                  /// Search
-                  SalomonBottomBarItem(
-                    icon: const Icon(MdiIcons.qrcodeScan),
-                    title: const Text('Presenças'),
-                    selectedColor: Colors.orange,
-                  ),
                 ],
               ),
               const Spacer(),

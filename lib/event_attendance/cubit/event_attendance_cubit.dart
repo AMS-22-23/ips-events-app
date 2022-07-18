@@ -68,8 +68,8 @@ class EventAttendanceCubit extends Cubit<EventAttendanceState> {
         BeaconBroadcast(
           identifier: 'com.ips_events_manager',
           proximityUUID: uuid,
-          major: 0,
-          minor: 0,
+          major: 11305,
+          minor: 26780,
         ),
       );
 

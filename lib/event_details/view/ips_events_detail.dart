@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:core_components/core_components.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ips_events_manager/event_attendance/cubit/event_attendance_cubit.dart';
@@ -5,7 +6,7 @@ import 'package:ips_events_manager/event_attendance/view/event_attendance.dart';
 import 'package:ips_events_manager/event_details/cubit/event_details_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/colors.dart';
-import 'package:ips_events_manager/user_attendance/cubit/event_user_attendance_cubit.dart';
+import 'package:ips_events_manager/user_attendee/cubit/event_user_attendee_cubit.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:repositories/repositories.dart';
@@ -80,13 +81,56 @@ class _EventDetailsInfo extends StatelessWidget {
                   )
         ],
       ),
-      body: BlocListener<EventUserAttendanceCubit, EventUserAttendanceState>(
+      body: BlocListener<EventUserAttendeeCubit, EventUserAttendeeState>(
         listener: (context, state) {
-          if (state is EventUserAttendanceLoadInProgress) {
+          if (state is EventUserAttendeeLoadInProgress) {
             context.loaderOverlay.show();
-          } else if (state is EventUserAttendanceLoadSuccess) {
+          } else if (state is EventUserAttendeeLoadSuccess) {
             context.loaderOverlay.hide();
+
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Sucesso!',
+                message: 'Inscrição registada com sucesso.',
+                contentType: ContentType.success,
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
             Navigator.pop(context);
+          } else if (state is EventUserAttendeeAttendanceLoadSuccess) {
+            context.loaderOverlay.hide();
+
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Sucesso!',
+                message: 'Presença marcada com sucesso.',
+                contentType: ContentType.success,
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+            Navigator.pop(context);
+          } else if (state is EventUserAttendeeLoadError) {
+            context.loaderOverlay.hide();
+
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Ocorreu um erro!',
+                message: state.message,
+                contentType: ContentType.failure,
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
         child: BlocBuilder<EventDetailsCubit, EventDetailsState>(
@@ -198,17 +242,24 @@ class _EventDetailsInfo extends StatelessWidget {
                                   ),
                                   child: EventDateTimeCard(
                                     isAttendee: details.isAttendee,
-                                    onButtonTap: details.isAttendee
-                                        ? null
-                                        : () => BlocProvider.of<
-                                                EventUserAttendanceCubit>(
-                                              context,
-                                            ).addUserAttendance(
-                                              eventId: details.id,
-                                            ),
+                                    isAttendance: details.isAttendance,
+                                    onButtonRegisterTap: () =>
+                                        BlocProvider.of<EventUserAttendeeCubit>(
+                                      context,
+                                    ).addUserAttendee(
+                                      eventId: details.id,
+                                    ),
+                                    onButtonIsPresentTap: () =>
+                                        BlocProvider.of<EventUserAttendeeCubit>(
+                                      context,
+                                    ).addUserAttendance(
+                                      eventId: details.id,
+                                      uuid: details.uuid,
+                                    ),
                                     dateTime: details.startDate,
-                                    vacancies: details.availableSeats,
+                                    vacancies: details.maximumCapacity,
                                     filledVacancies: details.busySeats,
+                                    remainingVacancies: details.availableSeats,
                                   ),
                                 ),
                               ],

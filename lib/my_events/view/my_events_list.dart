@@ -4,7 +4,7 @@ import 'package:ips_events_manager/event_details/view/ips_events_detail.dart';
 import 'package:ips_events_manager/my_events/cubit/my_events_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
-import 'package:ips_events_manager/user_attendance/cubit/event_user_attendance_cubit.dart';
+import 'package:ips_events_manager/user_attendee/cubit/event_user_attendee_cubit.dart';
 import 'package:ips_events_manager/widgets/event_panel.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
 
@@ -66,8 +66,8 @@ class MyEventsList extends StatelessWidget {
             BlocProvider<UserProfileCubit>.value(
               value: BlocProvider.of<UserProfileCubit>(context),
             ),
-            BlocProvider<EventUserAttendanceCubit>.value(
-              value: BlocProvider.of<EventUserAttendanceCubit>(context),
+            BlocProvider<EventUserAttendeeCubit>.value(
+              value: BlocProvider.of<EventUserAttendeeCubit>(context),
             ),
           ],
           child: EventDetailsPage(
