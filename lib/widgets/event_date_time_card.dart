@@ -9,18 +9,25 @@ class EventDateTimeCard extends StatelessWidget {
     required this.dateTime,
     required this.vacancies,
     required this.filledVacancies,
-    required this.onButtonTap,
+    required this.remainingVacancies,
+    required this.onButtonRegisterTap,
+    required this.onButtonIsPresentTap,
     required this.isAttendee,
+    required this.isAttendance,
     Key? key,
   }) : super(key: key);
 
   final DateTime dateTime;
   final int? vacancies;
   final int filledVacancies;
+  final int? remainingVacancies;
   final bool isAttendee;
-  final VoidCallback? onButtonTap;
+  final bool isAttendance;
+  final VoidCallback? onButtonRegisterTap;
+  final VoidCallback? onButtonIsPresentTap;
 
   bool get hasVacancies => vacancies != null;
+  int get freeSeats => remainingVacancies ?? 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class EventDateTimeCard extends StatelessWidget {
     final weekday = DateFormat.EEEE().format(dateTime);
     final time = DateFormat.Hm().format(dateTime);
     final vacanciesString =
-        hasVacancies ? '$filledVacancies/$vacancies' : '$filledVacancies';
+        hasVacancies ? '$freeSeats/$vacancies' : '$filledVacancies';
 
     return Container(
       height: 80,
@@ -86,14 +93,21 @@ class EventDateTimeCard extends StatelessWidget {
             SizedBox(
               width: 80,
               child: DarkIconTextButton(
-                onTap: hasVacancies ? onButtonTap : null,
-                icon:
-                    hasVacancies ? MdiIcons.bookPlus : MdiIcons.accountMultiple,
+                onTap: isAttendee
+                    ? isAttendance
+                        ? null
+                        : onButtonIsPresentTap
+                    : onButtonRegisterTap,
+                icon: isAttendee
+                    ? isAttendance
+                        ? MdiIcons.accountCheck
+                        : MdiIcons.accountTieVoice
+                    : MdiIcons.bookPlus,
                 text: isAttendee
-                    ? 'Inscrito'
-                    : hasVacancies
-                        ? 'Inscrever'
-                        : 'Livre',
+                    ? isAttendance
+                        ? 'Confirmado'
+                        : 'Presença'
+                    : 'Inscrever',
               ),
             )
           ],

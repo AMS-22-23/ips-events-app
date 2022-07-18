@@ -17,4 +17,9 @@ abstract class EventAttendanceRepository {
   Future<List<EventAttendance>> getEventAttendees({
     @Path('eventId') required String eventId,
   });
+
+  @PUT('/event/{eventId}/attendee/attendance')
+  Future<void> addAttendance({
+    @Path('eventId') required String eventId,
+  });
 }

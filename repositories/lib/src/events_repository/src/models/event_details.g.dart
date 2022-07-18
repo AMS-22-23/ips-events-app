@@ -22,6 +22,7 @@ EventDetails _$EventDetailsFromJson(Map<String, dynamic> json) => EventDetails(
       isOpenDoor: json['is_open_door'] as bool,
       isOver: json['is_over'] as bool,
       isAttendee: json['is_attendee'] as bool,
+      isAttendance: json['is_attendance'] as bool,
       eventCreator: json['created_by'] == null
           ? null
           : EventCreator.fromJson(json['created_by'] as Map<String, dynamic>),
@@ -59,4 +60,5 @@ Map<String, dynamic> _$EventDetailsToJson(EventDetails instance) =>
       'is_open_door': instance.isOpenDoor,
       'is_over': instance.isOver,
       'is_attendee': instance.isAttendee,
+      'is_attendance': instance.isAttendance,
     };
