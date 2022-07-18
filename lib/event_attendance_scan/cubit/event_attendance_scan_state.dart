@@ -8,3 +8,15 @@ abstract class EventAttendanceScanState extends Equatable {
 }
 
 class EventAttendanceScanInitial extends EventAttendanceScanState {}
+
+class EventAttendanceScanInitializing extends EventAttendanceScanState {}
+
+class EventAttendanceScanMonitoring extends EventAttendanceScanState {}
+
+class EventAttendanceScanBluetoothOff extends EventAttendanceScanState {}
+
+class EventAttendanceScanLocationOff extends EventAttendanceScanState {}
+
+class EventAttendanceScanNoPermission extends EventAttendanceScanState {}
+
+class EventAttendanceScanError extends EventAttendanceScanState {}
