@@ -50,5 +50,6 @@
     "registerAttendanceNotPossible": "Não foi possível registar a inscrição.",
     "speakerBeaconNotFound": "Não foi encontrado o Beacon do orador do evento.",
     "notNearSchool": "Necessário estar nas proximidades da ESTS para marcar presença.",
-    "deviceNoFunctionalities": "O dispositivo não tem as permissões necessárias para utilizar esta funcionalidade."
+    "deviceNoFunctionalities": "O dispositivo não tem as permissões necessárias para utilizar esta funcionalidade.",
+    "error": "Erro!"
 }

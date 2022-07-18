@@ -29,7 +29,7 @@ class EventsSnackBars {
     _showSnackbar(
       context: context,
       message: message,
-      title: t(LocaleKeys.errorOcurred),
+      title: t(LocaleKeys.error),
       contentType: ContentType.failure,
     );
   }

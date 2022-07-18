@@ -53,5 +53,6 @@ abstract class  LocaleKeys {
   static const speakerBeaconNotFound = 'speakerBeaconNotFound';
   static const notNearSchool = 'notNearSchool';
   static const deviceNoFunctionalities = 'deviceNoFunctionalities';
+  static const error = 'error';
 
 }
