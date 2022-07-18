@@ -88,17 +88,17 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Ips Events Manager"]
+            manifestPlaceholders = [appName: "IPS Events Manager"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "[STG] Ips Events Manager"]
+            manifestPlaceholders = [appName: "IPS Events Manager"]
         }
         development {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "[DEV] Ips Events Manager"]
+            manifestPlaceholders = [appName: "IPS Events Manager"]
         }
     }
 

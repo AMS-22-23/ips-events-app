@@ -49,5 +49,9 @@ abstract class  LocaleKeys {
   static const hello = 'hello';
   static const noPresence = 'noPresence';
   static const wasPresent = 'wasPresent';
+  static const registerAttendanceNotPossible = 'registerAttendanceNotPossible';
+  static const speakerBeaconNotFound = 'speakerBeaconNotFound';
+  static const notNearSchool = 'notNearSchool';
+  static const deviceNoFunctionalities = 'deviceNoFunctionalities';
 
 }

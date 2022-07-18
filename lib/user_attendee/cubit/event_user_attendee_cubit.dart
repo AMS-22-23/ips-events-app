@@ -38,8 +38,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
         parameters: {'event_id': eventId},
       );
       emit(
-        const EventUserAttendeeLoadError(
-          message: 'Não foi possível registar a inscrição.',
+        EventUserAttendeeLoadError(
+          message: t(LocaleKeys.registerAttendanceNotPossible),
         ),
       );
     }
@@ -60,8 +60,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
           parameters: {'event_id': eventId},
         );
         return emit(
-          const EventUserAttendeeLoadError(
-            message: 'Não foi encontrado o Beacon do orador do evento.',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.speakerBeaconNotFound),
           ),
         );
       }
@@ -77,9 +77,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
           parameters: {'event_id': eventId},
         );
         return emit(
-          const EventUserAttendeeLoadError(
-            message:
-                'Necessário estar nas proximidades da ESTS para marcar presença.',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.notNearSchool),
           ),
         );
       }
@@ -99,8 +98,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       );
 
       emit(
-        const EventUserAttendeeLoadError(
-          message: 'Não foi possível marcar a presença.',
+        EventUserAttendeeLoadError(
+          message: t(LocaleKeys.registerAttendanceNotPossible),
         ),
       );
     }
@@ -115,9 +114,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
           eventName: 'event_user_attendance_no_bluetooth_connect_permission',
         );
         return emit(
-          const EventUserAttendeeLoadError(
-            message:
-                'O dispositivo não tem as permissões necessárias para utilizar esta funciondalide.',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.deviceNoFunctionalities),
           ),
         );
       }
@@ -129,9 +127,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
           eventName: 'event_user_attendance_no_bluetooth_scan_permission',
         );
         return emit(
-          const EventUserAttendeeLoadError(
-            message:
-                'O dispositivo não tem as permissões necessárias para utilizar esta funciondalide.',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.deviceNoFunctionalities),
           ),
         );
       }
@@ -143,9 +140,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
           eventName: 'event_user_attendance_no_location_permission',
         );
         return emit(
-          const EventUserAttendeeLoadError(
-            message:
-                'Necessário ativar a Localização para utilizar esta funcionalidade',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.needLocalizationPermission),
           ),
         );
       }
@@ -154,9 +150,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       if (authorizationStatus != AuthorizationStatus.allowed &&
           authorizationStatus != AuthorizationStatus.always) {
         return emit(
-          const EventUserAttendeeLoadError(
-            message:
-                'O dispositivo não tem as permissões necessárias para utilizar esta funciondalide.',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.deviceNoFunctionalities),
           ),
         );
       }
@@ -175,9 +170,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
           eventName: 'event_user_attendance_bluetooth_off',
         );
         return emit(
-          const EventUserAttendeeLoadError(
-            message:
-                'Necessário ativar o Bluetooth para utilizar esta funcionalidade',
+          EventUserAttendeeLoadError(
+            message: t(LocaleKeys.needLocalizationPermission),
           ),
         );
       }
@@ -189,8 +183,8 @@ class EventUserAttendeeCubit extends Cubit<EventUserAttendeeState> {
       );
 
       emit(
-        const EventUserAttendeeLoadError(
-          message: 'Tente novamente por favor.',
+        EventUserAttendeeLoadError(
+          message: t(LocaleKeys.errorOcurred),
         ),
       );
     }
