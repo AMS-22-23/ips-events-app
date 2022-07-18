@@ -7,6 +7,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:ips_events_manager/create_event/cubit/events_create_cubit.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/theme/theme.dart';
+import 'package:ips_events_manager/utils/show_snackbars.dart';
 import 'package:ips_events_manager/widgets/widgets.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -98,9 +99,19 @@ class _CreateEventPageState extends State<CreateEventPage> {
             context.loaderOverlay.show();
           } else if (state is EventsCreateLoadSuccess) {
             context.loaderOverlay.hide();
+
+            EventsSnackBars.showSuccessSnackbar(
+              context: context,
+              message: t(LocaleKeys.eventCreated),
+            );
+
             Navigator.pop(context);
           } else if (state is EventsCreateLoadError) {
             context.loaderOverlay.hide();
+            EventsSnackBars.showErrorSnackbar(
+              context: context,
+              message: t(LocaleKeys.cantCreateEvent),
+            );
           }
         },
         child: SingleChildScrollView(

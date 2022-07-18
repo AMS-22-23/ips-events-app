@@ -7,19 +7,27 @@ by:
 
 An awesome app.
 
-### Scripts [RUN IN UNIX - Git bash or Linux]
+# HOW TO RUN APP
+## 1- Install Dependencies
+### Option 1- Scripts [RUN IN UNIX - Git bash or Linux]
 
 ```shell
-bash scripts/ci.sh
+bash scripts/ci.sh --get
 ```
-
-## Flags
+#### Flags
 
 --clean : runs <b>flutter clean</b> in all packages
 
 --get : runs <b>flutter pub get</b> in all packages
 
-## Cl
+### Option 2 - Install via Very_Good CLI
+
+- Run: *dart pub global activate very_good_cli*
+- Run with the very_good cli: *very_good packages get -r* (installs all packages recursively)
+
+
+
+
 
 ## Create a module
 

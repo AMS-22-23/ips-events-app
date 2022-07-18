@@ -54,5 +54,7 @@ abstract class  LocaleKeys {
   static const notNearSchool = 'notNearSchool';
   static const deviceNoFunctionalities = 'deviceNoFunctionalities';
   static const error = 'error';
+  static const eventCreated = 'eventCreated';
+  static const cantCreateEvent = 'cantCreateEvent';
 
 }

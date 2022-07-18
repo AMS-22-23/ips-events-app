@@ -51,5 +51,7 @@
     "speakerBeaconNotFound": "Não foi encontrado o Beacon do orador do evento.",
     "notNearSchool": "Necessário estar nas proximidades da ESTS para marcar presença.",
     "deviceNoFunctionalities": "O dispositivo não tem as permissões necessárias para utilizar esta funcionalidade.",
-    "error": "Erro!"
+    "error": "Erro!",
+    "eventCreated": "Evento Criado.",
+    "cantCreateEvent": "Não foi possível criar o evento."
 }

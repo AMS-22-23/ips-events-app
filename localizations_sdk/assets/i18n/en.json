@@ -51,5 +51,7 @@
     "speakerBeaconNotFound": "The event speaker's Beacon was not found.",
     "notNearSchool": "You need to be in the vicinity of ESTS to register your presence felt.",
     "deviceNoFunctionalities": "The device does not have the necessary permissions to use this feature.",
-    "error": "Error!"
+    "error": "Error!",
+    "eventCreated": "Event Created.",
+    "cantCreateEvent": "The event could not be created."
 }
