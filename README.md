@@ -8,7 +8,9 @@ by:
 An awesome app.
 
 # HOW TO RUN APP
+
 ## 1- Install Dependencies
+
 ### Option 1- Scripts [RUN IN UNIX - Git bash or Linux]
 
 ```shell
