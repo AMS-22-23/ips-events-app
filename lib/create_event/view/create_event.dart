@@ -53,7 +53,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
     dateTimeController.dispose();
     nameController.dispose();
     speakerController.dispose();
-    dateTimeController.dispose();
     vacanciesController.dispose();
     descriptionController.dispose();
     courseController.dispose();
@@ -366,6 +365,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             },
                             onChanged: print,
                             validator: (val) {
+                              if ((val?.length ?? 0) < 11) {
+                                return t(LocaleKeys.required);
+                              }
                               try {
                                 DateTime.parse(val!);
                                 return null;
