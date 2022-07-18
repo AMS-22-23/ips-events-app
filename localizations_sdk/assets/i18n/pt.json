@@ -2,5 +2,13 @@
     "date": "Data",
     "hour": "Hora",
     "event": "Evento",
-    "events": "Eventos"
+    "events": "Eventos",
+    "targetCourse": "Curso Alvo",
+    "targetCourseUnit": "Unidade de curso alvo",
+    "room": "Sala",
+    "categories": "Categorias",
+    "meetingLink": "Link da Reunião",
+    "eventDescription": "Descrição do Evento"
+  
+
 }

@@ -136,25 +136,25 @@ class _EventDetailsInfo extends StatelessWidget {
                                 IpsEventsText.subTitle('By ${details.speaker}'),
                                 if (details.targetCourseUnit != null)
                                   _DetailsIconInfo(
-                                    title: 'Unidade Orgânica Alvo',
+                                    title: t(LocaleKeys.targetCourseUnit),
                                     subtitle: details.targetCourseUnit!,
                                     icon: MdiIcons.bookInformationVariant,
                                   ),
                                 if (details.targetCourse != null)
                                   _DetailsIconInfo(
-                                    title: 'Curso Alvo',
+                                    title: t(LocaleKeys.targetCourse),
                                     subtitle: details.targetCourse!,
                                     icon: MdiIcons.bookEducation,
                                   ),
                                 if (details.room != null)
                                   _DetailsIconInfo(
-                                    title: 'Sala Do Evento',
+                                    title: t(LocaleKeys.room),
                                     subtitle: details.room!,
                                     icon: MdiIcons.bookAccount,
                                   ),
                                 if (details.categories.isNotEmpty)
                                   _DetailsIconInfo(
-                                    title: 'Categorias',
+                                    title: t(LocaleKeys.categories),
                                     subtitle: details.categories
                                         .map((category) => category.name)
                                         .toList()
@@ -165,14 +165,14 @@ class _EventDetailsInfo extends StatelessWidget {
                                   ),
                                 if (details.isOnline)
                                   _DetailsIconInfo(
-                                    title: 'Evento Online',
+                                    title: t(LocaleKeys.meetingLink),
                                     subtitle: 'Link: ${details.meetingLink}',
                                     icon: MdiIcons.microsoftTeams,
                                   )
                                 else
                                   _DetailsIconInfo(
-                                    title: 'Evento Presencial',
-                                    subtitle: 'Sala: ${details.room}',
+                                    title: t(LocaleKeys.room),
+                                    subtitle: '${t(LocaleKeys.room)}: ${details.room}',
                                     icon: MdiIcons.bookAccount,
                                   ),
                                 EventsPadding(
@@ -180,7 +180,7 @@ class _EventDetailsInfo extends StatelessWidget {
                                     top: EventsSize.large,
                                   ),
                                   child: IpsEventsText.title2(
-                                    'Descrição do Evento',
+                                    t(LocaleKeys.eventDescription),
                                   ),
                                 ),
                                 EventsPadding(
