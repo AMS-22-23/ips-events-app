@@ -70,10 +70,7 @@ class ManageUsersPage extends StatelessWidget {
                                         BlocProvider.of<UserManagementCubit>(
                                           context,
                                         ).updateUserRole(
-                                          userId: (profileState
-                                                  as UserProfileLoadSuccess)
-                                              .userProfile
-                                              .id,
+                                          userId: user.id,
                                           role: UserRole.values.firstWhere(
                                             (role) =>
                                                 role.name.toLowerCase() ==

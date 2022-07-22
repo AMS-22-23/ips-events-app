@@ -46,7 +46,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
 
       String rawFilePath;
       Uint8List? imageBytes;
-      late String filePath;
+      String? filePath;
 
       if (userProfile.avatar != null) {
         if (kDebugMode) {
@@ -76,7 +76,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         jobTitle: userProfile.jobTitle,
         name: userProfile.name,
         role: userProfile.role,
-        avatar: userProfile.avatar == null
+        avatar: (userProfile.avatar == null || filePath == null)
             ? null
             : UserAvatar(
                 mimeType: userProfile.avatar!.mimeType,
