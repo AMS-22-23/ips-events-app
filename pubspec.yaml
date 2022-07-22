@@ -44,6 +44,8 @@ dependencies:
   geolocator: ^8.2.1
   haversine_distance: ^1.2.1
   awesome_snackbar_content: ^0.0.5
+  easy_sidemenu: ^0.3.1
+  ndialog: ^4.1.1+1
 
 dev_dependencies:
   build_runner: ^2.0.6 #provides a concrete way of generating files
@@ -62,3 +64,4 @@ flutter:
 
   assets:
     - localizations_sdk/assets/i18n/
+    - assets/

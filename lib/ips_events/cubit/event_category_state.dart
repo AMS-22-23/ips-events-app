@@ -29,3 +29,31 @@ class EventCategoryLoadSuccess extends EventCategoryState {
 class EventCategoryLoadError extends EventCategoryState {
   const EventCategoryLoadError({required super.categories});
 }
+
+class EventCategoryDeleteLoadInProgress extends EventCategoryState {
+  const EventCategoryDeleteLoadInProgress({required super.categories});
+}
+
+class EventCategoryDeleteLoadSuccess extends EventCategoryState {
+  const EventCategoryDeleteLoadSuccess({
+    required List<EventCategory> categories,
+  }) : super(categories: categories);
+}
+
+class EventCategoryDeleteLoadError extends EventCategoryState {
+  const EventCategoryDeleteLoadError({required super.categories});
+}
+
+class EventCategoryCreateLoadInProgress extends EventCategoryState {
+  const EventCategoryCreateLoadInProgress({required super.categories});
+}
+
+class EventCategoryCreateLoadSuccess extends EventCategoryState {
+  const EventCategoryCreateLoadSuccess({
+    required List<EventCategory> categories,
+  }) : super(categories: categories);
+}
+
+class EventCategoryCreateLoadError extends EventCategoryState {
+  const EventCategoryCreateLoadError({required super.categories});
+}

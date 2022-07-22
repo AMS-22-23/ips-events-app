@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:core_components/core_components.dart';
@@ -38,7 +39,7 @@ class EventCategoryCubit extends Cubit<EventCategoryState> {
         return;
       }
       final currentCategory = state.categories.firstWhere(
-        (element) => element.id == category.id,
+        (element) => element.id == category.id!,
       );
 
       final categoryIndex = state.categories.indexOf(currentCategory);
@@ -53,6 +54,39 @@ class EventCategoryCubit extends Cubit<EventCategoryState> {
       eventsListCubit.getEvents(categoryId: state.currentCategory!.id);
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<void> createCategory(String categoryName) async {
+    emit(
+      EventCategoryCreateLoadInProgress(categories: state.categories),
+    );
+
+    try {
+      await categoriesRepository.createCategory(
+        category: EventCategory(name: categoryName),
+      );
+      final categories = await categoriesRepository.getCategories();
+
+      emit(EventCategoryCreateLoadSuccess(categories: categories));
+      unawaited(getCategories());
+    } catch (e) {
+      emit(EventCategoryCreateLoadError(categories: state.categories));
+    }
+  }
+
+  Future<void> deleteCategory(String categoryId) async {
+    emit(
+      EventCategoryDeleteLoadInProgress(categories: state.categories),
+    );
+
+    try {
+      await categoriesRepository.deleteCategory(categoryId: categoryId);
+      emit(EventCategoryDeleteLoadSuccess(categories: state.categories));
+
+      unawaited(getCategories());
+    } catch (e) {
+      emit(EventCategoryDeleteLoadError(categories: state.categories));
     }
   }
 }

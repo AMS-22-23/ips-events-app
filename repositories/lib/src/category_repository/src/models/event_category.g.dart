@@ -8,7 +8,7 @@ part of 'event_category.dart';
 
 EventCategory _$EventCategoryFromJson(Map<String, dynamic> json) =>
     EventCategory(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       name: json['name'] as String,
     );
 

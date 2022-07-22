@@ -10,4 +10,10 @@ abstract class CategoriesRepository {
 
   @GET('/category')
   Future<List<EventCategory>> getCategories();
+
+  @DELETE('/category/{id}')
+  Future<void> deleteCategory({@Path('id') required String categoryId});
+
+  @POST('/category')
+  Future<void> createCategory({@Body() required EventCategory category});
 }

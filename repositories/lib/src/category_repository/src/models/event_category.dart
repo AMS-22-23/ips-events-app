@@ -5,7 +5,7 @@ part 'event_category.g.dart';
 @JsonSerializable()
 class EventCategory {
   EventCategory({
-    required this.id,
+    this.id,
     required this.name,
   });
 
@@ -13,6 +13,6 @@ class EventCategory {
       _$EventCategoryFromJson(json);
   Map<String, dynamic> toJson() => _$EventCategoryToJson(this);
 
-  final String id;
+  final String? id;
   final String name;
 }
