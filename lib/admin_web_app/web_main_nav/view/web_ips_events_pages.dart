@@ -118,7 +118,7 @@ class _IpsEventsAdminPagesState extends State<IpsEventsAdminPages> {
                   ),
                 ),
                 // Will show on bottom of SideMenu when displayMode was SideMenuDisplayMode.open
-                footer: const Text('demo'),
+                footer: const Text('Ips Events Admin'),
                 // Notify when display mode changed
                 onDisplayModeChanged: print,
 
