@@ -63,10 +63,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
           rawFilePath =
               '${apiCredentials.apiBaseUrl}/${Uri.file(userProfile.avatar!.path).toFilePath()}';
         }
+        if (!kIsWeb) {
+          filePath = rawFilePath.replaceAll(r'\', '/');
 
-        filePath = rawFilePath.replaceAll(r'\', '/');
-
-        imageBytes = await getImagesBytes(filePath);
+          imageBytes = await getImagesBytes(filePath);
+        }
       }
 
       final profile = UserProfile(
