@@ -10,8 +10,7 @@ class ManageUsersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileState =
-        context.watch<UserProfileCubit>().state as UserProfileLoadSuccess;
+    final profileState = context.watch<UserProfileCubit>().state;
 
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
@@ -71,7 +70,10 @@ class ManageUsersPage extends StatelessWidget {
                                         BlocProvider.of<UserManagementCubit>(
                                           context,
                                         ).updateUserRole(
-                                          userId: profileState.userProfile.id,
+                                          userId: (profileState
+                                                  as UserProfileLoadSuccess)
+                                              .userProfile
+                                              .id,
                                           role: UserRole.values.firstWhere(
                                             (role) =>
                                                 role.name.toLowerCase() ==

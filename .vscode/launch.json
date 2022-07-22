@@ -29,6 +29,7 @@
       "args": [
         "--web-port",
         "8483",
+        "--web-enable-expression-evaluation",
         "--web-hostname",
         "localhost",
         "--flavor",

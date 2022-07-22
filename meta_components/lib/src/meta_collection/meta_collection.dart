@@ -52,7 +52,8 @@ class MetaCollection {
       )
       ..archive(
         Entry<AadConfig>(
-          builder: () => AadConfig(navigatorKey: _navigatorLey),
+          builder: () =>
+              AadConfig(navigatorKey: _navigatorLey, isStaging: true),
         ),
       );
   }

@@ -12,13 +12,28 @@ const _aadRedirectUri = kIsWeb
     ? 'http://localhost:8483'
     : 'msauth://com.ips_event_manager/V8msfwHjQl3cZ2DVCQcBj4uF60c%3D';
 
+const _aadStagingWebRedirectUrl = 'https://mes-sii-project-web.herokuapp.com';
+const _aadDevWebRedirectUrl = 'http://localhost:8483';
+const _androidRedirectUrl =
+    'msauth://com.ips_event_manager/V8msfwHjQl3cZ2DVCQcBj4uF60c%3D';
+
 class AadConfig extends Config {
-  AadConfig({required GlobalKey<NavigatorState> navigatorKey})
-      : super(
+  AadConfig({
+    required GlobalKey<NavigatorState> navigatorKey,
+    bool isStaging = false,
+  }) : super(
           tenant: _aadTenant,
           clientId: _aadClientId,
-          redirectUri: _aadRedirectUri,
+          redirectUri: _getRedirectUrl(isStaging: isStaging),
           scope: _aadScope,
           navigatorKey: navigatorKey,
         );
+}
+
+String _getRedirectUrl({bool isStaging = false}) {
+  if (kIsWeb) {
+    if (isStaging) return _aadStagingWebRedirectUrl;
+    return _aadDevWebRedirectUrl;
+  }
+  return _androidRedirectUrl;
 }
