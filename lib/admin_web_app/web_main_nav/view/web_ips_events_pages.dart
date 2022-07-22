@@ -1,11 +1,13 @@
 import 'package:core_components/core_components.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ips_events_manager/admin_web_app/manage_categories/view/manage_categories_page.dart';
 import 'package:ips_events_manager/admin_web_app/manage_users/view/manage_users_page.dart';
 import 'package:ips_events_manager/admin_web_app/web_main_nav/cubit/web_navigation_cubit.dart';
 import 'package:ips_events_manager/ips_events/cubit/event_category_cubit.dart';
 import 'package:ips_events_manager/settings_nav/cubit/user_profile_cubit.dart';
 import 'package:ips_events_manager/widgets/events_padding/events_padding.dart';
+import 'package:meta_components/meta_components.dart';
 
 class IpsEventsAdminPages extends StatefulWidget {
   const IpsEventsAdminPages({Key? key}) : super(key: key);
@@ -58,7 +60,7 @@ class _IpsEventsAdminPagesState extends State<IpsEventsAdminPages> {
                         padding: EventsEdgeInsets.symmetric(
                           vertical: EventsSize.small,
                         ),
-                        child: Image.asset('ips_logo.jpg'),
+                        child: Image.asset(_getImageUrl()),
                       ),
                       BlocBuilder<UserProfileCubit, UserProfileState>(
                         builder: (context, state) {
@@ -170,6 +172,17 @@ class _IpsEventsAdminPagesState extends State<IpsEventsAdminPages> {
         ),
       ),
     );
+  }
+
+  String _getImageUrl() {
+    final credentials =
+        MetaCollection.instance.retrieve<AppCredentials>() as AppCredentials;
+    final urlStart = (kIsWeb && credentials == AppCredentials.integration())
+        ? 'assets/'
+        : '';
+    final url = '${urlStart}ips_logo.jpg';
+
+    return url;
   }
 
   void _changeTab(int index) {
